@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Portal Login & Registration | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (sessionStorage.getItem('pulse_last_scroll_pos')) {
+            document.documentElement.classList.add('pulse-restoring-scroll');
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           LOGIN & SIGNUP PORTAL DEDICATED STYLES & ANIMATIONS
+           ========================================================================== */
+
+        @keyframes authGlowPulse {
+            0%, 100% {
+                box-shadow: 0 0 25px rgba(195, 255, 77, 0.18), 0 30px 70px rgba(0, 0, 0, 0.6);
+                border-color: rgba(195, 255, 77, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 45px rgba(195, 255, 77, 0.35), 0 35px 85px rgba(0, 0, 0, 0.7);
+                border-color: rgba(195, 255, 77, 0.6);
+            }
+        }
+
+        @keyframes badgeShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .auth-wrapper {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 140px 0 100px;
+            background: linear-gradient(135deg, rgba(0, 35, 22, 0.94) 0%, rgba(0, 18, 10, 0.97) 100%),
+                        url('images/toon-lambrechts-jbrfLHRABpc-unsplash.webp') center/cover no-repeat fixed;
+            overflow: hidden;
+        }
+
+        .auth-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -15%;
+            left: 20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.14) 0%, rgba(0, 43, 27, 0) 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .auth-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            right: 15%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, rgba(0, 20, 12, 0) 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .auth-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 4.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Left Column: Platform Trust & Highlights */
+        .auth-intro-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.5rem 1.3rem;
+            background: rgba(195, 255, 77, 0.1);
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-intro-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.18;
+            margin-bottom: 1.3rem;
+            font-family: var(--font-main);
+            letter-spacing: -0.02em;
+        }
+
+        .auth-intro-title .highlight {
+            background: linear-gradient(120deg, #c3ff4d 0%, #ffffff 60%, #10B981 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: badgeShine 4s linear infinite;
+        }
+
+        .auth-intro-desc {
+            font-size: 1.08rem;
+            color: #CBD5E1;
+            line-height: 1.7;
+            margin-bottom: 2.2rem;
+        }
+
+        .auth-benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.1rem 1.3rem;
+            transition: all 0.3s ease;
+        }
+
+        .auth-benefit-item:hover {
+            background: rgba(195, 255, 77, 0.06);
+            border-color: rgba(195, 255, 77, 0.3);
+            transform: translateX(6px);
+        }
+
+        .auth-benefit-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(195, 255, 77, 0.12);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            color: var(--accent-lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .auth-benefit-text h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.25rem;
+        }
+
+        .auth-benefit-text p {
+            font-size: 0.88rem;
+            color: #94A3B8;
+            margin: 0;
+            line-height: 1.45;
+        }
+
+        .auth-trust-avatars-card {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(0, 35, 22, 0.7);
+            border: 1px solid rgba(195, 255, 77, 0.25);
+            border-radius: 18px;
+            padding: 1rem 1.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .auth-avatars-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-avatars-group img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-lime);
+            margin-left: -12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.25s ease;
+        }
+
+        .auth-avatars-group img:first-child {
+            margin-left: 0;
+        }
+
+        .auth-avatars-group img:hover {
+            transform: translateY(-4px) scale(1.1);
+            z-index: 5;
+        }
+
+        .auth-avatars-text strong {
+            display: block;
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .auth-avatars-text span {
+            color: #94A3B8;
+            font-size: 0.82rem;
+        }
+
+        .auth-compliance-strip {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .compliance-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #94A3B8;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.4rem 0.85rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .compliance-badge i {
+            color: var(--accent-lime);
+        }
+
+        /* Right Column: Authentication Card */
+        .auth-card {
+            background: rgba(0, 30, 18, 0.88);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(195, 255, 77, 0.32);
+            border-radius: 28px;
+            padding: 2.8rem;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), 0 0 40px rgba(195, 255, 77, 0.12);
+            animation: authGlowPulse 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        /* Interactive Tab Navigation */
+        .auth-tab-nav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            background: rgba(0, 20, 12, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 0.45rem;
+            margin-bottom: 2rem;
+        }
+
+        .auth-tab-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.2rem;
+            border-radius: 12px;
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #94A3B8;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .auth-tab-btn.active {
+            background: var(--accent-lime);
+            color: #002B1B;
+            box-shadow: 0 6px 18px rgba(195, 255, 77, 0.35);
+        }
+
+        .auth-tab-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Role Selector Chips */
+        .role-selection-wrap {
+            margin-bottom: 1.6rem;
+        }
+
+        .role-label {
+            display: block;
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: #E2E8F0;
+            margin-bottom: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .role-chips {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.85rem;
+        }
+
+        .role-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1.1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1.5px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            user-select: none;
+        }
+
+        .role-chip:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(195, 255, 77, 0.4);
+        }
+
+        .role-chip.selected {
+            background: rgba(195, 255, 77, 0.12);
+            border-color: var(--accent-lime);
+            box-shadow: 0 0 16px rgba(195, 255, 77, 0.2);
+        }
+
+        .role-chip-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94A3B8;
+            font-size: 1.1rem;
+            transition: all 0.25s ease;
+        }
+
+        .role-chip.selected .role-chip-icon {
+            background: var(--accent-lime);
+            color: #002B1B;
+        }
+
+        .role-chip-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        .role-chip-sub {
+            font-size: 0.74rem;
+            color: #94A3B8;
+            display: block;
+        }
+
+        .role-chip.selected .role-chip-title {
+            color: var(--accent-lime);
+        }
+
+        /* Form Inputs */
+        .auth-form-group {
+            margin-bottom: 1.35rem;
+            position: relative;
+        }
+
+        .auth-form-group label {
+            display: block;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: #CBD5E1;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i.input-icon {
+            position: absolute;
+            left: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748B;
+            font-size: 1.15rem;
+            pointer-events: none;
+            transition: color 0.25s ease;
+        }
+
+        .input-with-icon input {
+            width: 100%;
+            padding: 0.95rem 1.1rem 0.95rem 3rem;
+            background: rgba(0, 18, 10, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 14px;
+            color: #FFFFFF;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-with-icon input:focus {
+            border-color: var(--accent-lime);
+            background: rgba(0, 24, 15, 0.85);
+            box-shadow: 0 0 16px rgba(195, 255, 77, 0.25);
+        }
+
+        .input-with-icon input:focus + i.input-icon {
+            color: var(--accent-lime);
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 1.1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #64748B;
+            font-size: 1.15rem;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s ease;
+        }
+
+        .password-toggle-btn:hover {
+            color: var(--accent-lime);
+        }
+
+        /* Password Strength & Match Cues */
+        .password-match-hint {
+            font-size: 0.78rem;
+            margin-top: 0.4rem;
+            display: none;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .password-match-hint.valid {
+            display: flex;
+            color: #10B981;
+        }
+
+        .password-match-hint.invalid {
+            display: flex;
+            color: #EF4444;
+        }
+
+        /* Form Row Checkbox & Forgot */
+        .form-row-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.6rem;
+            font-size: 0.86rem;
+        }
+
+        .remember-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            color: #94A3B8;
+            cursor: pointer;
+        }
+
+        .remember-wrap input[type="checkbox"] {
+            accent-color: var(--accent-lime);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: var(--accent-lime);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+            color: #d4ff70;
+        }
+
+        /* Submit Button */
+        .auth-submit-btn {
+            width: 100%;
+            padding: 1.05rem 1.5rem;
+            background: var(--accent-lime);
+            color: #002B1B;
+            font-family: var(--font-main);
+            font-size: 1.02rem;
+            font-weight: 800;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 28px rgba(195, 255, 77, 0.35);
+        }
+
+        .auth-submit-btn:hover {
+            background: #d4ff70;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 34px rgba(195, 255, 77, 0.5);
+        }
+
+        .auth-submit-btn i {
+            font-size: 1.15rem;
+            transition: transform 0.25s ease;
+        }
+
+        .auth-submit-btn:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Demo Quick Credentials */
+        .demo-credentials-box {
+            margin-top: 1.8rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .demo-title {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.85rem;
+        }
+
+        .demo-btns {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .demo-btn {
+            padding: 0.55rem 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #CBD5E1;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.25s ease;
+        }
+
+        .demo-btn:hover {
+            background: rgba(195, 255, 77, 0.12);
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+        }
+
+        /* Success & Alert Banner */
+        .auth-notification {
+            display: none;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1rem 1.2rem;
+            border-radius: 14px;
+            margin-bottom: 1.5rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            line-height: 1.45;
+            animation: floatSlow 3s ease-in-out infinite;
+        }
+
+        .auth-notification.success {
+            display: flex;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #A7F3D0;
+        }
+
+        .auth-notification.error {
+            display: flex;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #FECACA;
+        }
+
+        .auth-notification i {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        /* Form Visibility Toggle */
+        .auth-form-panel {
+            display: none;
+        }
+
+        .auth-form-panel.active {
+            display: block;
+            animation: fadeInTab 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInTab {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Layout for Auth Portal */
+        @media (max-width: 992px) {
+            .auth-grid {
+                grid-template-columns: 1fr;
+                gap: 3.5rem;
+            }
+            .auth-intro-title {
+                font-size: 2.6rem;
+            }
+            .auth-card {
+                padding: 2rem 1.75rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .role-chips {
+                grid-template-columns: 1fr;
+            }
+            .auth-tab-btn {
+                font-size: 0.88rem;
+                padding: 0.75rem 0.85rem;
+            }
+            .auth-submit-btn {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-indicator" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-pill btn-primary">Login</a>
+                <div class="mobile-toggle" id="mobile-toggle"><i class="ph ph-list"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <div class="mobile-close" id="mobile-close" aria-label="Close navigation"><i class="ph-bold ph-x"></i></div>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html"><span>Home</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="about.html"><span>About</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="service.html"><span>Service</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="blog.html"><span>Blog</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="contact.html"><span>Contact</span> <i class="ph-bold ph-caret-right"></i></a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn btn-primary btn-pill full-width">Login <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="mobile-menu-contact-info">
+                    <p><i class="ph-fill ph-envelope-simple"></i> clinical@pulsehealth.tech</p>
+                    <p><i class="ph-fill ph-phone-call"></i> +91 (0427) 244-8900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         AUTHENTICATION SECTION (Login & Signup Suite)
+         ========================================================================= -->
+    <main class="auth-wrapper">
+        <div class="container auth-grid">
+            
+            <!-- Left Info Panel -->
+            <div class="auth-intro-content">
+                <div class="auth-intro-badge">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span>ENTERPRISE CLINICAL ACCESS</span>
+                </div>
+                <h1 class="auth-intro-title">
+                    Unified Gateway for <span class="highlight">Precision Health</span>
+                </h1>
+                <p class="auth-intro-desc">
+                    Access real-time ICU telemetry feeds, AI ambient clinical scribing archives, genomic diagnostic pipelines, and multi-facility EHR interoperability.
+                </p>
+
+                <div class="auth-benefits-list">
+                    <div class="auth-benefit-item">
+                        <div class="auth-benefit-icon"><i class="ph-bold ph-lock-key"></i></div>
+                        <div class="auth-benefit-text">
+                            <h4>Zero-Knowledge Security</h4>
+                            <p>End-to-end 256-bit AES cryptographic pipelines guaranteeing complete patient data isolation.</p>
+                        </div>
+                    </div>
+                    <div class="auth-benefit-item">
+                        <div class="auth-benefit-icon"><i class="ph-bold ph-user-switch"></i></div>
+                        <div class="auth-benefit-text">
+                            <h4>Granular Role-Based Permissions</h4>
+                            <p>Specialized views tailored for Hospital Administrators, Attending Physicians, and Clinical Staff.</p>
+                        </div>
+                    </div>
+                    <div class="auth-benefit-item">
+                        <div class="auth-benefit-icon"><i class="ph-bold ph-lightning"></i></div>
+                        <div class="auth-benefit-text">
+                            <h4>Instant Sandbox & EHR Sync</h4>
+                            <p>Connect instantly with Epic Systems, Cerner Millennium, and HL7 FHIR pipelines.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="auth-compliance-strip">
+                    <span class="compliance-badge"><i class="ph-fill ph-check-circle"></i> HIPAA Compliant</span>
+                    <span class="compliance-badge"><i class="ph-fill ph-check-circle"></i> SOC 2 Type II</span>
+                    <span class="compliance-badge"><i class="ph-fill ph-check-circle"></i> ISO 27001 Certified</span>
+                </div>
+            </div>
+
+            <!-- Right Interactive Auth Card -->
+            <div class="auth-card">
+                
+                <!-- Tab Controls -->
+                <div class="auth-tab-nav">
+                    <button class="auth-tab-btn active" id="tabLoginBtn" type="button">
+                        <i class="ph-bold ph-sign-in"></i> Sign In
+                    </button>
+                    <button class="auth-tab-btn" id="tabSignupBtn" type="button">
+                        <i class="ph-bold ph-user-plus"></i> Create Account
+                    </button>
+                </div>
+
+                <!-- Toast / Notification Alert Box -->
+                <div class="auth-notification" id="authNotification">
+                    <i class="ph-bold ph-info" id="notificationIcon"></i>
+                    <span id="notificationMessage">Message text</span>
+                </div>
+
+                <!-- 1. SIGN IN FORM PANEL -->
+                <div class="auth-form-panel active" id="loginPanel">
+                    <form id="loginForm">
+                        
+                        <!-- Role Selector for Login -->
+                        <div class="role-selection-wrap">
+                            <span class="role-label"><i class="ph-bold ph-shield-star"></i> Select Portal Role</span>
+                            <div class="role-chips">
+                                <div class="role-chip selected" data-role="Admin" id="loginRoleAdmin">
+                                    <div class="role-chip-icon"><i class="ph-bold ph-shield-check"></i></div>
+                                    <div>
+                                        <span class="role-chip-title">Admin</span>
+                                        <span class="role-chip-sub">Clinical Lead & IT</span>
+                                    </div>
+                                </div>
+                                <div class="role-chip" data-role="User" id="loginRoleUser">
+                                    <div class="role-chip-icon"><i class="ph-bold ph-user"></i></div>
+                                    <div>
+                                        <span class="role-chip-title">User</span>
+                                        <span class="role-chip-sub">Doctor & Staff</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="loginRole" id="selectedLoginRole" value="Admin">
+                        </div>
+
+                        <!-- Email Input -->
+                        <div class="auth-form-group">
+                            <label for="loginEmail">Email Address or Clinical ID</label>
+                            <div class="input-with-icon">
+                                <input type="email" id="loginEmail" placeholder="e.g. director@pulsehealth.tech" required>
+                                <i class="ph-bold ph-envelope-simple input-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="auth-form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="loginPassword" placeholder="Enter your secure password" required>
+                                <i class="ph-bold ph-lock-key input-icon"></i>
+                                <button type="button" class="password-toggle-btn" data-target="loginPassword" aria-label="Toggle password visibility">
+                                    <i class="ph-bold ph-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="form-row-flex">
+                            <label class="remember-wrap">
+                                <input type="checkbox" id="rememberMe">
+                                <span>Remember my credentials</span>
+                            </label>
+                            <a href="404.html" class="forgot-link">Forgot password?</a>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="auth-submit-btn">
+                            <span>Sign In to Portal</span>
+                            <i class="ph-bold ph-arrow-right"></i>
+                        </button>
+
+                        <!-- Demo Quick Fill Buttons -->
+                        <div class="demo-credentials-box">
+                            <p class="demo-title">Quick Demo Login Presets</p>
+                            <div class="demo-btns">
+                                <button type="button" class="demo-btn" id="fillAdminDemoBtn">
+                                    <i class="ph-bold ph-shield-check"></i> Admin Preset
+                                </button>
+                                <button type="button" class="demo-btn" id="fillUserDemoBtn">
+                                    <i class="ph-bold ph-user"></i> Doctor/User Preset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 2. SIGN UP FORM PANEL -->
+                <div class="auth-form-panel" id="signupPanel">
+                    <form id="signupForm">
+                        
+                        <!-- Role Selector for Signup -->
+                        <div class="role-selection-wrap">
+                            <span class="role-label"><i class="ph-bold ph-shield-star"></i> Select Registration Role</span>
+                            <div class="role-chips">
+                                <div class="role-chip selected" data-role="Admin" id="signupRoleAdmin">
+                                    <div class="role-chip-icon"><i class="ph-bold ph-shield-check"></i></div>
+                                    <div>
+                                        <span class="role-chip-title">Admin</span>
+                                        <span class="role-chip-sub">Clinical Admin</span>
+                                    </div>
+                                </div>
+                                <div class="role-chip" data-role="User" id="signupRoleUser">
+                                    <div class="role-chip-icon"><i class="ph-bold ph-user"></i></div>
+                                    <div>
+                                        <span class="role-chip-title">User</span>
+                                        <span class="role-chip-sub">Practitioner / Staff</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="signupRole" id="selectedSignupRole" value="Admin">
+                        </div>
+
+                        <!-- Full Name Input -->
+                        <div class="auth-form-group">
+                            <label for="signupName">Full Name & Credentials</label>
+                            <div class="input-with-icon">
+                                <input type="text" id="signupName" placeholder="e.g. Dr. Arthur Vance, MD" required minlength="3">
+                                <i class="ph-bold ph-user input-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Email Address Input -->
+                        <div class="auth-form-group">
+                            <label for="signupEmail">Institutional Email Address</label>
+                            <div class="input-with-icon">
+                                <input type="email" id="signupEmail" placeholder="e.g. arthur.vance@hospital.org" required>
+                                <i class="ph-bold ph-envelope-simple input-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="auth-form-group">
+                            <label for="signupPassword">Create Password</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="signupPassword" placeholder="Minimum 6 characters" required minlength="6">
+                                <i class="ph-bold ph-lock-key input-icon"></i>
+                                <button type="button" class="password-toggle-btn" data-target="signupPassword" aria-label="Toggle password visibility">
+                                    <i class="ph-bold ph-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password Input -->
+                        <div class="auth-form-group">
+                            <label for="signupConfirmPassword">Confirm Password</label>
+                            <div class="input-with-icon">
+                                <input type="password" id="signupConfirmPassword" placeholder="Re-enter your password" required minlength="6">
+                                <i class="ph-bold ph-check-square-offset input-icon"></i>
+                                <button type="button" class="password-toggle-btn" data-target="signupConfirmPassword" aria-label="Toggle password visibility">
+                                    <i class="ph-bold ph-eye"></i>
+                                </button>
+                            </div>
+                            <div class="password-match-hint" id="passwordMatchHint">
+                                <i class="ph-bold ph-warning-circle"></i>
+                                <span id="passwordMatchText">Passwords do not match</span>
+                            </div>
+                        </div>
+
+                        <!-- Terms & Conditions Checkbox -->
+                        <div class="form-row-flex" style="margin-bottom: 1.5rem;">
+                            <label class="remember-wrap">
+                                <input type="checkbox" id="termsCheck" required>
+                                <span>I agree to HIPAA Data Privacy &amp; Platform Terms</span>
+                            </label>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="auth-submit-btn">
+                            <span>Register Account</span>
+                            <i class="ph-bold ph-user-plus"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- =========================================================================
+         FOOTER SECTION (Exact 100% Match with index.html)
+         ========================================================================= -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <!-- Brand & Socials Column -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <p class="footer-brand-desc">Next-generation clinical operating system and AI health infrastructure transforming compassionate, precise patient care worldwide.</p>
+                <div class="footer-social-icons">
+                    <a href="404.html" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="ph-bold ph-x-logo"></i></a>
+                    <a href="404.html" aria-label="LinkedIn"><i class="ph-bold ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html"><i class="ph-bold ph-caret-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="ph-bold ph-caret-right"></i> About</a></li>
+                    <li><a href="service.html"><i class="ph-bold ph-caret-right"></i> Service</a></li>
+                    <li><a href="blog.html"><i class="ph-bold ph-caret-right"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="ph-bold ph-caret-right"></i> Contact</a></li>
+                    <li><a href="login.html"><i class="ph-bold ph-caret-right"></i> Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact Info Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Our Office</h4>
+                <div class="footer-contact-details">
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <strong>Address:</strong>
+                            <p>MMR complex, Chinnathirupathi,<br>salem, tamilnadu</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <strong>Email:</strong>
+                            <p><a href="404.html">support@pulsehealth.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-phone-call"></i></div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong>
+                            <p>+91 (0427) 244-8900</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Newsletter</h4>
+                <p class="footer-newsletter-text">Subscribe to receive monthly medical technology breakthroughs &amp; clinical insights.</p>
+                <form class="footer-newsletter-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit"><i class="ph-bold ph-paper-plane-right"></i> Join</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="container footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <p>&copy; 2026 Pulse HealthTech Platform. All Rights Reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">Terms of Service</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Kinetic Transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- Interactive Authentication Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tab Elements
+            const tabLoginBtn = document.getElementById('tabLoginBtn');
+            const tabSignupBtn = document.getElementById('tabSignupBtn');
+            const loginPanel = document.getElementById('loginPanel');
+            const signupPanel = document.getElementById('signupPanel');
+
+            // Notification Elements
+            const notification = document.getElementById('authNotification');
+            const notificationIcon = document.getElementById('notificationIcon');
+            const notificationMessage = document.getElementById('notificationMessage');
+
+            function showNotification(msg, type = 'success') {
+                notification.className = `auth-notification ${type}`;
+                notificationIcon.className = type === 'success' ? 'ph-bold ph-check-circle' : 'ph-bold ph-warning-circle';
+                notificationMessage.textContent = msg;
+                notification.style.display = 'flex';
+                setTimeout(() => {
+                    notification.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+
+            function hideNotification() {
+                notification.style.display = 'none';
+            }
+
+            // Tab Switching Logic
+            function switchToLogin() {
+                tabLoginBtn.classList.add('active');
+                tabSignupBtn.classList.remove('active');
+                loginPanel.classList.add('active');
+                signupPanel.classList.remove('active');
+            }
+
+            function switchToSignup() {
+                tabSignupBtn.classList.add('active');
+                tabLoginBtn.classList.remove('active');
+                signupPanel.classList.add('active');
+                loginPanel.classList.remove('active');
+            }
+
+            tabLoginBtn.addEventListener('click', () => {
+                hideNotification();
+                switchToLogin();
+            });
+
+            tabSignupBtn.addEventListener('click', () => {
+                hideNotification();
+                switchToSignup();
+            });
+
+            // Role Selector Chips (Login)
+            const loginRoleChips = document.querySelectorAll('#loginPanel .role-chip');
+            const selectedLoginRole = document.getElementById('selectedLoginRole');
+
+            loginRoleChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    loginRoleChips.forEach(c => c.classList.remove('selected'));
+                    chip.classList.add('selected');
+                    selectedLoginRole.value = chip.getAttribute('data-role');
+                });
+            });
+
+            // Role Selector Chips (Signup)
+            const signupRoleChips = document.querySelectorAll('#signupPanel .role-chip');
+            const selectedSignupRole = document.getElementById('selectedSignupRole');
+
+            signupRoleChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    signupRoleChips.forEach(c => c.classList.remove('selected'));
+                    chip.classList.add('selected');
+                    selectedSignupRole.value = chip.getAttribute('data-role');
+                });
+            });
+
+            // Password Visibility Toggles
+            document.querySelectorAll('.password-toggle-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+                    const targetInput = document.getElementById(targetId);
+                    const icon = btn.querySelector('i');
+                    if (targetInput.type === 'password') {
+                        targetInput.type = 'text';
+                        icon.className = 'ph-bold ph-eye-slash';
+                    } else {
+                        targetInput.type = 'password';
+                        icon.className = 'ph-bold ph-eye';
+                    }
+                });
+            });
+
+            // Real-Time Password Match Validation in Signup
+            const signupPassword = document.getElementById('signupPassword');
+            const signupConfirmPassword = document.getElementById('signupConfirmPassword');
+            const passwordMatchHint = document.getElementById('passwordMatchHint');
+            const passwordMatchText = document.getElementById('passwordMatchText');
+
+            function validatePasswordMatch() {
+                if (!signupConfirmPassword.value) {
+                    passwordMatchHint.className = 'password-match-hint';
+                    passwordMatchHint.style.display = 'none';
+                    return;
+                }
+                if (signupPassword.value === signupConfirmPassword.value) {
+                    passwordMatchHint.className = 'password-match-hint valid';
+                    passwordMatchText.textContent = 'Passwords match securely';
+                    passwordMatchHint.style.display = 'flex';
+                } else {
+                    passwordMatchHint.className = 'password-match-hint invalid';
+                    passwordMatchText.textContent = 'Passwords do not match';
+                    passwordMatchHint.style.display = 'flex';
+                }
+            }
+
+            signupPassword.addEventListener('input', validatePasswordMatch);
+            signupConfirmPassword.addEventListener('input', validatePasswordMatch);
+
+            // Signup Form Submission Handler
+            const signupForm = document.getElementById('signupForm');
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const name = document.getElementById('signupName').value.trim();
+                const email = document.getElementById('signupEmail').value.trim();
+                const pwd = signupPassword.value;
+                const confirmPwd = signupConfirmPassword.value;
+                const role = selectedSignupRole.value;
+
+                // Validation
+                if (!name || name.length < 3) {
+                    showNotification('Please enter your full name with at least 3 characters.', 'error');
+                    return;
+                }
+
+                if (!email || !email.includes('@') || !email.includes('.')) {
+                    showNotification('Please provide a valid institutional email address.', 'error');
+                    return;
+                }
+
+                if (pwd.length < 6) {
+                    showNotification('Password must be at least 6 characters long.', 'error');
+                    return;
+                }
+
+                if (pwd !== confirmPwd) {
+                    showNotification('Passwords do not match. Please verify and re-enter.', 'error');
+                    return;
+                }
+
+                // Signup Success Workflow:
+                // Store registered name associated with email
+                localStorage.setItem('pulse_registered_name_' + email.toLowerCase(), name);
+                localStorage.setItem('pulse_last_signup_name', name);
+
+                // 1. Pre-fill credentials into Login form
+                document.getElementById('loginEmail').value = email;
+                document.getElementById('loginPassword').value = pwd;
+
+                // 2. Sync selected role in Login panel
+                loginRoleChips.forEach(chip => {
+                    if (chip.getAttribute('data-role') === role) {
+                        chip.classList.add('selected');
+                    } else {
+                        chip.classList.remove('selected');
+                    }
+                });
+                selectedLoginRole.value = role;
+
+                // 3. Reset signup form
+                signupForm.reset();
+                passwordMatchHint.style.display = 'none';
+
+                // 4. Automatically switch to login section and display clear prompt
+                switchToLogin();
+                showNotification(`Account created successfully for ${name} (${role} Role)! Please click "Sign In to Portal" to enter.`, 'success');
+            });
+
+            // Login Form Submission Handler
+            const loginForm = document.getElementById('loginForm');
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const email = document.getElementById('loginEmail').value.trim();
+                const pwd = document.getElementById('loginPassword').value;
+                const role = selectedLoginRole.value;
+
+                if (!email || !pwd) {
+                    showNotification('Please enter both your email address and password.', 'error');
+                    return;
+                }
+
+                const destination = role === 'Admin' ? 'admindashboard.html' : 'userdashboard.html';
+                const destTitle = role === 'Admin' ? 'Executive Administration Portal' : 'Clinical User Dashboard';
+
+                // Store logged in credentials in localStorage for display across dashboards
+                localStorage.setItem('pulse_logged_in_email', email);
+                localStorage.setItem('pulse_logged_in_role', role);
+
+                // Compute clean display name: use registered name if available, otherwise formatted email prefix
+                const registeredName = localStorage.getItem('pulse_registered_name_' + email.toLowerCase()) || 
+                                       (localStorage.getItem('pulse_last_signup_name') ? localStorage.getItem('pulse_last_signup_name') : null);
+                let formattedName = registeredName;
+                if (!formattedName) {
+                    let emailPrefix = email.split('@')[0];
+                    formattedName = emailPrefix
+                        .replace(/[._-]+/g, ' ')
+                        .replace(/\b\w/g, c => c.toUpperCase())
+                        .trim();
+                }
+                localStorage.setItem('pulse_logged_in_name', formattedName);
+
+                showNotification(`Authenticated successfully as ${role} (${email})! Redirecting to ${destTitle}...`, 'success');
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 1400);
+            });
+
+            // Quick Demo Login Preset Buttons
+            document.getElementById('fillAdminDemoBtn').addEventListener('click', () => {
+                document.getElementById('loginEmail').value = 'director.admin@pulsehealth.tech';
+                document.getElementById('loginPassword').value = 'PulseAdmin2026!';
+                loginRoleChips.forEach(chip => {
+                    if (chip.getAttribute('data-role') === 'Admin') chip.classList.add('selected');
+                    else chip.classList.remove('selected');
+                });
+                selectedLoginRole.value = 'Admin';
+                showNotification('Admin credentials preset applied. Ready to Sign In.', 'success');
+            });
+
+            document.getElementById('fillUserDemoBtn').addEventListener('click', () => {
+                document.getElementById('loginEmail').value = 'dr.mitchell@pulsehealth.tech';
+                document.getElementById('loginPassword').value = 'ClinicalUser2026!';
+                loginRoleChips.forEach(chip => {
+                    if (chip.getAttribute('data-role') === 'User') chip.classList.add('selected');
+                    else chip.classList.remove('selected');
+                });
+                selectedLoginRole.value = 'User';
+                showNotification('Doctor/User credentials preset applied. Ready to Sign In.', 'success');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

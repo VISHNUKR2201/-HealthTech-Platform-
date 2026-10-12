@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | PULSE HEALTH - Next-Gen AI HealthTech Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (sessionStorage.getItem('pulse_last_scroll_pos')) {
+            document.documentElement.classList.add('pulse-restoring-scroll');
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           ABOUT PAGE ADVANCED STYLES & RICH ANIMATIONS
+           ========================================================================== */
+
+        /* Shimmer & Kinetic Heading Animations */
+        @keyframes kineticTextShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes badgeGlowPulse {
+            0% { box-shadow: 0 0 10px rgba(195, 255, 77, 0.2), inset 0 0 5px rgba(195, 255, 77, 0.1); transform: scale(1); }
+            50% { box-shadow: 0 0 25px rgba(195, 255, 77, 0.5), inset 0 0 10px rgba(195, 255, 77, 0.3); transform: scale(1.02); }
+            100% { box-shadow: 0 0 10px rgba(195, 255, 77, 0.2), inset 0 0 5px rgba(195, 255, 77, 0.1); transform: scale(1); }
+        }
+
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes imageSheen {
+            0% { left: -120%; }
+            100% { left: 120%; }
+        }
+
+        /* 1. About Hero Section */
+        .about-hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 150px 0 90px;
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.93) 0%, rgba(0, 26, 16, 0.96) 100%),
+                        url('images/tom-claes-Z-fSqssuFq8-unsplash.webp') center/cover no-repeat;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -15%;
+            right: -10%;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.18) 0%, rgba(0, 43, 27, 0) 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            animation: floatGentle 6s ease-in-out infinite alternate;
+        }
+
+        .about-hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 1.4rem;
+            background: rgba(195, 255, 77, 0.12);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.6rem;
+            animation: badgeGlowPulse 4s infinite ease-in-out;
+        }
+
+        .about-hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-main);
+            letter-spacing: -0.02em;
+        }
+
+        .about-hero-title .highlight {
+            background: linear-gradient(120deg, #c3ff4d 0%, #ffffff 50%, #10B981 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: kineticTextShine 4s linear infinite;
+            display: inline-block;
+        }
+
+        .about-hero-subtext {
+            font-size: 1.15rem;
+            color: #C2D1C8;
+            line-height: 1.75;
+            margin-bottom: 2.3rem;
+            max-width: 590px;
+        }
+
+        .about-hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Visual Right Column Cards */
+        .about-hero-visual {
+            position: relative;
+            animation: floatGentle 5s ease-in-out infinite;
+        }
+
+        .about-hero-main-card {
+            position: relative;
+            background: rgba(0, 35, 22, 0.82);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 26px;
+            padding: 2.2rem;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(195, 255, 77, 0.15);
+            overflow: hidden;
+            transition: all 0.45s ease;
+        }
+
+        .about-hero-main-card:hover {
+            border-color: rgba(195, 255, 77, 0.6);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(195, 255, 77, 0.3);
+        }
+
+        .about-hero-doctor-snippet {
+            display: flex;
+            align-items: center;
+            gap: 1.3rem;
+            margin-bottom: 1.6rem;
+        }
+
+        .about-hero-doctor-snippet img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 15%;
+            border: 2px solid var(--accent-lime);
+            box-shadow: 0 0 20px rgba(195, 255, 77, 0.45);
+        }
+
+        .about-hero-metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.1rem;
+            margin-top: 1.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .about-metric-box {
+            background: rgba(255, 255, 255, 0.04);
+            padding: 1.1rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .about-metric-box:hover {
+            background: rgba(195, 255, 77, 0.08);
+            border-color: rgba(195, 255, 77, 0.3);
+        }
+
+        .about-metric-box .number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-lime);
+            display: block;
+            margin-bottom: 0.2rem;
+            font-family: var(--font-main);
+        }
+
+        .about-metric-box .label {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* 2. Section Common Headers */
+        .section-header-center {
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto 3.8rem;
+        }
+
+        .section-badge-center {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.5rem 1.3rem;
+            background: rgba(195, 255, 77, 0.1);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title-center {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle-center {
+            font-size: 1.08rem;
+            color: #A9BDB1;
+            line-height: 1.7;
+        }
+
+        /* 3. Mission & Vision Section */
+        .mission-vision-section {
+            padding: 110px 0;
+            background-color: #002215;
+            position: relative;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .mission-image-wrapper {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(195, 255, 77, 0.25);
+            height: 520px;
+        }
+
+        .mission-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mission-image-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .mission-floating-badge {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            right: 25px;
+            background: rgba(0, 35, 22, 0.9);
+            backdrop-filter: blur(18px);
+            padding: 1.3rem 1.6rem;
+            border-radius: 18px;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+        }
+
+        .mission-floating-badge i {
+            font-size: 2.4rem;
+            color: var(--accent-lime);
+        }
+
+        .mission-card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .mission-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 1.9rem;
+            transition: all 0.4s ease;
+        }
+
+        .mission-box:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.4);
+            transform: translateX(8px);
+            box-shadow: 0 14px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .mission-box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .mission-box-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(195, 255, 77, 0.15);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.6rem;
+        }
+
+        .mission-box h3 {
+            font-size: 1.3rem;
+            color: #FFFFFF;
+        }
+
+        .mission-box p {
+            font-size: 0.96rem;
+            color: #A9BDB1;
+            line-height: 1.65;
+        }
+
+        /* 4. Journey & Milestones Timeline */
+        .timeline-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+            position: relative;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1020px;
+            margin: 0 auto;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-lime) 0%, rgba(195, 255, 77, 0.2) 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3.8rem;
+            width: 50%;
+            padding-right: 3.2rem;
+        }
+
+        .timeline-item.right {
+            margin-left: auto;
+            padding-right: 0;
+            padding-left: 3.2rem;
+        }
+
+        .timeline-node {
+            position: absolute;
+            top: 15px;
+            right: -13px;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #002B1B;
+            border: 3px solid var(--accent-lime);
+            box-shadow: 0 0 15px var(--accent-lime);
+            z-index: 2;
+        }
+
+        .timeline-item.right .timeline-node {
+            right: auto;
+            left: -13px;
+        }
+
+        .timeline-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 1.9rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(195, 255, 77, 0.45);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .timeline-year {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            font-weight: 800;
+            font-size: 0.86rem;
+            border-radius: 100px;
+            margin-bottom: 0.85rem;
+        }
+
+        .timeline-card h4 {
+            font-size: 1.3rem;
+            color: #FFFFFF;
+            margin-bottom: 0.65rem;
+        }
+
+        .timeline-card p {
+            font-size: 0.94rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .timeline-card img {
+            width: 100%;
+            height: 180px;
+            border-radius: 14px;
+            object-fit: cover;
+            object-position: center 25%;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        /* 5. AUTOMATED LEFT-TO-RIGHT CONTINUOUS SCROLLER CARDS */
+        /* Keyframes for Left-to-Right Continuous Auto Movement */
+        @keyframes scrollLeftToRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        .auto-scroller-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 1rem 0 2rem;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .auto-scroller-track {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            animation: scrollLeftToRight 35s linear infinite;
+        }
+
+        .auto-scroller-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Core Values Section (6 Cards Auto Movement Left to Right) */
+        .values-section {
+            padding: 110px 0;
+            background-color: #002215;
+            overflow: hidden;
+        }
+
+        .value-card-item {
+            flex: 0 0 340px;
+            width: 340px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .value-card-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(195, 255, 77, 0.5);
+            box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), 0 0 20px rgba(195, 255, 77, 0.2);
+        }
+
+        .value-card-img-wrap {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .value-card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            transition: transform 0.6s ease;
+        }
+
+        .value-card-item:hover .value-card-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .value-card-body {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .value-icon-circle {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.5rem;
+            margin-bottom: 1.1rem;
+        }
+
+        .value-card-item h3 {
+            font-size: 1.22rem;
+            color: #FFFFFF;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+        }
+
+        .value-card-item p {
+            font-size: 0.9rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+        }
+
+        /* 6. Leadership & Advisors Section (6 Cards Auto Movement Left to Right) */
+        .team-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+            overflow: hidden;
+        }
+
+        .team-card-item {
+            flex: 0 0 320px;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
+        }
+
+        .team-card-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 0 25px rgba(195, 255, 77, 0.2);
+        }
+
+        .team-photo-wrap {
+            position: relative;
+            height: 320px;
+            overflow: hidden;
+            background-color: #001A10;
+        }
+
+        .team-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            transition: transform 0.6s ease;
+        }
+
+        .team-card-item:hover .team-photo-wrap img {
+            transform: scale(1.07);
+        }
+
+        .team-badge {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 43, 27, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.35rem 1rem;
+            border-radius: 100px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            white-space: nowrap;
+        }
+
+        .team-info {
+            padding: 1.8rem 1.4rem;
+        }
+
+        .team-name {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.35rem;
+        }
+
+        .team-role {
+            font-size: 0.86rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+            margin-bottom: 0.85rem;
+            display: block;
+        }
+
+        .team-bio {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            line-height: 1.55;
+            margin-bottom: 1.3rem;
+        }
+
+        .team-socials {
+            display: flex;
+            justify-content: center;
+            gap: 0.7rem;
+        }
+
+        .team-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .team-socials a:hover {
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            transform: scale(1.18) rotate(6deg);
+            box-shadow: 0 4px 15px rgba(195, 255, 77, 0.4);
+        }
+
+        /* 7. Clinical Architecture Deep Dive */
+        .tech-architecture-section {
+            padding: 110px 0;
+            background-color: #002215;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .tech-feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .tech-step-item {
+            display: flex;
+            gap: 1.3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 18px;
+            transition: all 0.35s ease;
+        }
+
+        .tech-step-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.35);
+            transform: translateX(8px);
+        }
+
+        .tech-step-num {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            font-weight: 800;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .tech-step-content h4 {
+            font-size: 1.15rem;
+            color: #FFFFFF;
+            margin-bottom: 0.35rem;
+        }
+
+        .tech-step-content p {
+            font-size: 0.9rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+        }
+
+        .tech-visual-stack {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55);
+            height: 480px;
+        }
+
+        .tech-visual-stack img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            display: block;
+        }
+
+        .tech-overlay-stat {
+            position: absolute;
+            top: 22px;
+            right: 22px;
+            background: rgba(0, 35, 22, 0.9);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.92rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .tech-overlay-stat i {
+            color: var(--accent-lime);
+            font-size: 1.4rem;
+        }
+
+        /* 8. Global Impact & Metrics Section */
+        .impact-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.93) 0%, rgba(0, 26, 16, 0.95) 100%),
+                        url('images/trnava-university-LNdPXkrOpeM-unsplash.webp') center/cover no-repeat fixed;
+            position: relative;
+            text-align: center;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2.2rem;
+            margin-top: 3.8rem;
+        }
+
+        .impact-item {
+            background: rgba(0, 35, 22, 0.8);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(195, 255, 77, 0.28);
+            border-radius: 22px;
+            padding: 2.4rem 1.6rem;
+            transition: all 0.4s ease;
+        }
+
+        .impact-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.55);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(195, 255, 77, 0.25);
+        }
+
+        .impact-item-icon {
+            font-size: 2.6rem;
+            color: var(--accent-lime);
+            margin-bottom: 1.1rem;
+            display: inline-block;
+        }
+
+        .impact-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.45rem;
+            font-family: var(--font-main);
+        }
+
+        .impact-label {
+            font-size: 0.96rem;
+            color: #C2D1C8;
+            font-weight: 600;
+        }
+
+        /* 9. Compliance & Standards Badges */
+        .compliance-section {
+            padding: 100px 0;
+            background-color: var(--primary-bg);
+        }
+
+        .compliance-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .compliance-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2.2rem 1.6rem;
+            text-align: center;
+            transition: all 0.35s ease;
+        }
+
+        .compliance-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.4);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .compliance-icon {
+            font-size: 2.8rem;
+            color: var(--accent-lime);
+            margin-bottom: 1.1rem;
+            display: inline-block;
+        }
+
+        .compliance-card h4 {
+            font-size: 1.2rem;
+            color: #FFFFFF;
+            margin-bottom: 0.55rem;
+        }
+
+        .compliance-card p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* 10. Call to Action Section */
+        .about-cta-section {
+            padding: 100px 0;
+            background-color: #002215;
+            position: relative;
+        }
+
+        .about-cta-box {
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.92) 0%, rgba(0, 60, 38, 0.85) 100%),
+                        url('images/pexels-tara-winstead-7723541.webp') center/cover no-repeat;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            border-radius: 30px;
+            padding: 4.8rem 3.8rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.8rem;
+            align-items: center;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-cta-content h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.2;
+            margin-bottom: 1.3rem;
+        }
+
+        .about-cta-content p {
+            font-size: 1.08rem;
+            color: #C2D1C8;
+            line-height: 1.7;
+            margin-bottom: 2.2rem;
+        }
+
+        .about-cta-form {
+            background: rgba(0, 35, 22, 0.88);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 22px;
+            padding: 2.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .about-cta-form input,
+        .about-cta-form select {
+            width: 100%;
+            padding: 0.95rem 1.25rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: var(--font-main);
+            font-size: 0.94rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .about-cta-form input:focus,
+        .about-cta-form select:focus {
+            border-color: var(--accent-lime);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(195, 255, 77, 0.25);
+        }
+
+        .about-cta-form select option {
+            background: #002B1B;
+            color: #FFFFFF;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE BREAKPOINTS & MOBILE VIEW FIXES FOR ABOUT PAGE
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .about-hero {
+                padding: 130px 0 80px;
+            }
+            .about-hero-grid,
+            .mission-grid,
+            .tech-grid,
+            .about-cta-box {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .about-hero-text {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-hero-subtext {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .about-hero-ctas {
+                justify-content: center;
+            }
+            .timeline-container::before {
+                left: 30px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px !important;
+                padding-right: 0 !important;
+            }
+            .timeline-node {
+                left: 17px !important;
+                right: auto !important;
+            }
+            .impact-grid,
+            .compliance-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-hero {
+                padding: 110px 0 60px;
+            }
+            .about-hero-title {
+                font-size: 2.2rem;
+                line-height: 1.25;
+            }
+            .about-hero-badge {
+                padding: 0.45rem 1.1rem;
+                font-size: 0.78rem;
+                margin-bottom: 1.2rem;
+            }
+            .about-hero-subtext {
+                font-size: 1rem;
+                line-height: 1.65;
+                margin-bottom: 1.8rem;
+            }
+            .about-hero-ctas {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.9rem;
+            }
+            .about-hero-ctas .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.95rem 1.5rem;
+            }
+            .about-hero-main-card {
+                padding: 1.5rem 1.2rem;
+                border-radius: 20px;
+            }
+            .about-hero-doctor-snippet {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+            .about-hero-doctor-snippet img {
+                width: 64px;
+                height: 64px;
+            }
+            .section-header-center {
+                margin-bottom: 2.5rem;
+                padding: 0 0.5rem;
+            }
+            .section-title-center {
+                font-size: 1.85rem;
+                line-height: 1.25;
+            }
+            .section-subtitle-center {
+                font-size: 0.94rem;
+                line-height: 1.6;
+            }
+            .mission-vision-section,
+            .timeline-section,
+            .values-section,
+            .tech-section,
+            .impact-section,
+            .compliance-section,
+            .about-cta-section {
+                padding: 60px 0;
+            }
+            .mission-box {
+                padding: 1.6rem 1.3rem;
+            }
+            .mission-floating-badge {
+                left: 12px;
+                bottom: 12px;
+                right: 12px;
+                padding: 0.85rem 1rem;
+            }
+            .tech-step-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1.4rem;
+            }
+            .about-cta-box {
+                padding: 2.2rem 1.3rem;
+                border-radius: 20px;
+            }
+            .about-cta-content h2 {
+                font-size: 1.75rem;
+                line-height: 1.25;
+            }
+            .about-cta-content p {
+                font-size: 0.95rem;
+            }
+            .about-cta-form {
+                padding: 1.6rem 1.2rem;
+                border-radius: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-hero-title {
+                font-size: 1.85rem;
+                letter-spacing: -0.01em;
+            }
+            .about-hero-title .highlight {
+                display: inline;
+                word-break: break-word;
+            }
+            .about-hero-metric-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .impact-grid,
+            .compliance-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .timeline-item {
+                padding-left: 54px !important;
+            }
+            .timeline-container::before {
+                left: 18px;
+            }
+            .timeline-node {
+                left: 7px !important;
+                width: 22px;
+                height: 22px;
+            }
+            .timeline-card {
+                padding: 1.4rem 1.1rem;
+            }
+            .value-card-item {
+                flex: 0 0 260px;
+                width: 260px;
+            }
+            .team-card-item {
+                flex: 0 0 250px;
+                width: 250px;
+            }
+            /* Clean edge padding on mobile devices */
+            .container {
+                padding: 0 1.25rem !important;
+            }
+            .about-hero-text,
+            .about-hero-visual {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-indicator" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active" style="color: var(--accent-lime);">About</a></li>
+                <li><a href="service.html">Service</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-pill btn-primary">Login</a>
+                <div class="mobile-toggle" id="mobile-toggle"><i class="ph ph-list"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <div class="mobile-close" id="mobile-close" aria-label="Close navigation"><i class="ph-bold ph-x"></i></div>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html"><span>Home</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="about.html" style="color: var(--accent-lime);"><span>About</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="service.html"><span>Service</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="blog.html"><span>Blog</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="contact.html"><span>Contact</span> <i class="ph-bold ph-caret-right"></i></a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn btn-primary btn-pill full-width">Login <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="mobile-menu-contact-info">
+                    <p><i class="ph-fill ph-envelope-simple"></i> clinical@pulsehealth.tech</p>
+                    <p><i class="ph-fill ph-phone-call"></i> +91 (0427) 244-8900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         SECTION 1: HERO SECTION
+         ========================================================================= -->
+    <section class="about-hero">
+        <div class="container about-hero-grid">
+            <div class="about-hero-text reveal-left">
+                <div class="about-hero-badge">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span>Pioneering Clinical AI</span>
+                </div>
+                <h1 class="about-hero-title">
+                    Empowering Healers with <span class="highlight">Intelligence &amp; Empathy</span>
+                </h1>
+                <p class="about-hero-subtext">
+                    Founded by clinical pioneers and machine learning researchers, Pulse Health builds hospital-grade AI infrastructure that eradicates clinical burnout, optimizes diagnostic speed, and accelerates patient recovery worldwide.
+                </p>
+                <div class="about-hero-ctas">
+                    <a href="404.html" class="btn btn-primary btn-pill">Explore Our Story <i class="ph-bold ph-arrow-down"></i></a>
+                    <a href="404.html" class="btn btn-outline btn-pill"><i class="ph-bold ph-users-three"></i> Meet Leadership</a>
+                </div>
+            </div>
+
+            <div class="about-hero-visual reveal-right">
+                <div class="about-hero-main-card">
+                    <div class="about-hero-doctor-snippet">
+                        <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell, Chief Medical Officer">
+                        <div>
+                            <h4 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 700;">Dr. Sarah Mitchell, MD</h4>
+                            <span style="color: var(--accent-lime); font-size: 0.85rem; font-weight: 600;">Chief Executive &amp; Medical Founder</span>
+                        </div>
+                    </div>
+                    <p style="color: #C2D1C8; font-size: 0.94rem; line-height: 1.65; font-style: italic;">
+                        "Our mandate is uncompromising: to provide every doctor with an ambient AI copilot that synthesizes vitals, eliminates charting exhaustion, and saves human lives."
+                    </p>
+                    <div class="about-hero-metric-grid">
+                        <div class="about-metric-box">
+                            <span class="number counter" data-target="99.8" data-suffix="%">0%</span>
+                            <span class="label">Diagnostic Reliability</span>
+                        </div>
+                        <div class="about-metric-box">
+                            <span class="number counter" data-target="1800" data-suffix="+">0</span>
+                            <span class="label">Hospital Networks</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: MISSION & VISION
+         ========================================================================= -->
+    <section id="mission" class="mission-vision-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-compass"></i>
+                    <span>OUR PURPOSE &amp; MANDATE</span>
+                </div>
+                <h2 class="section-title-center">Redefining How Healthcare Operates at Scale</h2>
+                <p class="section-subtitle-center">
+                    Bridging complex clinical workflows with human-centered artificial intelligence to empower doctors and save patient lives.
+                </p>
+            </div>
+
+            <div class="mission-grid">
+                <div class="mission-image-wrapper reveal-left">
+                    <img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="Clinical Precision & Patient Care">
+                    <div class="mission-floating-badge">
+                        <i class="ph-bold ph-heartbeat"></i>
+                        <div>
+                            <strong style="color: #FFFFFF; font-size: 1.05rem; display: block;">Zero Preventable Oversights</strong>
+                            <span style="color: #A9BDB1; font-size: 0.84rem;">Real-time continuous patient telemetry</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mission-card-list reveal-right">
+                    <div class="mission-box">
+                        <div class="mission-box-header">
+                            <div class="mission-box-icon"><i class="ph-bold ph-target"></i></div>
+                            <h3>Our Core Mission</h3>
+                        </div>
+                        <p>
+                            To eliminate clinical documentation burnout and deliver automated, diagnostic-grade machine intelligence directly to physicians, nurses, and hospital care teams.
+                        </p>
+                    </div>
+
+                    <div class="mission-box">
+                        <div class="mission-box-header">
+                            <div class="mission-box-icon"><i class="ph-bold ph-eye"></i></div>
+                            <h3>Our Global Vision</h3>
+                        </div>
+                        <p>
+                            A connected world where every patient encounter is backed by real-time predictive diagnostics, seamless EHR interoperability, and instantaneous specialist access.
+                        </p>
+                    </div>
+
+                    <div class="mission-box">
+                        <div class="mission-box-header">
+                            <div class="mission-box-icon"><i class="ph-bold ph-hand-heart"></i></div>
+                            <h3>The Human Care Guarantee</h3>
+                        </div>
+                        <p>
+                            Technology should never stand between a doctor and a patient. Our ambient AI works invisibly in the background so clinicians can focus on what matters most: human healing.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: JOURNEY & MILESTONES
+         ========================================================================= -->
+    <section class="timeline-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-clock-countdown"></i>
+                    <span>OUR EVOLUTION</span>
+                </div>
+                <h2 class="section-title-center">From Stanford AI Lab to Global Healthcare Standard</h2>
+                <p class="section-subtitle-center">
+                    Five years of rigorous clinical trials, hospital deployments, and breakthrough advances in neural health informatics.
+                </p>
+            </div>
+
+            <div class="timeline-container">
+                <!-- Milestone 1 -->
+                <div class="timeline-item reveal-left">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-year">2021 • Genesis</span>
+                        <h4>Stanford Medical AI Inception</h4>
+                        <p>Founded by Stanford clinical fellows to develop ambient machine intelligence algorithms that parse complex multi-lead ECGs and EHR notes.</p>
+                        <img src="images/neuro-equilibrium-GQzPQB6nPxU-unsplash.webp" alt="Research Lab Inception">
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="timeline-item right reveal-right">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-year">2022 • Validation</span>
+                        <h4>FDA SaMD Breakthrough Status</h4>
+                        <p>Awarded clinical breakthrough designation for our predictive sepsis triage algorithm, deploying across our first 100 enterprise hospital ICUs.</p>
+                        <img src="images/akram-huseyn-NPP0qXVIGDQ-unsplash.webp" alt="FDA Breakthrough Validation">
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="timeline-item reveal-left">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-year">2024 • Telemetry Expansion</span>
+                        <h4>Real-Time Inpatient Cloud</h4>
+                        <p>Launched continuous multi-modal telemetry streaming, connecting hospital monitors, digital pharmacies, and bedside diagnostics in under 12ms latency.</p>
+                        <img src="images/pexels-edward-jenner-4031695.webp" alt="Telemetry Suite Expansion">
+                    </div>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="timeline-item right reveal-right">
+                    <div class="timeline-node"></div>
+                    <div class="timeline-card">
+                        <span class="timeline-year">2026 • Scale</span>
+                        <h4>1,800+ Health Systems Worldwide</h4>
+                        <p>Serving over 1.8 million patients across 34 countries with certified SOC-2, HIPAA, and FHIR interoperability pipelines.</p>
+                        <img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Global Hospital Deployment">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: GUIDING PRINCIPLES (6 Cards - Moving Left to Right Automatically)
+         ========================================================================= -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-sparkle"></i>
+                    <span>GUIDING PRINCIPLES</span>
+                </div>
+                <h2 class="section-title-center">The Foundational Pillars of Pulse Health</h2>
+                <p class="section-subtitle-center">
+                    Six core tenets driving our clinical engineering, patient safety, and ethical AI stewardship.
+                </p>
+            </div>
+        </div>
+
+        <!-- Continuous Left-to-Right Moving Track -->
+        <div class="auto-scroller-wrapper">
+            <div class="auto-scroller-track">
+                <!-- Card 1 -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Clinical Rigor First">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-microscope"></i></div>
+                        <h3>Clinical Rigor First</h3>
+                        <p>Every diagnostic model is trained against double-blind peer-reviewed medical datasets and audited by practicing board-certified clinicians.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-ivan-s-4989172.webp" alt="Ambient UX">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-waveform"></i></div>
+                        <h3>Frictionless Ambient UX</h3>
+                        <p>We eliminate screen fatigue. Our automated voice scribing documents consultations seamlessly in real time without clicking buttons.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/lightsaber-collection-hqBr-KfgR8o-unsplash.webp" alt="Fortress Privacy">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-lock-key"></i></div>
+                        <h3>Fortress Data Privacy</h3>
+                        <p>Zero-knowledge 256-bit encryption protects all patient telemetry. We never sell, compromise, or train open models on private PHI data.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-silverkblack-39192372.webp" alt="Borderless Healthcare">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-globe-hemisphere-west"></i></div>
+                        <h3>Borderless Healthcare</h3>
+                        <p>Connecting specialized tertiary medical expertise with rural clinics and underserved communities through low-bandwidth telemetry.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 (NEW) -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-tara-winstead-7723528.webp" alt="Continuous AI Audit">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-shield-check"></i></div>
+                        <h3>Continuous Model Audit</h3>
+                        <p>Real-time algorithmic bias monitoring and clinical accuracy tracking across diverse demographic cohorts to guarantee ethical treatment.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 (NEW) -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-karola-g-8539424.webp" alt="Compassionate Dignity">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-hand-heart"></i></div>
+                        <h3>Compassionate Dignity</h3>
+                        <p>Preserving patient dignity and empowering human doctors to maintain genuine eye contact and empathy throughout clinical examinations.</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR INFINITE SEAMLESS LOOP -->
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Clinical Rigor First">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-microscope"></i></div>
+                        <h3>Clinical Rigor First</h3>
+                        <p>Every diagnostic model is trained against double-blind peer-reviewed medical datasets and audited by practicing board-certified clinicians.</p>
+                    </div>
+                </div>
+
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-ivan-s-4989172.webp" alt="Ambient UX">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-waveform"></i></div>
+                        <h3>Frictionless Ambient UX</h3>
+                        <p>We eliminate screen fatigue. Our automated voice scribing documents consultations seamlessly in real time without clicking buttons.</p>
+                    </div>
+                </div>
+
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/lightsaber-collection-hqBr-KfgR8o-unsplash.webp" alt="Fortress Privacy">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-lock-key"></i></div>
+                        <h3>Fortress Data Privacy</h3>
+                        <p>Zero-knowledge 256-bit encryption protects all patient telemetry. We never sell, compromise, or train open models on private PHI data.</p>
+                    </div>
+                </div>
+
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-silverkblack-39192372.webp" alt="Borderless Healthcare">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-globe-hemisphere-west"></i></div>
+                        <h3>Borderless Healthcare</h3>
+                        <p>Connecting specialized tertiary medical expertise with rural clinics and underserved communities through low-bandwidth telemetry.</p>
+                    </div>
+                </div>
+
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-tara-winstead-7723528.webp" alt="Continuous AI Audit">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-shield-check"></i></div>
+                        <h3>Continuous Model Audit</h3>
+                        <p>Real-time algorithmic bias monitoring and clinical accuracy tracking across diverse demographic cohorts to guarantee ethical treatment.</p>
+                    </div>
+                </div>
+
+                <div class="value-card-item">
+                    <div class="value-card-img-wrap">
+                        <img src="images/pexels-karola-g-8539424.webp" alt="Compassionate Dignity">
+                    </div>
+                    <div class="value-card-body">
+                        <div class="value-icon-circle"><i class="ph-bold ph-hand-heart"></i></div>
+                        <h3>Compassionate Dignity</h3>
+                        <p>Preserving patient dignity and empowering human doctors to maintain genuine eye contact and empathy throughout clinical examinations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: LEADERSHIP & ADVISORS (6 Cards - Moving Left to Right Automatically)
+         ========================================================================= -->
+    <section id="leadership" class="team-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-users-four"></i>
+                    <span>LEADERSHIP &amp; ADVISORS</span>
+                </div>
+                <h2 class="section-title-center">Led by World-Renowned Clinicians &amp; AI Pioneers</h2>
+                <p class="section-subtitle-center">
+                    Combining decades of bedside clinical care with frontier deep learning expertise.
+                </p>
+            </div>
+        </div>
+
+        <!-- Continuous Left-to-Right Moving Track -->
+        <div class="auto-scroller-wrapper">
+            <div class="auto-scroller-track" style="animation-duration: 38s;">
+                <!-- Member 1 -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                        <span class="team-badge">CEO &amp; Co-Founder</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Sarah Mitchell, MD</h3>
+                        <span class="team-role">Chief Executive Officer</span>
+                        <p class="team-bio">Former Chief of Cardiology at Johns Hopkins with 18+ years of clinical practice and health informatics leadership.</p>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                        <span class="team-badge">CMO &amp; Clinical Lead</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Michael Sterling, MD</h3>
+                        <span class="team-role">Chief Medical Officer</span>
+                        <p class="team-bio">Pioneer in emergency medicine and automated ICU risk stratification; published 40+ clinical AI research papers.</p>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                        <span class="team-badge">Chief Technology Officer</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Elena Rostova, M.Sc</h3>
+                        <span class="team-role">Head of Engineering</span>
+                        <p class="team-bio">Ex-Google Brain infrastructure architect specializing in ultra-low latency distributed health data streaming and FHIR pipelines.</p>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Dr. Marcus Thorne">
+                        <span class="team-badge">Head of Neural AI</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Marcus Thorne, PhD</h3>
+                        <span class="team-role">VP of Computational Biology</span>
+                        <p class="team-bio">MIT bio-informatics specialist leading our neural diagnostic networks and multi-modal predictive algorithms.</p>
+                    </div>
+                </div>
+
+                <!-- Member 5 (NEW) -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Aris Thorne">
+                        <span class="team-badge">VP Clinical Research</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Aris Vance, MD, PhD</h3>
+                        <span class="team-role">Director of Clinical Trials</span>
+                        <p class="team-bio">Leading multi-center clinical validation across 60+ university hospitals for algorithm safety and zero diagnostic drift.</p>
+                    </div>
+                </div>
+
+                <!-- Member 6 (NEW) -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                        <span class="team-badge">Head of Inpatient Care</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Rachel Chen, MD</h3>
+                        <span class="team-role">Chief of Telemetry Systems</span>
+                        <p class="team-bio">Critical care intensivist dedicated to designing zero-latency emergency triage dashboards and vitals telemetry monitors.</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR INFINITE SEAMLESS LOOP -->
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                        <span class="team-badge">CEO &amp; Co-Founder</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Sarah Mitchell, MD</h3>
+                        <span class="team-role">Chief Executive Officer</span>
+                        <p class="team-bio">Former Chief of Cardiology at Johns Hopkins with 18+ years of clinical practice and health informatics leadership.</p>
+                    </div>
+                </div>
+
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                        <span class="team-badge">CMO &amp; Clinical Lead</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Michael Sterling, MD</h3>
+                        <span class="team-role">Chief Medical Officer</span>
+                        <p class="team-bio">Pioneer in emergency medicine and automated ICU risk stratification; published 40+ clinical AI research papers.</p>
+                    </div>
+                </div>
+
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                        <span class="team-badge">Chief Technology Officer</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Elena Rostova, M.Sc</h3>
+                        <span class="team-role">Head of Engineering</span>
+                        <p class="team-bio">Ex-Google Brain infrastructure architect specializing in ultra-low latency distributed health data streaming and FHIR pipelines.</p>
+                    </div>
+                </div>
+
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Dr. Marcus Thorne">
+                        <span class="team-badge">Head of Neural AI</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Marcus Thorne, PhD</h3>
+                        <span class="team-role">VP of Computational Biology</span>
+                        <p class="team-bio">MIT bio-informatics specialist leading our neural diagnostic networks and multi-modal predictive algorithms.</p>
+                    </div>
+                </div>
+
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Aris Thorne">
+                        <span class="team-badge">VP Clinical Research</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Aris Vance, MD, PhD</h3>
+                        <span class="team-role">Director of Clinical Trials</span>
+                        <p class="team-bio">Leading multi-center clinical validation across 60+ university hospitals for algorithm safety and zero diagnostic drift.</p>
+                    </div>
+                </div>
+
+                <div class="team-card-item">
+                    <div class="team-photo-wrap">
+                        <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                        <span class="team-badge">Head of Inpatient Care</span>
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Dr. Rachel Chen, MD</h3>
+                        <span class="team-role">Chief of Telemetry Systems</span>
+                        <p class="team-bio">Critical care intensivist dedicated to designing zero-latency emergency triage dashboards and vitals telemetry monitors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: CLINICAL NEURAL ARCHITECTURE
+         ========================================================================= -->
+    <section class="tech-architecture-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-cpu"></i>
+                    <span>PROPRIETARY TECH STACK</span>
+                </div>
+                <h2 class="section-title-center">The Pulse Health Intelligent Care Pipeline</h2>
+                <p class="section-subtitle-center">
+                    A four-tier decentralized architecture engineered for zero-latency medical triage and continuous patient monitoring.
+                </p>
+            </div>
+
+            <div class="tech-grid">
+                <div class="tech-feature-list reveal-left">
+                    <!-- Step 1 -->
+                    <div class="tech-step-item">
+                        <div class="tech-step-num">01</div>
+                        <div class="tech-step-content">
+                            <h4>Multi-Modal Telemetry Ingestion</h4>
+                            <p>Continuous ingest from bedside monitors, wearables, 12-lead ECGs, and lab feeds via high-throughput HL7/FHIR v4 streams.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="tech-step-item">
+                        <div class="tech-step-num">02</div>
+                        <div class="tech-step-content">
+                            <h4>Ambient NLP Medical Scribe</h4>
+                            <p>Conversational speech-to-text models that extract symptoms, medication dosages, and ICD-10 coding directly into the electronic chart.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="tech-step-item">
+                        <div class="tech-step-num">03</div>
+                        <div class="tech-step-content">
+                            <h4>Predictive Early Warning Engine</h4>
+                            <p>Neural inference clusters that forecast critical vital deterioration and sepsis risks up to 6 hours before clinical symptoms manifest.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="tech-step-item">
+                        <div class="tech-step-num">04</div>
+                        <div class="tech-step-content">
+                            <h4>Automated Collaborative Workspace</h4>
+                            <p>Direct integration into doctor tablets, surgical consoles, and pharmacy networks for instant 1-click clinical orders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tech-visual-stack reveal-right">
+                    <img src="images/tran-mau-tri-tam-HmHkyn8-IIA-unsplash.webp" alt="Pulse Health Neural Operating System">
+                    <div class="tech-overlay-stat">
+                        <i class="ph-bold ph-lightning"></i>
+                        <span>12ms Ultra-Low Telemetry Latency</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: GLOBAL IMPACT & BENCHMARKS
+         ========================================================================= -->
+    <section class="impact-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-chart-line-up"></i>
+                    <span>PROVEN CLINICAL IMPACT</span>
+                </div>
+                <h2 class="section-title-center">Measurable Improvements in Patient Care</h2>
+                <p class="section-subtitle-center">
+                    Real-world clinical data from across our hospital network partners.
+                </p>
+            </div>
+
+            <div class="impact-grid">
+                <div class="impact-item reveal">
+                    <div class="impact-item-icon"><i class="ph-bold ph-activity"></i></div>
+                    <div class="impact-counter counter" data-target="4.8" data-suffix="M+">0M+</div>
+                    <div class="impact-label">Telemetry Data Points Analyzed Daily</div>
+                </div>
+
+                <div class="impact-item reveal">
+                    <div class="impact-item-icon"><i class="ph-bold ph-clock"></i></div>
+                    <div class="impact-counter counter" data-target="78" data-suffix="%">0%</div>
+                    <div class="impact-label">Reduction in Physician Charting Time</div>
+                </div>
+
+                <div class="impact-item reveal">
+                    <div class="impact-item-icon"><i class="ph-bold ph-buildings"></i></div>
+                    <div class="impact-counter counter" data-target="1800" data-suffix="+">0</div>
+                    <div class="impact-label">Hospitals &amp; Medical Centers</div>
+                </div>
+
+                <div class="impact-item reveal">
+                    <div class="impact-item-icon"><i class="ph-bold ph-shield-check"></i></div>
+                    <div class="impact-counter counter" data-target="99.99" data-suffix="%">0%</div>
+                    <div class="impact-label">High-Availability Cloud SLA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 8: CERTIFICATIONS & COMPLIANCE
+         ========================================================================= -->
+    <section class="compliance-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-check-circle"></i>
+                    <span>ENTERPRISE GOVERNANCE</span>
+                </div>
+                <h2 class="section-title-center">Certified Compliance &amp; Ethical Safeguards</h2>
+                <p class="section-subtitle-center">
+                    Built to satisfy the highest regulatory, clinical safety, and data sovereignty standards worldwide.
+                </p>
+            </div>
+
+            <div class="compliance-grid">
+                <!-- Badge 1 -->
+                <div class="compliance-card reveal">
+                    <div class="compliance-icon"><i class="ph-bold ph-shield-check"></i></div>
+                    <h4>HIPAA &amp; HITECH</h4>
+                    <p>Full end-to-end BAA compliance guaranteeing patient health information encryption at rest and in transit.</p>
+                </div>
+
+                <!-- Badge 2 -->
+                <div class="compliance-card reveal">
+                    <div class="compliance-icon"><i class="ph-bold ph-lock-key-open"></i></div>
+                    <h4>SOC-2 Type II</h4>
+                    <p>Independently audited data security controls, availability safeguards, and continuous vulnerability penetration tests.</p>
+                </div>
+
+                <!-- Badge 3 -->
+                <div class="compliance-card reveal">
+                    <div class="compliance-icon"><i class="ph-bold ph-certificate"></i></div>
+                    <h4>FDA SaMD Tier-1</h4>
+                    <p>Software as a Medical Device algorithmic transparency aligned with FDA Good Machine Learning Practice (GMLP).</p>
+                </div>
+
+                <!-- Badge 4 -->
+                <div class="compliance-card reveal">
+                    <div class="compliance-icon"><i class="ph-bold ph-globe"></i></div>
+                    <h4>GDPR &amp; ISO 27001</h4>
+                    <p>International standard data governance with complete patient sovereignty and localized regional cloud tenancy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 9: CALL TO ACTION & DEMO FORM
+         ========================================================================= -->
+    <section class="about-cta-section">
+        <div class="container">
+            <div class="about-cta-box reveal">
+                <div class="about-cta-content">
+                    <div class="section-badge-center" style="margin-bottom: 1.1rem;">
+                        <i class="ph-bold ph-sparkle"></i>
+                        <span>PARTNER WITH PULSE HEALTH</span>
+                    </div>
+                    <h2>Ready to Elevate Your Hospital's Clinical Operations?</h2>
+                    <p>
+                        Schedule a private 1-on-1 technical walk-through with our medical informatics specialists and see our real-time AI operating system in action.
+                    </p>
+                    <div style="display: flex; gap: 1.6rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> 14-Day Free Clinical Sandbox
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> Full Epic/Cerner Integration
+                        </div>
+                    </div>
+                </div>
+
+                <form class="about-cta-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <h3 style="color: #FFFFFF; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;">Request Clinical Demo</h3>
+                    <input type="text" placeholder="Dr. Full Name, MD" required>
+                    <input type="email" placeholder="Hospital / Work Email" required>
+                    <select required>
+                        <option value="">Select Facility Type</option>
+                        <option value="hospital">Enterprise Hospital System</option>
+                        <option value="clinic">Outpatient Medical Clinic</option>
+                        <option value="telehealth">Telehealth &amp; Remote Care</option>
+                        <option value="lab">Diagnostic Lab / Research</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-pill full-width">Schedule Consultation <i class="ph-bold ph-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         FOOTER SECTION
+         ========================================================================= -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <!-- Brand & Socials Column -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <p class="footer-brand-desc">Next-generation clinical operating system and AI health infrastructure transforming compassionate, precise patient care worldwide.</p>
+                <div class="footer-social-icons">
+                    <a href="404.html" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="ph-bold ph-x-logo"></i></a>
+                    <a href="404.html" aria-label="LinkedIn"><i class="ph-bold ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html"><i class="ph-bold ph-caret-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="ph-bold ph-caret-right"></i> About</a></li>
+                    <li><a href="service.html"><i class="ph-bold ph-caret-right"></i> Service</a></li>
+                    <li><a href="blog.html"><i class="ph-bold ph-caret-right"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="ph-bold ph-caret-right"></i> Contact</a></li>
+                    <li><a href="login.html"><i class="ph-bold ph-caret-right"></i> Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact Info Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Our Office</h4>
+                <div class="footer-contact-details">
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <strong>Address:</strong>
+                            <p>MMR complex, Chinnathirupathi,<br>salem, tamilnadu</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <strong>Email:</strong>
+                            <p><a href="404.html">support@pulsehealth.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-phone-call"></i></div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong>
+                            <p>+91 (0427) 244-8900</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Newsletter</h4>
+                <p class="footer-newsletter-text">Subscribe to receive monthly medical technology breakthroughs &amp; clinical insights.</p>
+                <form class="footer-newsletter-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit"><i class="ph-bold ph-paper-plane-right"></i> Join</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="container footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <p>&copy; 2026 Pulse HealthTech Platform. All Rights Reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">Terms of Service</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Kinetic Transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSE HEALTH | Next-Gen AI HealthTech & Clinical Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (sessionStorage.getItem('pulse_last_scroll_pos')) {
+            document.documentElement.classList.add('pulse-restoring-scroll');
+        }
+    </script>
+</head>
+
+<body>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-indicator" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-pill btn-primary">Login</a>
+                <div class="mobile-toggle" id="mobile-toggle"><i class="ph ph-list"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <div class="mobile-close" id="mobile-close" aria-label="Close navigation"><i class="ph-bold ph-x"></i></div>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html"><span>Home</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="about.html"><span>About</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="service.html"><span>Service</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="blog.html"><span>Blog</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="contact.html"><span>Contact</span> <i class="ph-bold ph-caret-right"></i></a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn btn-primary btn-pill full-width">Login <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="mobile-menu-contact-info">
+                    <p><i class="ph-fill ph-envelope-simple"></i> clinical@pulsehealth.tech</p>
+                    <p><i class="ph-fill ph-phone-call"></i> +91 (0427) 244-8900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- Hero Section (Slider) -->
+    <section id="home" class="hero">
+        <div class="hero-slider">
+            <!-- Slide 1 -->
+            <div class="slide active"
+                style="background-image: linear-gradient(rgba(10,32,22,0.85), rgba(10,32,22,0.9)), url('images/tom-claes-Z-fSqssuFq8-unsplash.webp');">
+                <div class="container hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <span class="badge-pulse"></span>
+                            <span>Intelligent Clinical Care</span>
+                        </div>
+                        <h1 class="hero-title kinetic-header">Clinical Tools Built for <span class="highlight">Better Care</span></h1>
+                        <p class="hero-subtext">Empower healthcare teams with AI diagnostics, automated EHR documentation, and real-time patient monitoring.</p>
+                        <div class="hero-ctas">
+                            <a href="404.html" class="btn btn-primary btn-pill">Request Demo <i class="ph-bold ph-arrow-right"></i></a>
+                            <a href="404.html" class="btn btn-outline btn-pill"><i class="ph-fill ph-play-circle"></i> Watch Tour</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide"
+                style="background-image: linear-gradient(rgba(10,32,22,0.85), rgba(10,32,22,0.9)), url('images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp');">
+                <div class="container hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <span class="badge-pulse"></span>
+                            <span>Connected Telehealth</span>
+                        </div>
+                        <h1 class="hero-title kinetic-header">Empower Care Teams with <span class="highlight">Smart Telehealth</span></h1>
+                        <p class="hero-subtext">Streamline inpatient vitals streaming, remote consultations, and encrypted clinical collaboration on one unified platform.</p>
+                        <div class="hero-ctas">
+                            <a href="404.html" class="btn btn-primary btn-pill">Explore Plans <i class="ph-bold ph-arrow-right"></i></a>
+                            <a href="404.html" class="btn btn-outline btn-pill"><i class="ph-fill ph-play-circle"></i> See How It Works</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide"
+                style="background-image: linear-gradient(rgba(10,32,22,0.85), rgba(10,32,22,0.9)), url('images/marek-studzinski-TLkkKd0gmXU-unsplash.webp');">
+                <div class="container hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <span class="badge-pulse"></span>
+                            <span>Enterprise Infrastructure</span>
+                        </div>
+                        <h1 class="hero-title kinetic-header">Digital Health Infrastructure for <span class="highlight">The World</span></h1>
+                        <p class="hero-subtext">HIPAA &amp; SOC-2 certified clinical data pipeline connecting diagnostic labs, hospital networks, and digital pharmacies seamlessly.</p>
+                        <div class="hero-ctas">
+                            <a href="404.html" class="btn btn-primary btn-pill">Learn More <i class="ph-bold ph-arrow-right"></i></a>
+                            <a href="404.html" class="btn btn-outline btn-pill"><i class="ph-fill ph-chat-circle-dots"></i> Contact Medical Team</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Persistent UI Cards Overlay (Absolute Positioned) -->
+        <div class="container hero-visuals-container">
+            <div class="hero-visuals">
+                <div class="hero-visual-glow" aria-hidden="true"></div>
+
+                <!-- Patient Recovery Rate Card -->
+                <div class="ui-card outcome-card float-1">
+                    <div class="card-header-flex">
+                        <span class="card-label">Patient Recovery Rate</span>
+                        <span class="card-tag-live"><span class="live-dot"></span> Live</span>
+                    </div>
+                    <div class="card-value-wrap">
+                        <h3 class="card-value counter" data-target="99.2" data-suffix="%">0%</h3>
+                    </div>
+                    <div class="mini-graph">
+                        <div class="graph-bar" style="height: 55%"></div>
+                        <div class="graph-bar" style="height: 75%"></div>
+                        <div class="graph-bar" style="height: 70%"></div>
+                        <div class="graph-bar" style="height: 98%"></div>
+                        <div class="graph-bar" style="height: 92%"></div>
+                    </div>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="ui-card profile-card float-3">
+                    <div class="user-profile">
+                        <div class="profile-avatar-wrap">
+                            <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                            <span class="verified-badge"><i class="ph-bold ph-check"></i></span>
+                        </div>
+                        <div class="profile-info">
+                            <strong class="profile-name">Dr. Sarah Mitchell</strong>
+                            <span class="profile-role">Chief Medical Officer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Consultations Card -->
+                <div class="ui-card income-card float-2">
+                    <div class="card-header-flex">
+                        <span class="card-label">Active Consultations</span>
+                        <div class="card-icon-circle"><i class="ph-bold ph-users"></i></div>
+                    </div>
+                    <h3 class="card-value counter" data-target="18450" data-suffix="+">0</h3>
+                    <p class="card-metric-positive">
+                        <i class="ph-bold ph-trend-up"></i>
+                        <span>+32% clinical throughput</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <p>Trusted by 1,800+ hospitals, medical clinics & healthcare networks</p>
+            <div class="marquee">
+                <div class="marquee-track">
+                    <span>MAYO HEALTH</span>
+                    <span>SYNAPSE AI</span>
+                    <span>GENOME LABS</span>
+                    <span>APEX CLINICAL</span>
+                    <span>MEDILINK</span>
+                    <span>BIOVITAL</span>
+                    <!-- Duplicate for loop -->
+                    <span>MAYO HEALTH</span>
+                    <span>SYNAPSE AI</span>
+                    <span>GENOME LABS</span>
+                    <span>APEX CLINICAL</span>
+                    <span>MEDILINK</span>
+                    <span>BIOVITAL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Infinity Value Ticker -->
+    <div class="value-ticker">
+        <div class="ticker-track">
+            <span><i class="ph ph-shield-check"></i> HIPAA & SOC-2 Certified</span>
+            <span><i class="ph ph-heartbeat"></i> Real-Time Vitals Telemetry</span>
+            <span><i class="ph ph-brain"></i> AI Diagnostic Support</span>
+            <span><i class="ph ph-video-camera"></i> HD Telehealth Suite</span>
+            <span><i class="ph ph-file-text"></i> Automated EHR Scribing</span>
+            <span><i class="ph ph-lock-key"></i> 256-Bit Encrypted Data</span>
+            <span><i class="ph ph-stethoscope"></i> Clinical Workflow Hub</span>
+            <!-- Duplicate for infinite effect -->
+            <span><i class="ph ph-shield-check"></i> HIPAA & SOC-2 Certified</span>
+            <span><i class="ph ph-heartbeat"></i> Real-Time Vitals Telemetry</span>
+            <span><i class="ph ph-brain"></i> AI Diagnostic Support</span>
+            <span><i class="ph ph-video-camera"></i> HD Telehealth Suite</span>
+            <span><i class="ph ph-file-text"></i> Automated EHR Scribing</span>
+            <span><i class="ph ph-lock-key"></i> 256-Bit Encrypted Data</span>
+            <span><i class="ph ph-stethoscope"></i> Clinical Workflow Hub</span>
+        </div>
+    </div>
+
+    <!-- What Makes Us Special Section (Interactive 4-Tab Showcase) -->
+    <section id="about" class="special-features-section">
+        <div class="container">
+            <!-- Header -->
+            <div class="special-header reveal">
+                <div class="special-badge">
+                    <i class="ph ph-star-four"></i>
+                    <span>WHAT MAKES US SPECIAL?</span>
+                </div>
+                <h2 class="special-title">
+                    Enhancing patient outcomes with innovation and care.
+                </h2>
+            </div>
+
+            <!-- 4 Interactive Tabs -->
+            <div class="special-tabs-wrapper reveal">
+                <div class="special-tabs-nav" role="tablist">
+                    <button class="special-tab-btn active" id="tab-0" role="tab" aria-selected="true" data-tab="0" onclick="switchSpecialTab(0)">
+                        <i class="ph ph-stack"></i>
+                        <span>Neural Precision</span>
+                    </button>
+                    <button class="special-tab-btn" id="tab-1" role="tab" aria-selected="false" data-tab="1" onclick="switchSpecialTab(1)">
+                        <i class="ph ph-activity"></i>
+                        <span>Clinical Monitoring</span>
+                    </button>
+                    <button class="special-tab-btn" id="tab-2" role="tab" aria-selected="false" data-tab="2" onclick="switchSpecialTab(2)">
+                        <i class="ph ph-plus"></i>
+                        <span>Robotic Systems</span>
+                    </button>
+                    <button class="special-tab-btn" id="tab-3" role="tab" aria-selected="false" data-tab="3" onclick="switchSpecialTab(3)">
+                        <i class="ph ph-user-focus"></i>
+                        <span>Smart Interfaces</span>
+                    </button>
+                </div>
+            </div>
+
+            <script>
+                function switchSpecialTab(index) {
+                    var tabs = document.querySelectorAll('.special-tab-btn');
+                    var panels = document.querySelectorAll('.special-tab-panel');
+                    for (var i = 0; i < tabs.length; i++) {
+                        if (i === index) {
+                            tabs[i].classList.add('active');
+                            tabs[i].setAttribute('aria-selected', 'true');
+                            if (window.innerWidth <= 992) {
+                                tabs[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                            }
+                        } else {
+                            tabs[i].classList.remove('active');
+                            tabs[i].setAttribute('aria-selected', 'false');
+                        }
+                    }
+                    for (var j = 0; j < panels.length; j++) {
+                        var pIdx = parseInt(panels[j].getAttribute('data-panel'), 10);
+                        if (pIdx === index) {
+                            panels[j].classList.add('active');
+                            panels[j].style.setProperty('display', 'block', 'important');
+                            panels[j].style.setProperty('opacity', '1', 'important');
+                            panels[j].style.setProperty('visibility', 'visible', 'important');
+                            panels[j].style.setProperty('transform', 'none', 'important');
+                        } else {
+                            panels[j].classList.remove('active');
+                            panels[j].style.setProperty('display', 'none', 'important');
+                            panels[j].style.setProperty('opacity', '0', 'important');
+                            panels[j].style.setProperty('visibility', 'hidden', 'important');
+                        }
+                    }
+                }
+            </script>
+
+            <!-- Tab Content Panels -->
+            <div class="special-content-area reveal">
+                <!-- Panel 1: Neural Precision -->
+                <div class="special-tab-panel active" data-panel="0" role="tabpanel" aria-labelledby="tab-0" style="display: block !important; opacity: 1 !important; visibility: visible !important;">
+                    <div class="special-grid">
+                        <div class="special-left">
+                            <p class="special-desc">
+                                Harnessing advanced neurological mapping and AI-driven analysis to provide microscopic accuracy in brain and nerve diagnostics.
+                            </p>
+                            <ul class="special-feature-list">
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>High-resolution sub-millimeter neural imaging</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Real-time synaptic activity monitoring</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>AI-assisted cognitive pattern recognition</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="special-right">
+                            <div class="special-card-visual">
+                                <div class="special-image-container">
+                                    <img src="images/vitaly-gariev-X_tBkG0U9yM-unsplash.webp" alt="Neural Precision Diagnostic System" class="special-showcase-img">
+                                    <div class="special-image-overlay"></div>
+                                    
+                                    <!-- Floating Live Status Badge (Top-Right) -->
+                                    <div class="special-floating-badge badge-top-right">
+                                        <span class="live-dot dot-emerald"></span>
+                                        <span>Sub-mm Neural Map Active</span>
+                                    </div>
+
+                                    <!-- Floating Data Metric Card (Bottom-Left) -->
+                                    <div class="special-floating-card card-bottom-left">
+                                        <div class="metric-icon-box icon-emerald">
+                                             <i class="ph-fill ph-brain"></i>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-label">AI Neural Analysis</span>
+                                            <span class="metric-value">99.8% Precision</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Micro Tag (Bottom-Right) -->
+                                    <div class="special-floating-tag tag-bottom-right">
+                                        <i class="ph-bold ph-waveform"></i>
+                                        <span>3.0T MRI Telemetry</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: Clinical Monitoring -->
+                <div class="special-tab-panel" data-panel="1" role="tabpanel" aria-labelledby="tab-1">
+                    <div class="special-grid">
+                        <div class="special-left">
+                            <p class="special-desc">
+                                Continuous multi-parameter patient telemetry with predictive anomaly detection to anticipate critical care events before they occur.
+                            </p>
+                            <ul class="special-feature-list">
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>24/7 continuous high-frequency vitals streaming</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Predictive early warning score (PEWS) automation</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Encrypted cloud telemetry sync for care teams</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="special-right">
+                            <div class="special-card-visual">
+                                <div class="special-image-container">
+                                    <img src="images/trnava-university-LNdPXkrOpeM-unsplash.webp" alt="Continuous Clinical Monitoring System" class="special-showcase-img">
+                                    <div class="special-image-overlay"></div>
+                                    
+                                    <!-- Floating Live Status Badge (Top-Right) -->
+                                    <div class="special-floating-badge badge-top-right">
+                                        <span class="live-dot dot-cyan"></span>
+                                        <span>24/7 Vitals Telemetry Live</span>
+                                    </div>
+
+                                    <!-- Floating Data Metric Card (Bottom-Left) -->
+                                    <div class="special-floating-card card-bottom-left">
+                                        <div class="metric-icon-box icon-cyan">
+                                            <i class="ph-fill ph-heartbeat"></i>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-label">PEWS Early Detection</span>
+                                            <span class="metric-value">Real-time Vitals Sync</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Micro Tag (Bottom-Right) -->
+                                    <div class="special-floating-tag tag-bottom-right">
+                                        <i class="ph-bold ph-activity"></i>
+                                        <span>Latency: &lt; 10ms</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Robotic Systems -->
+                <div class="special-tab-panel" data-panel="2" role="tabpanel" aria-labelledby="tab-2">
+                    <div class="special-grid">
+                        <div class="special-left">
+                            <p class="special-desc">
+                                Next-generation microsurgical robotics engineered for sub-millimeter precision, tremor filtering, and minimally invasive procedures.
+                            </p>
+                            <ul class="special-feature-list">
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Sub-millimeter surgical accuracy and tremor cancellation</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>3D high-definition stereoscopic visualization</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Haptic feedback with real-time tissue tension sensing</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="special-right">
+                            <div class="special-card-visual">
+                                <div class="special-image-container">
+                                    <img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="Advanced Robotic Medical Diagnostic System" class="special-showcase-img">
+                                    <div class="special-image-overlay"></div>
+                                    
+                                    <!-- Floating Live Status Badge (Top-Right) -->
+                                    <div class="special-floating-badge badge-top-right">
+                                        <span class="live-dot dot-indigo"></span>
+                                        <span>Microsurgical Robotics Active</span>
+                                    </div>
+
+                                    <!-- Floating Data Metric Card (Bottom-Left) -->
+                                    <div class="special-floating-card card-bottom-left">
+                                        <div class="metric-icon-box icon-indigo">
+                                            <i class="ph-bold ph-crosshair"></i>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-label">Tremor Cancellation</span>
+                                            <span class="metric-value">0.02mm Micro-Offset</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Micro Tag (Bottom-Right) -->
+                                    <div class="special-floating-tag tag-bottom-right">
+                                        <i class="ph-bold ph-cpu"></i>
+                                        <span>7-Axis Precision</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 4: Smart Interfaces -->
+                <div class="special-tab-panel" data-panel="3" role="tabpanel" aria-labelledby="tab-3">
+                    <div class="special-grid">
+                        <div class="special-left">
+                            <p class="special-desc">
+                                Intuitive clinical operating consoles and patient-facing portals designed for instantaneous triage, EHR access, and telehealth collaboration.
+                            </p>
+                            <ul class="special-feature-list">
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Instant zero-latency FHIR/HL7 EHR synchronization</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Ambient voice-to-text clinical transcription</span>
+                                </li>
+                                <li>
+                                    <span class="check-icon"><i class="ph-bold ph-check"></i></span>
+                                    <span>Cross-specialty collaboration and multi-display support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="special-right">
+                            <div class="special-card-visual">
+                                <div class="special-image-container">
+                                    <img src="images/vitaly-gariev-2kopEHjST-g-unsplash.webp" alt="Smart Clinical Tablet Interface and EHR Platform" class="special-showcase-img">
+                                    <div class="special-image-overlay"></div>
+                                    
+                                    <!-- Floating Live Status Badge (Top-Right) -->
+                                    <div class="special-floating-badge badge-top-right">
+                                        <span class="live-dot dot-teal"></span>
+                                        <span>Unified Clinical OS Online</span>
+                                    </div>
+
+                                    <!-- Floating Data Metric Card (Bottom-Left) -->
+                                    <div class="special-floating-card card-bottom-left">
+                                        <div class="metric-icon-box icon-teal">
+                                            <i class="ph-fill ph-device-tablet"></i>
+                                        </div>
+                                        <div class="metric-info">
+                                            <span class="metric-label">Zero-Latency EHR Sync</span>
+                                            <span class="metric-value">FHIR &amp; HL7 Fast Sync</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Micro Tag (Bottom-Right) -->
+                                    <div class="special-floating-tag tag-bottom-right">
+                                        <i class="ph-bold ph-shield-check"></i>
+                                        <span>HIPAA / GDPR Encrypted</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Our Medical Process Section (Split Dark Showcase) -->
+    <section class="medical-process-section" id="how-it-works">
+        <div class="medical-process-grid">
+            <!-- Left Column: Medical Process Headline & High-Tech Device Showcase -->
+            <div class="process-left-col reveal">
+                <div class="process-visual-backdrop">
+                    <!-- Dynamic Step Images from images/ folder -->
+                    <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Initial Diagnostic System" class="process-bg-image active" data-step-img="0">
+                    <img src="images/stephen-andrews-0hjokXK6uLs-unsplash.webp" alt="Precision Monitoring Telemetry" class="process-bg-image" data-step-img="1">
+                    <img src="images/vitaly-gariev-X_tBkG0U9yM-unsplash.webp" alt="AI-Assisted Neural Analysis" class="process-bg-image" data-step-img="2">
+                    <img src="images/piron-guillaume-y6aFH6ZhI7s-unsplash.webp" alt="Advanced Clinical Care Station" class="process-bg-image" data-step-img="3">
+                    <div class="process-visual-gradient"></div>
+                </div>
+
+                <div class="process-text-content">
+                    <div class="process-tag">
+                        <i class="ph ph-plus"></i>
+                        <span>HOW IT WORKS</span>
+                    </div>
+                    <h2 class="process-headline">
+                        Our medical<br>
+                        process precision<br>
+                        care innovation.
+                    </h2>
+                    <p class="process-subtext">
+                        Experience the perfect blend of innovation and care. Our systems are designed to enhance patient safety while providing accurate diagnostics.
+                    </p>
+                    <a href="404.html" class="btn-process-learn">
+                        <span>Learn More</span>
+                        <i class="ph ph-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: 4 Process Steps -->
+            <div class="process-right-col reveal-right">
+                <!-- Step 1 -->
+                <div class="process-step-item active" data-step-idx="0">
+                    <div class="process-icon-wrap">
+                        <i class="ph ph-drop"></i>
+                    </div>
+                    <div class="process-step-content">
+                        <h3 class="process-step-title">Initial Diagnostic</h3>
+                        <p class="process-step-desc">
+                            We blend technology and clinical expertise to develop systems that provide real-time health data.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="process-step-item" data-step-idx="1">
+                    <div class="process-icon-wrap">
+                        <i class="ph ph-plus"></i>
+                    </div>
+                    <div class="process-step-content">
+                        <h3 class="process-step-title">Precision Monitoring</h3>
+                        <p class="process-step-desc">
+                            We blend technology and clinical expertise to develop systems that provide real-time health data.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="process-step-item" data-step-idx="2">
+                    <div class="process-icon-wrap">
+                        <i class="ph ph-moon"></i>
+                    </div>
+                    <div class="process-step-content">
+                        <h3 class="process-step-title">AI-Assisted Analysis</h3>
+                        <p class="process-step-desc">
+                            We blend technology and clinical expertise to develop systems that provide real-time health data.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="process-step-item" data-step-idx="3">
+                    <div class="process-icon-wrap">
+                        <i class="ph ph-heart"></i>
+                    </div>
+                    <div class="process-step-content">
+                        <h3 class="process-step-title">Advanced Care Results</h3>
+                        <p class="process-step-desc">
+                            We blend technology and clinical expertise to develop systems that provide real-time health data.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us / Services Section -->
+    <section class="why-choose-us-section" id="services">
+        <!-- Background Subtle Hex Watermark -->
+        <div class="why-bg-watermark" aria-hidden="true">
+            <svg viewBox="0 0 140 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="35,10 70,28 70,62 35,80 0,62 0,28" stroke="rgba(45,106,79,0.12)" stroke-width="1.5" fill="none"/>
+                <polygon points="35,74 70,92 70,126 35,144 0,126 0,92" stroke="rgba(45,106,79,0.12)" stroke-width="1.5" fill="none"/>
+                <polygon points="35,138 70,156 70,190 35,208 0,190 0,156" stroke="rgba(45,106,79,0.12)" stroke-width="1.5" fill="none"/>
+                <polygon points="35,202 70,220 70,254 35,272 0,254 0,220" stroke="rgba(45,106,79,0.12)" stroke-width="1.5" fill="none"/>
+                <polygon points="88,42 123,60 123,94 88,112 53,94 53,60" stroke="rgba(45,106,79,0.08)" stroke-width="1.5" fill="none"/>
+                <polygon points="88,106 123,124 123,158 88,176 53,158 53,124" stroke="rgba(45,106,79,0.08)" stroke-width="1.5" fill="none"/>
+                <polygon points="88,170 123,188 123,222 88,240 53,222 53,188" stroke="rgba(45,106,79,0.08)" stroke-width="1.5" fill="none"/>
+            </svg>
+        </div>
+
+        <div class="container why-choose-container">
+            <div class="why-choose-grid">
+                
+                <!-- Left Visual Column -->
+                <div class="why-choose-left reveal-left">
+                    <div class="main-doctor-card-wrapper">
+                        <!-- Floating Top Rating & Doctor Badge -->
+                        <div class="doctor-badge-floating-top">
+                            <div class="why-avatar-stack">
+                                <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                                <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Dr. Elena Rostova">
+                                <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                            </div>
+                            <div class="why-rating-text">
+                                <div class="why-rating-stars">
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <span>4.9/5</span>
+                                </div>
+                                <strong>99.8% Recovery Rate</strong>
+                            </div>
+                        </div>
+
+                        <!-- Main Doctor Card Frame -->
+                        <div class="doctor-image-frame">
+                            <img src="images/pexels-karola-g-7195190.webp" alt="Lead Clinical Specialist Doctor" class="main-doctor-img">
+                            <div class="doctor-frame-glow"></div>
+                        </div>
+
+                        <!-- Floating Working Hours Card -->
+                        <div class="working-hours-floating-card">
+                            <div class="wh-header">
+                                <div class="wh-clock-icon">
+                                    <i class="ph-bold ph-clock"></i>
+                                </div>
+                                <h4 class="wh-title">Working Hours</h4>
+                            </div>
+                            <div class="wh-schedule">
+                                <div class="wh-row">
+                                    <span class="wh-days">Mon – Fri</span>
+                                    <span class="wh-hours">9AM – 6PM</span>
+                                </div>
+                                <div class="wh-row">
+                                    <span class="wh-days">Saturday</span>
+                                    <span class="wh-hours">10AM – 5PM</span>
+                                </div>
+                                <div class="wh-row is-closed">
+                                    <span class="wh-days">Sunday</span>
+                                    <span class="wh-hours">Emergency Only</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content Column -->
+                <div class="why-choose-right reveal-right">
+                    <!-- Badge -->
+                    <div class="why-choose-badge">
+                        <span class="badge-bullet">•</span>
+                        <span>WHY CHOOSE US</span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h2 class="why-choose-heading">
+                        Setting the standard for<br>
+                        compassionate &amp; <span class="highlight-precise">precise care</span>
+                    </h2>
+
+                    <!-- Lead Paragraph -->
+                    <p class="why-choose-lead">
+                        Through evidence-based medicine, board-certified specialists, and real-time clinical AI telemetry, we deliver outcomes that genuinely save lives.
+                    </p>
+
+                    <!-- Visual Feature Cards Grid with WebP Images -->
+                    <div class="why-visual-cards-grid">
+                        <!-- Card 1 -->
+                        <div class="why-visual-card">
+                            <div class="why-card-img-wrap">
+                                <img src="images/pexels-karola-g-7195379.webp" alt="Board-Certified Physicians">
+                                <span class="why-card-badge">Clinical Leads</span>
+                            </div>
+                            <div class="why-card-body">
+                                <div class="why-card-header">
+                                    <div class="why-card-icon"><i class="ph-bold ph-stethoscope"></i></div>
+                                    <h4 class="why-card-title">Medical Specialists</h4>
+                                </div>
+                                <p class="why-card-desc">Board-certified doctors across 40+ clinical departments.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="why-visual-card">
+                            <div class="why-card-img-wrap">
+                                <img src="images/pexels-edward-jenner-4031695.webp" alt="Neural Diagnostic AI">
+                                <span class="why-card-badge">FDA Cleared</span>
+                            </div>
+                            <div class="why-card-body">
+                                <div class="why-card-header">
+                                    <div class="why-card-icon"><i class="ph-bold ph-scan"></i></div>
+                                    <h4 class="why-card-title">Neural Diagnostics</h4>
+                                </div>
+                                <p class="why-card-desc">Sub-second DICOM PACS scanning with 99.4% accuracy.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="why-visual-card">
+                            <div class="why-card-img-wrap">
+                                <img src="images/vitaly-gariev-2kopEHjST-g-unsplash.webp" alt="ICU Vitals Telemetry">
+                                <span class="why-card-badge">&lt;12ms Edge</span>
+                            </div>
+                            <div class="why-card-body">
+                                <div class="why-card-header">
+                                    <div class="why-card-icon"><i class="ph-bold ph-heartbeat"></i></div>
+                                    <h4 class="why-card-title">ICU Telemetry</h4>
+                                </div>
+                                <p class="why-card-desc">Continuous patient vitals monitoring &amp; sepsis forecast.</p>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="why-visual-card">
+                            <div class="why-card-img-wrap">
+                                <img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="Automated Clinical Labs">
+                                <span class="why-card-badge">ISO 27001</span>
+                            </div>
+                            <div class="why-card-body">
+                                <div class="why-card-header">
+                                    <div class="why-card-icon"><i class="ph-bold ph-flask"></i></div>
+                                    <h4 class="why-card-title">Automated Labs</h4>
+                                </div>
+                                <p class="why-card-desc">Rapid blood smear analysis &amp; LIS EHR bi-directional sync.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Action & Doctor Bio -->
+                    <div class="why-bottom-row">
+                        <a href="404.html" class="btn-why-learn-more">
+                            <span>Learn More</span>
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                        </a>
+
+                        <div class="doctor-cmo-bio">
+                            <div class="why-team-stack">
+                                <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                                <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                                <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Dr. Elena Rostova">
+                                <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                            </div>
+                            <div class="cmo-info">
+                                <span class="cmo-name">Dr. Sarah Mitchell, MD</span>
+                                <span class="cmo-title">Chief Medical Officer &amp; 250+ Specialists</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mobile App Section -->
+    <section class="mobile-app">
+        <div class="container app-section-grid">
+            <div class="app-visual reveal-left">
+                <div class="phone-mockup">
+                    <div class="phone-notch"></div>
+                    <div class="phone-screen">
+                        <div class="app-top-bar">
+                            <i class="ph ph-list"></i>
+                            <span>Clinical Dashboard</span>
+                            <i class="ph ph-bell"></i>
+                        </div>
+                        <div class="app-balance">
+                            <span>Patient Vitals Status</span>
+                            <h3>98.4% Optimal</h3>
+                        </div>
+                        <div class="app-actions">
+                            <div class="action-btn"><i class="ph ph-heartbeat"></i><span>Vitals</span></div>
+                            <div class="action-btn"><i class="ph ph-stethoscope"></i><span>Triage</span></div>
+                            <div class="action-btn"><i class="ph ph-prescription"></i><span>Rx Order</span></div>
+                        </div>
+                        <div class="app-transactions">
+                            <div class="trans-item">
+                                <div class="trans-icon" style="background:#0F172A;"><i class="ph-fill ph-heart"></i>
+                                </div>
+                                <div class="trans-info">
+                                    <strong>Cardiology Review</strong>
+                                    <span>ECG Telemetry: Normal</span>
+                                </div>
+                                <div class="trans-amount positive">72 BPM</div>
+                            </div>
+                            <div class="trans-item">
+                                <div class="trans-icon" style="background:#2563EB;"><i
+                                        class="ph-fill ph-flask"></i></div>
+                                <div class="trans-info">
+                                    <strong>Comprehensive Metabolic Panel</strong>
+                                    <span>LabCorp • Auto-Synced</span>
+                                </div>
+                                <div class="trans-amount">Verified</div>
+                            </div>
+                            <div class="trans-item">
+                                <div class="trans-icon" style="background:#10B981;"><i
+                                        class="ph-fill ph-pill"></i></div>
+                                <div class="trans-info">
+                                    <strong>Prescription Dispatched</strong>
+                                    <span>Pharmacy Refill Active</span>
+                                </div>
+                                <div class="trans-amount positive">Signed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-content reveal-right">
+                <h2 class="kinetic-header">Hospital-Grade Care in Every Clinician's Pocket</h2>
+                <p>Review high-resolution medical imaging, approve electronic prescriptions, and respond to critical telemetry alerts with sub-second latency.</p>
+                <div class="app-stats">
+                    <div class="stat">
+                        <strong>4.9/5</strong>
+                        <span>Clinician Rating</span>
+                    </div>
+                    <div class="stat">
+                        <strong>500k+</strong>
+                        <span>Active Patients</span>
+                    </div>
+                </div>
+                <a href="404.html" class="btn btn-outline btn-pill"
+                    style="color:var(--text-dark); border-color:#E5E7EB;">Download Provider App</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PayOne Features Section -->
+    <section class="payone-features" id="features">
+        <div class="container payone-container">
+            <div class="payone-grid">
+                <!-- Left Column -->
+                <div class="payone-left">
+                    <div class="payone-tagline">
+                        <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                        <span>Core Capabilities</span>
+                    </div>
+
+                    <h2 class="payone-heading kinetic-header">PulseAI Clinical Intelligence</h2>
+
+                    <div class="payone-feature-list">
+                        <!-- Feature 1 -->
+                        <div class="payone-feature-item reveal">
+                            <div class="payone-icon-container">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000"
+                                    stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                    <path d="M2 12h4"></path>
+                                    <path d="M18 12h4"></path>
+                                </svg>
+                            </div>
+                            <div class="payone-feature-content">
+                                <h3>AI Diagnostic Assistance</h3>
+                                <p>Analyze imaging, lab panels, and patient histories with validated 99.4% predictive accuracy.</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="payone-feature-item reveal">
+                            <div class="payone-icon-container">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000"
+                                    stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                            </div>
+                            <div class="payone-feature-content">
+                                <h3>Continuous Remote Monitoring</h3>
+                                <p>Stream high-frequency patient vitals and detect early signs of clinical deterioration automatically.</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="payone-feature-item reveal">
+                            <div class="payone-icon-container">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                    <path
+                                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="payone-feature-content">
+                                <h3>Interoperable FHIR / HL7 Pipeline</h3>
+                                <p>Seamlessly exchange structured clinical records across hospital EHRs, labs, and pharmacies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="payone-right reveal-right">
+                    <p class="payone-top-text">
+                        Intelligent, compliant, interoperable, secure,<br>
+                        patient-centered, predictive, unified.
+                    </p>
+
+                    <div class="payone-image-composition">
+                        <div class="payone-background-shape">
+                            <div class="payone-decorative-circle-1"></div>
+                            <div class="payone-decorative-circle-2"></div>
+                        </div>
+
+                        <img src="images/pexels-karola-g-8539424.webp"
+                            alt="Doctor holding digital medical tablet" class="payone-main-image">
+
+                        <!-- Floating Card 1 - Success Rate -->
+                        <div class="payone-floating-card payone-card-1">
+                            <div class="payone-card-number" id="payoneSuccessRate">0%</div>
+                            <div class="payone-card-label">Diagnostic accuracy</div>
+                        </div>
+
+                        <!-- Floating Card 2 - Clinicians available -->
+                        <div class="payone-floating-card payone-card-2">
+                            <div class="payone-card-number" id="payoneBankingCards">0</div>
+                            <div class="payone-card-label">Active Clinicians</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Growth Section (Redesigned Comparison) -->
+    <section class="growth-section">
+        <div class="container growth-grid">
+            <div class="growth-content reveal">
+                <span class="badge badge-lime">Clinical Outcomes</span>
+                <h2 class="kinetic-header">Elevating healthcare delivery to the next standard of care.</h2>
+                <p>Eliminate paper charts and fragmented legacy portals. PULSE HEALTH automates clinical documentation, scheduling, and billing so physicians can focus on saving lives.</p>
+                <div class="growth-ctas">
+                    <a href="404.html" class="btn btn-primary btn-pill">Start Free Trial</a>
+                    <a href="404.html" class="btn btn-outline btn-pill"
+                        style="border-color: #E5E7EB; color: #1F2937;">Book Consultation</a>
+                </div>
+            </div>
+            <div class="growth-visual reveal-right">
+                <div class="visual-bg"></div>
+                <img src="images/xiazheng1995-SpOhbQkWAyE-unsplash.webp"
+                    alt="Leading Physician in Modern Hospital">
+                <!-- Floating Badge -->
+                <div class="growth-badge">
+                    <i class="ph-fill ph-heartbeat"></i>
+                    <span>+185% Patient Engagement</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-new" id="testimonials">
+        <div class="container">
+            <!-- Section Header -->
+            <div class="testimonials-header">
+                <p class="testimonials-subtitle">+ Clinical Trust & Impact</p>
+                <h2 class="testimonials-title">Trusted by Leading Physicians, Surgeons & Hospital Directors</h2>
+            </div>
+
+            <!-- Swiper Slider -->
+            <div class="swiper testimonials-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-left">
+                                <img src="images/nappy-QiTp5N8O9YI-unsplash.webp"
+                                    alt="Dr. Joan Cooper" class="client-image">
+                                <div class="star-rating">
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                </div>
+                            </div>
+                            <div class="testimonial-right">
+                                <p class="testimonial-text">"Pulse Health revolutionized our outpatient cardiology department. Our doctors save over 2 hours every day on charting and documentation."</p>
+                                <h4 class="client-name">Dr. Joan Cooper, MD</h4>
+                                <p class="client-title">Chief Medical Officer, MetroHealth</p>
+                            </div>
+                            <div class="quote-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                         d="M10 8C10 8 8 10 8 13C8 16 10 18 10 18M16 8C16 8 14 10 14 13C14 16 16 18 16 18"
+                                         stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-left">
+                                <img src="images/akram-huseyn-NPP0qXVIGDQ-unsplash.webp"
+                                    alt="Dr. David Smith" class="client-image">
+                                <div class="star-rating">
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                </div>
+                            </div>
+                            <div class="testimonial-right">
+                                <p class="testimonial-text">"The diagnostic AI models and seamless Epic EHR integration have made Pulse Health our standard clinical operating system across all 8 clinics."</p>
+                                <h4 class="client-name">Dr. David Smith, PhD</h4>
+                                <p class="client-title">Director of Clinical Informatics, BioSphere Health</p>
+                            </div>
+                            <div class="quote-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M10 8C10 8 8 10 8 13C8 16 10 18 10 18M16 8C16 8 14 10 14 13C14 16 16 18 16 18"
+                                        stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-left">
+                                <img src="images/elen-sher-ZL-xUYvkaKM-unsplash.webp"
+                                    alt="Dr. Tina Brown" class="client-image">
+                                <div class="star-rating">
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                    <i class="ph-fill ph-star"></i>
+                                </div>
+                            </div>
+                            <div class="testimonial-right">
+                                <p class="testimonial-text">"The real-time remote patient vitals monitoring and automated emergency alerts have directly helped reduce post-operative readmissions by 38%."</p>
+                                <h4 class="client-name">Dr. Tina Brown, FACS</h4>
+                                <p class="client-title">Head of Surgery, Pacific Medical Center</p>
+                            </div>
+                            <div class="quote-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M10 8C10 8 8 10 8 13C8 16 10 18 10 18M16 8C16 8 14 10 14 13C14 16 16 18 16 18"
+                                        stroke="#1a1a1a" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Medical Advisory Board Section -->
+    <section class="board-members" id="board">
+        <div class="container section-header align-center reveal">
+            <h2 class="kinetic-header">Medical & Advisory Board</h2>
+            <p>World-class physicians, AI researchers, and healthcare executives guiding our clinical roadmap.</p>
+        </div>
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <!-- Member 1 -->
+                <div class="member-card">
+                    <img src="images/pexels-karola-g-8539424.webp"
+                        alt="Dr. Sarah Jenkins">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Dr. Sarah Jenkins, MD</h3>
+                        <p class="role">Chief Medical Officer</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Dr. Sarah Jenkins, MD</h3>
+                        <p class="role">Chief Medical Officer</p>
+                        <p class="bio">"Pioneering AI diagnostic tools to eliminate provider burnout and democratize access to world-class clinical care."</p>
+                    </div>
+                </div>
+                <!-- Member 2 -->
+                <div class="member-card">
+                    <img src="images/pexels-pavel-danilyuk-8442105.webp"
+                        alt="David Chen">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">David Chen, PhD</h3>
+                        <p class="role">Chief Technology Officer</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">David Chen, PhD</h3>
+                        <p class="role">Chief Technology Officer</p>
+                        <p class="bio">Former AI researcher leading deep learning models for predictive biomarker and oncology diagnostics.</p>
+                    </div>
+                </div>
+                <!-- Member 3 -->
+                <div class="member-card">
+                    <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp"
+                        alt="Dr. Elena Rodriguez">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Dr. Elena Rodriguez</h3>
+                        <p class="role">VP of Clinical Compliance</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Dr. Elena Rodriguez</h3>
+                        <p class="role">VP of Clinical Compliance</p>
+                        <p class="bio">Healthcare policy veteran ensuring rigorous HIPAA, FDA, and global medical device standard compliance.</p>
+                    </div>
+                </div>
+                <!-- Member 4 -->
+                <div class="member-card">
+                    <img src="images/pexels-ivan-s-4989172.webp"
+                        alt="Michael Ross">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Michael Ross, MHA</h3>
+                        <p class="role">Head of Hospital Operations</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Michael Ross, MHA</h3>
+                        <p class="role">Head of Hospital Operations</p>
+                        <p class="bio">Hospital administration leader specializing in multidisciplinary care coordination and EHR interoperability.</p>
+                    </div>
+                </div>
+
+                <!-- Member 5 -->
+                <div class="member-card">
+                    <img src="images/nappy-F6ESFfpHjYc-unsplash.webp"
+                        alt="James Wilson">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">James Wilson</h3>
+                        <p class="role">VP of Health Partnerships</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">James Wilson</h3>
+                        <p class="role">VP of Health Partnerships</p>
+                        <p class="bio">Connecting nationwide hospital networks and academic medical centers with Pulse Health's clinical ecosystem.</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR INFINITE SCROLL -->
+                <div class="member-card">
+                    <img src="images/pexels-karola-g-8539424.webp"
+                        alt="Dr. Sarah Jenkins">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Dr. Sarah Jenkins, MD</h3>
+                        <p class="role">Chief Medical Officer</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Dr. Sarah Jenkins, MD</h3>
+                        <p class="role">Chief Medical Officer</p>
+                        <p class="bio">"Pioneering AI diagnostic tools to eliminate provider burnout and democratize access to world-class clinical care."</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <img src="images/pexels-pavel-danilyuk-8442105.webp"
+                        alt="David Chen">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">David Chen, PhD</h3>
+                        <p class="role">Chief Technology Officer</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">David Chen, PhD</h3>
+                        <p class="role">Chief Technology Officer</p>
+                        <p class="bio">Former AI researcher leading deep learning models for predictive biomarker and oncology diagnostics.</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp"
+                        alt="Dr. Elena Rodriguez">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Dr. Elena Rodriguez</h3>
+                        <p class="role">VP of Clinical Compliance</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Dr. Elena Rodriguez</h3>
+                        <p class="role">VP of Clinical Compliance</p>
+                        <p class="bio">Healthcare policy veteran ensuring rigorous HIPAA, FDA, and global medical device standard compliance.</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <img src="images/pexels-ivan-s-4989172.webp"
+                        alt="Michael Ross">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Michael Ross, MHA</h3>
+                        <p class="role">Head of Hospital Operations</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Michael Ross, MHA</h3>
+                        <p class="role">Head of Hospital Operations</p>
+                        <p class="bio">Hospital administration leader specializing in multidisciplinary care coordination and EHR interoperability.</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <img src="images/hh-e-LwYlLzteMxo-unsplash.webp"
+                        alt="Dr. Priya Patel">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">Dr. Priya Patel, MD</h3>
+                        <p class="role">Head of Clinical Product</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">Dr. Priya Patel, MD</h3>
+                        <p class="role">Head of Clinical Product</p>
+                        <p class="bio">Pediatrician and clinical UX advocate designing intuitive provider workflows and patient portals.</p>
+                    </div>
+                </div>
+                <div class="member-card">
+                    <img src="images/nappy-F6ESFfpHjYc-unsplash.webp"
+                        alt="James Wilson">
+                    <div class="member-info">
+                        <h3 class="kinetic-header">James Wilson</h3>
+                        <p class="role">VP of Health Partnerships</p>
+                    </div>
+                    <div class="member-overlay">
+                        <h3 class="kinetic-header">James Wilson</h3>
+                        <p class="role">VP of Health Partnerships</p>
+                        <p class="bio">Connecting nationwide hospital networks and academic medical centers with Pulse Health's clinical ecosystem.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header align-center">
+                <h2 class="reveal kinetic-header">Transparent Clinical Pricing</h2>
+                <p class="reveal">HIPAA Business Associate Agreement (BAA) included on all tiers.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card reveal">
+                    <div class="plan-name">Clinic Starter</div>
+                    <div class="plan-price">$149<span>/mo</span></div>
+                    <p class="plan-desc">For independent practices and outpatient medical clinics.</p>
+                    <ul class="plan-features">
+                        <li><i class="ph-fill ph-check-circle"></i> Up to 5 Clinicians & Staff</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Cloud EHR & Patient Portal</li>
+                        <li><i class="ph-fill ph-check-circle"></i> 500 Telehealth Sessions/mo</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Automated E-Prescribing</li>
+                    </ul>
+                    <a href="404.html" class="btn btn-white btn-pill full-width">Get Starter</a>
+                </div>
+                <div class="pricing-card featured reveal">
+                    <div class="popular-tag">Recommended</div>
+                    <div class="plan-name">Health System Pro</div>
+                    <div class="plan-price">$399<span>/mo</span></div>
+                    <p class="plan-desc">For growing multi-specialty practices and medical centers.</p>
+                    <ul class="plan-features">
+                        <li><i class="ph-fill ph-check-circle"></i> Unlimited Clinicians & Staff</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Ambient AI Clinical Scribe</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Real-Time Vitals & RPM Telemetry</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Full FHIR / HL7 EHR Integration</li>
+                    </ul>
+                    <a href="404.html" class="btn btn-primary btn-pill full-width">Start Free Trial</a>
+                </div>
+                <div class="pricing-card reveal">
+                    <div class="plan-name">Hospital Enterprise</div>
+                    <div class="plan-price">Custom</div>
+                    <p class="plan-desc">Tailored deployments for regional and national hospital networks.</p>
+                    <ul class="plan-features">
+                        <li><i class="ph-fill ph-check-circle"></i> Dedicated Clinical Solutions Architect</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Custom PACS & Diagnostic Lab Integrations</li>
+                        <li><i class="ph-fill ph-check-circle"></i> On-Premise or Hybrid Cloud Deploy</li>
+                        <li><i class="ph-fill ph-check-circle"></i> 99.99% Uptime SLA & 24/7 Priority Support</li>
+                    </ul>
+                    <a href="404.html" class="btn btn-white btn-pill full-width">Contact Medical Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simplified HealthTech Hero Section -->
+    <section id="blog" class="simplified-hero">
+        <div class="container">
+            <div class="simplified-hero-content">
+                <!-- Left Floating Cards -->
+                <div class="floating-cards-left">
+                    <!-- Chart Widget -->
+                    <div class="dashboard-card chart-card">
+                        <div class="chart-header">
+                            <span class="chart-percentage">+38.4%</span>
+                            <span class="chart-label">Clinical Efficiency</span>
+                        </div>
+                        <div class="mini-chart">
+                            <div class="chart-bar" style="height: 40%;"></div>
+                            <div class="chart-bar" style="height: 65%;"></div>
+                            <div class="chart-bar" style="height: 80%;"></div>
+                            <div class="chart-bar" style="height: 55%;"></div>
+                            <div class="chart-bar" style="height: 90%;"></div>
+                            <div class="chart-bar" style="height: 100%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Top Specialties Widget -->
+                    <div class="dashboard-card countries-card">
+                        <h4 class="card-title">Top Specialties</h4>
+                        <div class="country-list">
+                            <div class="country-item">
+                                <span class="country-flag">❤️</span>
+                                <span class="country-name">Cardiology</span>
+                                <span class="country-percent">42%</span>
+                            </div>
+                            <div class="country-item">
+                                <span class="country-flag">🧠</span>
+                                <span class="country-name">Neurology</span>
+                                <span class="country-percent">31%</span>
+                            </div>
+                            <div class="country-item">
+                                <span class="country-flag">🧬</span>
+                                <span class="country-name">Oncology</span>
+                                <span class="country-percent">27%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Content -->
+                <div class="hero-center">
+                    <h1 class="hero-headline">
+                        Simplified <span class="lime-text">healthcare</span> for providers on the go.
+                    </h1>
+                    <div class="hero-image-container">
+                        <img src="images/pexels-karola-g-7195190.webp"
+                            alt="Doctor with medical tablet" class="hero-main-image">
+                    </div>
+                </div>
+
+                <!-- Right Floating Cards -->
+                <div class="floating-cards-right">
+                    <!-- Live Clinical AI Pipeline Widget -->
+                    <div class="dashboard-card payments-card">
+                        <h4 class="card-title">Live Clinical Queue</h4>
+                        <div class="payment-list">
+                            <div class="payment-item">
+                                <div class="payment-logo laravel-logo">AI</div>
+                                <div class="payment-info">
+                                    <span class="payment-name">EHR Voice Scribe</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 92%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-item">
+                                <div class="payment-logo figma-logo">CT</div>
+                                <div class="payment-info">
+                                    <span class="payment-name">Imaging AI Scan</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-item">
+                                <div class="payment-logo vue-logo">DNA</div>
+                                <div class="payment-info">
+                                    <span class="payment-name">Genomic Panel</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payment-item">
+                                <div class="payment-logo react-logo">RPM</div>
+                                <div class="payment-info">
+                                    <span class="payment-name">Live Vitals Stream</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 98%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vitals Status Widget -->
+                    <div class="dashboard-card earnings-card">
+                        <h4 class="card-title">Patient Vitals Telemetry</h4>
+                        <div class="earnings-amount">99.8%</div>
+                        <div class="earnings-label">Stable Telemetry Stream</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container contact-container">
+            <div class="contact-content reveal">
+                <h2 class="kinetic-header">Ready to transform your healthcare delivery?</h2>
+                <p>Join hundreds of leading hospitals, clinics, and digital healthcare innovators using PULSE HEALTH.</p>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="ph-fill ph-envelope-simple"></i>
+                        <span>clinical@pulsehealth.tech</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="ph-fill ph-map-pin"></i>
+                        <span>750 Medical Plaza Way, Suite 1200, Boston, MA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-wrapper contact-visual-showcase reveal-right">
+                <div class="contact-showcase-card">
+                    <!-- Glow and decorative aura -->
+                    <div class="showcase-glow-orb"></div>
+                    
+                    <!-- Main Showcase Image Container -->
+                    <div class="showcase-img-frame">
+                        <img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="Pulse Health Clinical Diagnostic Operations" class="showcase-main-img">
+                        <div class="showcase-gradient-overlay"></div>
+                    </div>
+
+                    <!-- Floating Badge Bottom Right: Hospital Certified -->
+                    <div class="showcase-float-badge badge-bottom-right float-card-2">
+                        <div class="badge-icon-wrap pulse-icon"><i class="ph-bold ph-shield-check"></i></div>
+                        <div class="badge-content">
+                            <span class="badge-label">Security & Compliance</span>
+                            <span class="badge-value">HIPAA &amp; SOC-2 Certified</span>
+                        </div>
+                    </div>
+
+                    <!-- Floating Doctor Profile Snippet -->
+                    <div class="showcase-doctor-pill float-card-3">
+                        <img src="images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp" alt="Clinical Specialist" class="doc-avatar">
+                        <div class="doc-info">
+                            <strong>Dr. Marcus Vance, MD</strong>
+                            <span>Chief of Intensive Care Integration</span>
+                        </div>
+                        <span class="live-dot-ping"></span>
+                    </div>
+
+                    <!-- Interactive Showcase Action Bar -->
+                    <div class="showcase-footer-bar">
+                        <div class="footer-bar-stat">
+                            <span class="stat-num counter" data-target="1800" data-suffix="+">1,800+</span>
+                            <span class="stat-text">Active Connected Clinics Worldwide</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <!-- Brand & Socials Column -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <p class="footer-brand-desc">Next-generation clinical operating system and AI health infrastructure transforming compassionate, precise patient care worldwide.</p>
+                <div class="footer-social-icons">
+                    <a href="404.html" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="ph-bold ph-x-logo"></i></a>
+                    <a href="404.html" aria-label="LinkedIn"><i class="ph-bold ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html"><i class="ph-bold ph-caret-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="ph-bold ph-caret-right"></i> About</a></li>
+                    <li><a href="service.html"><i class="ph-bold ph-caret-right"></i> Service</a></li>
+                    <li><a href="blog.html"><i class="ph-bold ph-caret-right"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="ph-bold ph-caret-right"></i> Contact</a></li>
+                    <li><a href="login.html"><i class="ph-bold ph-caret-right"></i> Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact Info Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Our Office</h4>
+                <div class="footer-contact-details">
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <strong>Address:</strong>
+                            <p>MMR complex, Chinnathirupathi,<br>salem, tamilnadu</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <strong>Email:</strong>
+                            <p><a href="404.html">support@pulsehealth.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-phone-call"></i></div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong>
+                            <p>+91 (0427) 244-8900</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Newsletter</h4>
+                <p class="footer-newsletter-text">Subscribe to receive monthly medical technology breakthroughs &amp; clinical insights.</p>
+                <form class="footer-newsletter-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit"><i class="ph-bold ph-paper-plane-right"></i> Join</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="container footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <p>&copy; 2026 Pulse HealthTech Platform. All Rights Reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">Terms of Service</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+
+    <!-- GSAP for Kinetic Vision -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script src="js/script.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        const testimonialsSwiper = new Swiper('.testimonials-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 30,
+            loop: true,
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30,
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

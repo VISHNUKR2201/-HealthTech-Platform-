@@ -1,0 +1,3072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Admin Command Center | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js for Enterprise Analytics & Operations Visuals -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* ==========================================================================
+           ENTERPRISE HEALTHCARE ADMIN DASHBOARD - CORE THEME & CSS VARIABLES
+           ========================================================================== */
+        :root {
+            --bg-body: #00170e;
+            --bg-sidebar: #002316;
+            --bg-card: rgba(0, 38, 24, 0.78);
+            --bg-card-hover: rgba(0, 48, 30, 0.92);
+            --border-card: rgba(195, 255, 77, 0.18);
+            --border-card-hover: rgba(195, 255, 77, 0.45);
+            --accent-lime: #c3ff4d;
+            --accent-teal: #10B981;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-purple: #a855f7;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --text-dim: #64748B;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --sidebar-width: 275px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background-color: #00170e;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: clip;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: #00170e;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            display: flex;
+            overflow-x: clip;
+            position: relative;
+        }
+
+        /* Ambient Background Glow */
+        .dash-ambient-glow {
+            position: fixed;
+            top: -10%;
+            left: 15%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.07) 0%, rgba(0, 35, 22, 0) 70%);
+            border-radius: 50%;
+            filter: blur(140px);
+            pointer-events: none;
+            z-index: 0;
+            max-width: 100vw;
+        }
+
+        /* ==========================================================================
+           1. SIDEBAR NAVIGATION - ADMIN PORTAL
+           ========================================================================== */
+        .dash-sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-sidebar);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+        }
+
+        .sidebar-header {
+            padding: 1.8rem 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .sidebar-logo img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .admin-badge {
+            background: rgba(195, 255, 77, 0.15);
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-left: 0.6rem;
+        }
+
+        .sidebar-close-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .sidebar-nav-container {
+            flex: 1;
+            padding: 1.3rem 0.9rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.75rem 0.8rem 0.35rem;
+        }
+
+        .dash-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .dash-nav-item i {
+            font-size: 1.25rem;
+            color: #94A3B8;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .dash-nav-item .nav-badge {
+            margin-left: auto;
+            background: rgba(195, 255, 77, 0.15);
+            color: var(--accent-lime);
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 100px;
+        }
+
+        .dash-nav-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #FFFFFF;
+        }
+
+        .dash-nav-item:hover i {
+            color: var(--accent-lime);
+        }
+
+        .dash-nav-item.active {
+            background: rgba(195, 255, 77, 0.12);
+            color: var(--accent-lime);
+            border-color: rgba(195, 255, 77, 0.35);
+            box-shadow: 0 4px 16px rgba(195, 255, 77, 0.12);
+        }
+
+        .dash-nav-item.active i {
+            color: var(--accent-lime);
+        }
+
+        /* Sidebar Admin Profile & Actions */
+        .sidebar-footer {
+            padding: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(0, 20, 12, 0.65);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .user-profile-widget {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar-wrap {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-lime);
+            flex-shrink: 0;
+        }
+
+        .user-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .user-online-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 9px;
+            height: 9px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 1.5px solid #002316;
+        }
+
+        .user-meta h5 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        .user-meta span {
+            font-size: 0.72rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+        }
+
+        .portal-switch-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.55rem 0.9rem;
+            background: rgba(195, 255, 77, 0.08);
+            border: 1px solid rgba(195, 255, 77, 0.25);
+            border-radius: 10px;
+            color: var(--accent-lime);
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .portal-switch-btn:hover {
+            background: rgba(195, 255, 77, 0.18);
+            border-color: var(--accent-lime);
+            color: #FFFFFF;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 10px;
+            color: #FDA4AF;
+            font-family: var(--font-main);
+            font-size: 0.84rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: rgba(244, 63, 94, 0.25);
+            color: #FFFFFF;
+            border-color: #F43F5E;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+        }
+
+        /* Interactive pointer & hover cues for buttons, links, icons & widgets */
+        .stat-card-icon,
+        .med-icon,
+        .badge-status,
+        .badge-live,
+        .badge-count,
+        .topbar-icon-btn,
+        .topbar-action-btn,
+        .dash-box-action,
+        .btn-action-primary,
+        .btn-action-secondary,
+        .pill-btn,
+        .patient-avatar,
+        .doctor-avatar,
+        .user-avatar-wrap,
+        .med-item,
+        .sidebar-logo,
+        .portal-switch-btn,
+        i[class*="ph-"],
+        i[class*="fa-"] {
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .stat-card-icon:hover,
+        .med-icon:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .badge-status:hover,
+        .badge-live:hover {
+            filter: brightness(1.25);
+            transform: translateY(-1px);
+        }
+
+        .patient-avatar:hover,
+        .doctor-avatar:hover,
+        .user-avatar-wrap:hover {
+            transform: scale(1.05);
+            border-color: var(--accent-lime);
+        }
+
+        /* ==========================================================================
+           2. MAIN DASHBOARD CONTENT AREA
+           ========================================================================== */
+        .dash-main {
+            margin-left: var(--sidebar-width);
+            flex: 1 1 auto;
+            width: calc(100% - var(--sidebar-width));
+            max-width: calc(100% - var(--sidebar-width));
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            overflow-x: clip;
+            box-sizing: border-box;
+        }
+
+        /* Dashboard Top Header (Fixed Sticky Across All Views) */
+        .dash-topbar {
+            height: 78px;
+            padding: 0 2.2rem;
+            background: rgba(0, 26, 16, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 950;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .sidebar-toggle-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #FFFFFF;
+            font-size: 1.3rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .topbar-greeting h2 {
+            font-family: var(--font-main);
+            font-size: 1.22rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .topbar-greeting span.badge-live {
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.18);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 0.2rem 0.55rem;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .badge-live .live-pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: liveDotPulse 1.5s infinite;
+        }
+
+        @keyframes liveDotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-shrink: 0;
+        }
+
+        .topbar-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #CBD5E1;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .topbar-icon-btn:hover {
+            background: rgba(195, 255, 77, 0.15);
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+        }
+
+        .topbar-icon-btn .badge-count {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 17px;
+            height: 17px;
+            background: #F43F5E;
+            color: #FFFFFF;
+            font-size: 0.65rem;
+            font-weight: 800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #00170e;
+        }
+
+        .topbar-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--accent-lime);
+            color: #002B1B;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(195, 255, 77, 0.25);
+            white-space: nowrap;
+        }
+
+        .topbar-action-btn:hover {
+            background: #d4ff70;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(195, 255, 77, 0.4);
+        }
+
+        .topbar-action-btn.secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #E2E8F0;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            box-shadow: none;
+        }
+
+        .topbar-action-btn.secondary:hover {
+            background: rgba(195, 255, 77, 0.12);
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+            box-shadow: 0 4px 14px rgba(195, 255, 77, 0.2);
+        }
+
+        /* ==========================================================================
+           3. DASHBOARD TAB VIEW CONTAINER & CARD COMPONENTS
+           ========================================================================== */
+        .dash-body {
+            padding: 2.2rem;
+            flex: 1 1 auto;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .dash-tab-panel {
+            display: none;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+        }
+
+        .dash-tab-panel.active {
+            display: block;
+            animation: fadeInPanel 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInPanel {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Common Section Header */
+        .section-header-wrap {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .section-header-wrap h3 {
+            font-family: var(--font-main);
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .section-header-wrap p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            word-break: break-word;
+        }
+
+        /* Common Stat Cards Grid */
+        .stat-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.4rem;
+            margin-bottom: 2.2rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .stat-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(195, 255, 77, 0.1);
+        }
+
+        .stat-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+        }
+
+        .stat-card-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .stat-card-icon.lime { background: rgba(195, 255, 77, 0.15); color: var(--accent-lime); }
+        .stat-card-icon.teal { background: rgba(16, 185, 129, 0.15); color: var(--accent-teal); }
+        .stat-card-icon.cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+        .stat-card-icon.rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+        .stat-card-icon.amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+        .stat-card-icon.purple { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); }
+
+        .stat-card-val {
+            font-family: var(--font-main);
+            font-size: 2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-bottom: 0.45rem;
+            word-break: break-word;
+        }
+
+        .stat-card-trend {
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .trend-up { color: #34D399; }
+        .trend-down { color: #F87171; }
+        .trend-neutral { color: #94A3B8; }
+
+        /* Multi-Column Layout Grids */
+        .dash-grid-2col {
+            display: grid;
+            grid-template-columns: 1.55fr 1.1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.2rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .dash-grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-bottom: 2.2rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .dash-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 1.75rem;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow: visible;
+            box-sizing: border-box;
+        }
+
+        .dash-box:hover {
+            border-color: rgba(195, 255, 77, 0.35);
+        }
+
+        .dash-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.4rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .dash-box-header h4 {
+            font-family: var(--font-main);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            word-break: break-word;
+        }
+
+        .dash-box-header h4 i {
+            color: var(--accent-lime);
+        }
+
+        .dash-box-action {
+            color: var(--accent-lime);
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: var(--transition);
+        }
+
+        .dash-box-action:hover {
+            text-decoration: underline;
+        }
+
+        /* Clinical & Admin Data Tables (Fully Responsive with Touch-Scroll & Custom Scrollbar) */
+        .dash-table-wrap,
+        .table-responsive {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            display: block !important;
+            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(195, 255, 77, 0.45) rgba(0, 20, 12, 0.6);
+            border-radius: 14px;
+            background: rgba(0, 18, 10, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 0.35rem 0.5rem;
+            margin-bottom: 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .dash-table-wrap::-webkit-scrollbar,
+        .table-responsive::-webkit-scrollbar {
+            height: 7px;
+        }
+
+        .dash-table-wrap::-webkit-scrollbar-track,
+        .table-responsive::-webkit-scrollbar-track {
+            background: rgba(0, 20, 12, 0.6);
+            border-radius: 10px;
+        }
+
+        .dash-table-wrap::-webkit-scrollbar-thumb,
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: rgba(195, 255, 77, 0.35);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 20, 12, 0.8);
+        }
+
+        .dash-table-wrap::-webkit-scrollbar-thumb:hover,
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: rgba(195, 255, 77, 0.75);
+        }
+
+        .dash-table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+        .dash-table th {
+            color: var(--text-dim);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+            padding: 0.95rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            white-space: nowrap;
+            background: rgba(0, 24, 15, 0.5);
+        }
+
+        .dash-table td {
+            padding: 0.95rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #CBD5E1;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .dash-table tr:hover td {
+            background: rgba(255, 255, 255, 0.025);
+            color: #FFFFFF;
+        }
+
+        .patient-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .patient-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .patient-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .badge-status.active { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-status.warning { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-status.danger { background: rgba(244, 63, 94, 0.15); color: #FB7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+        .badge-status.info { background: rgba(6, 182, 212, 0.15); color: #38BDF8; border: 1px solid rgba(6, 182, 212, 0.3); }
+
+        /* Physician, Director & Executive Cards */
+        .doctor-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .doctor-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .doctor-card:hover {
+            border-color: var(--accent-lime);
+            transform: translateY(-4px);
+        }
+
+        .doctor-card-top {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .doctor-card-photo {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1.5px solid var(--accent-lime);
+            flex-shrink: 0;
+        }
+
+        .doctor-card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .doctor-card-info h5 {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .doctor-card-info span {
+            font-size: 0.78rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+        }
+
+        .doctor-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 0.85rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .doctor-card-actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 0.2rem;
+        }
+
+        .doctor-card-actions a {
+            flex: 1;
+            padding: 0.45rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+        }
+
+        .btn-action-primary {
+            background: rgba(195, 255, 77, 0.15);
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            color: var(--accent-lime);
+        }
+
+        .btn-action-primary:hover {
+            background: var(--accent-lime);
+            color: #002B1B;
+        }
+
+        .btn-action-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #CBD5E1;
+        }
+
+        .btn-action-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+        }
+
+        /* Diagnostic Scan & Infrastructure Thumbnails */
+        .scan-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .scan-item {
+            background: rgba(0, 24, 15, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .scan-item:hover {
+            border-color: var(--accent-lime);
+            transform: translateY(-3px);
+        }
+
+        .scan-thumb {
+            height: 130px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .scan-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .scan-item:hover .scan-thumb img {
+            transform: scale(1.08);
+        }
+
+        .scan-info {
+            padding: 0.9rem;
+        }
+
+        .scan-info h5 {
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.2rem;
+        }
+
+        .scan-info p {
+            font-size: 0.74rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+        }
+
+        /* Integration & Security Item Lists */
+        .med-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.95rem 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            margin-bottom: 0.8rem;
+            transition: var(--transition);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .med-item:hover {
+            background: rgba(195, 255, 77, 0.06);
+            border-color: rgba(195, 255, 77, 0.25);
+        }
+
+        .med-item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            min-width: 0;
+        }
+
+        .med-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(195, 255, 77, 0.12);
+            color: var(--accent-lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .med-meta h5 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .med-meta span {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        canvas {
+            max-width: 100% !important;
+            height: auto;
+        }
+
+        /* ==========================================================================
+           4. RESPONSIVE DASHBOARD BREAKPOINTS & MOBILE DRAWER
+           ========================================================================== */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 15, 9, 0.82);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sidebar-backdrop.open {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @media (max-width: 1200px) {
+            .stat-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.1rem;
+            }
+            .dash-grid-2col {
+                grid-template-columns: 1fr;
+                gap: 1.4rem;
+            }
+            .dash-grid-3col, .doctor-card-grid, .scan-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 0px;
+            }
+            html, body {
+                width: 100%;
+                max-width: 100vw;
+                overflow-x: clip;
+            }
+            body {
+                display: block;
+            }
+            .dash-sidebar {
+                transform: translateX(-100%);
+                width: 290px;
+                z-index: 999;
+                box-shadow: none;
+            }
+            .dash-sidebar.open {
+                transform: translateX(0);
+                box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+            }
+            .sidebar-close-btn {
+                display: flex;
+            }
+            .dash-main {
+                margin-left: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                display: block;
+                overflow-x: clip;
+            }
+            .sidebar-toggle-btn {
+                display: flex;
+            }
+            .dash-topbar {
+                padding: 0 1.25rem;
+                height: 72px;
+                width: 100% !important;
+                max-width: 100% !important;
+                position: sticky;
+                top: 0;
+                z-index: 950;
+            }
+            .dash-body {
+                padding: 1.4rem 1.1rem;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                overflow-x: clip;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dash-body {
+                padding: 1.1rem 0.85rem;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .section-header-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.85rem;
+                margin-bottom: 1.35rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .section-header-wrap h3 {
+                font-size: 1.35rem;
+                line-height: 1.25;
+                word-break: break-word;
+            }
+            .section-header-wrap p {
+                font-size: 0.84rem;
+                line-height: 1.5;
+            }
+            .section-header-wrap .topbar-action-btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                padding: 0.65rem 1rem;
+                border-radius: 12px;
+            }
+            .stat-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.85rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .stat-card {
+                padding: 1.15rem 1rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .stat-card-val {
+                font-size: 1.6rem;
+            }
+            .stat-card-title {
+                font-size: 0.74rem;
+            }
+            .stat-card-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1.05rem;
+            }
+            .dash-grid-2col, .dash-grid-3col, .doctor-card-grid, .scan-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .dash-box {
+                padding: 1.25rem 1rem;
+                margin-bottom: 1.35rem;
+                width: 100%;
+                max-width: 100%;
+                border-radius: 16px;
+            }
+            .dash-box-header {
+                flex-wrap: wrap;
+                gap: 0.65rem;
+                margin-bottom: 1.1rem;
+                width: 100%;
+            }
+            .dash-box-header h4 {
+                font-size: 1rem;
+                word-break: break-word;
+                line-height: 1.3;
+            }
+            .dash-table-wrap,
+            .table-responsive {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                display: block !important;
+            }
+            .dash-table {
+                min-width: 680px;
+                width: 100%;
+            }
+            .topbar-greeting h2 {
+                font-size: 1.08rem;
+            }
+            .topbar-greeting span.badge-live {
+                display: none;
+            }
+            .dash-topbar .topbar-action-btn span {
+                display: none;
+            }
+            .dash-topbar .topbar-action-btn {
+                padding: 0.55rem 0.65rem;
+            }
+            .med-item {
+                flex-wrap: wrap;
+                gap: 0.65rem;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .stat-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 0.85rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .stat-card {
+                padding: 1.15rem 1rem;
+            }
+            .stat-card-val {
+                font-size: 1.75rem;
+            }
+            .dash-box-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.65rem;
+            }
+            .dash-box-header .topbar-action-btn,
+            .dash-box-header .badge-status,
+            .dash-box-header .dash-box-action {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dash-topbar {
+                padding: 0 0.85rem;
+                height: 64px;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .topbar-left {
+                gap: 0.6rem;
+                min-width: 0;
+            }
+            .topbar-right {
+                gap: 0.45rem;
+                flex-shrink: 0;
+            }
+            .topbar-icon-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .dash-topbar .topbar-action-btn {
+                height: 36px;
+                padding: 0 0.65rem;
+            }
+            .doctor-card-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            .doctor-card-actions a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dash-ambient-glow"></div>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- =========================================================================
+         1. SIDEBAR NAVIGATION (With Logo Redirect to userdashboard.html & Logout)
+         ========================================================================= -->
+    <aside class="dash-sidebar" id="dashSidebar">
+        
+        <!-- Sidebar Header with Logo Redirect to admindashboard.html -->
+        <div class="sidebar-header">
+            <a href="admindashboard.html" class="sidebar-logo" title="Pulse HealthTech Enterprise">
+                <img src="logo.webp" alt="Pulse HealthTech Enterprise Logo">
+                <span class="admin-badge">Admin HQ</span>
+            </a>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+                <i class="ph-bold ph-x"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation Menu (Enterprise Admin Modules) -->
+        <div class="sidebar-nav-container">
+            <div class="nav-section-title">Enterprise Operations</div>
+
+            <a href="#overviewTab" class="dash-nav-item active" data-tab="overviewTab">
+                <i class="ph-bold ph-buildings"></i>
+                <span>Hospital Operations Command</span>
+                <span class="nav-badge">Live</span>
+            </a>
+
+            <a href="#staffTab" class="dash-nav-item" data-tab="staffTab">
+                <i class="ph-bold ph-users-three"></i>
+                <span>Physicians &amp; Staff</span>
+                <span class="nav-badge">340 Active</span>
+            </a>
+
+            <div class="nav-section-title">Governance &amp; AI</div>
+
+            <a href="#aiGovernanceTab" class="dash-nav-item" data-tab="aiGovernanceTab">
+                <i class="ph-bold ph-brain"></i>
+                <span>AI Governance &amp; FDA</span>
+                <span class="nav-badge">24 Models</span>
+            </a>
+
+            <a href="#financeTab" class="dash-nav-item" data-tab="financeTab">
+                <i class="ph-bold ph-currency-dollar"></i>
+                <span>Revenue Cycle (RCM)</span>
+                <span class="nav-badge">$48.2M</span>
+            </a>
+
+        </div>
+
+        <!-- Sidebar Footer: Admin Profile & Terminate Session Logout -->
+        <div class="sidebar-footer">
+            <div class="user-profile-widget">
+                <div class="user-avatar-wrap">
+                    <img src="images/pexels-karola-g-7195369.webp" alt="Admin Director Photo">
+                    <span class="user-online-dot"></span>
+                </div>
+                <div class="user-meta">
+                    <h5 id="adminProfileName">Enterprise Admin</h5>
+                    <span id="adminProfileRole">Chief Medical Admin (HQ)</span>
+                </div>
+            </div>
+            <a href="login.html" class="logout-btn" id="logoutBtn" title="Sign out of Admin Session">
+                <i class="ph-bold ph-sign-out"></i>
+                <span>Terminate Session</span>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         2. MAIN DASHBOARD CONTENT (Top Bar & Tab Panels)
+         ========================================================================= -->
+    <main class="dash-main">
+        
+        <!-- Sticky Top Bar -->
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle navigation drawer">
+                    <i class="ph-bold ph-list"></i>
+                </button>
+                <div class="topbar-greeting">
+                    <h2>
+                        Enterprise HealthTech Admin 
+                        <span class="badge-live"><span class="live-pulse-dot"></span> 8 Facilities Connected</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <button class="topbar-icon-btn" title="Security & Audit Alerts">
+                    <i class="ph-bold ph-shield-warning"></i>
+                    <span class="badge-count">2</span>
+                </button>
+
+                <button class="topbar-icon-btn" title="Cloud Cluster Nodes Synced">
+                    <i class="ph-bold ph-cloud-check"></i>
+                </button>
+
+                <a href="404.html" class="topbar-action-btn">
+                    <i class="ph-bold ph-plus-circle"></i>
+                    <span>Add Staff / Deploy Model</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Dashboard Body with 6 Comprehensive Admin Modules (Min 5 Sections Each) -->
+        <div class="dash-body">
+
+            <!-- =================================================================
+                 MENU 1: ENTERPRISE COMMAND & HOSPITAL NETWORK CONTROL
+                 (5 Sections: Network KPIs, Bed Heatmap, Network Queue, Emergency Incident Dispatch, Medical Directors)
+                 ================================================================= -->
+            <div class="dash-tab-panel active" id="overviewTab">
+                
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>Hospital Network &amp; Facility Operations Command</h3>
+                        <p>Real-time enterprise metrics across St. Jude Pavilion, Mayo HealthTech Cluster, and Memorial Surgical Hub.</p>
+                    </div>
+                    <div>
+                        <span class="badge-status active"><i class="ph-fill ph-shield-check"></i> ISO 27001 &amp; HIPAA Certified</span>
+                    </div>
+                </div>
+
+                <!-- Section 1.1: Multi-Facility KPI Stat Cards -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Network Bed Capacity</span>
+                            <div class="stat-card-icon lime"><i class="ph-bold ph-bed"></i></div>
+                        </div>
+                        <div class="stat-card-val">1,420 / 1,500</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-arrow-up-right"></i> 94.6% Optimal Occupancy</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Daily Patient Inflow</span>
+                            <div class="stat-card-icon teal"><i class="ph-bold ph-users-four"></i></div>
+                        </div>
+                        <div class="stat-card-val">3,892</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-trend-up"></i> +12.4% vs Last Week</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">OR Surgical Utilization</span>
+                            <div class="stat-card-icon cyan"><i class="ph-bold ph-scissors"></i></div>
+                        </div>
+                        <div class="stat-card-val">88.4%</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-check-circle"></i> 48 Theatres Active</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Critical System Incidents</span>
+                            <div class="stat-card-icon rose"><i class="ph-bold ph-warning-octagon"></i></div>
+                        </div>
+                        <div class="stat-card-val">0</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-shield-check"></i> All Systems Nominal</div>
+                    </div>
+                </div>
+
+                <!-- Section 1.2: Hospital Network Bed & ICU Occupancy Heatmap Graph -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-line-up"></i> Multi-Facility ICU &amp; Inpatient Bed Demand Telemetry</h4>
+                            <span class="badge-status active">Live Streaming</span>
+                        </div>
+                        <div style="height: 280px; width: 100%; position: relative;">
+                            <canvas id="networkBedChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-hospital"></i> Regional Facility Capacity Distribution</h4>
+                            <a href="404.html" class="dash-box-action">View Map <i class="ph-bold ph-arrow-right"></i></a>
+                        </div>
+                        <div style="height: 280px; width: 100%; display: flex; align-items: center; justify-content: center; position: relative;">
+                            <canvas id="facilityDistChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 1.3: Realtime Hospital Operations & Facility Queue Table -->
+                <div class="dash-box" style="margin-bottom: 2.2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-buildings"></i> Multi-Hospital Network Health &amp; Triage Status</h4>
+                        <span class="badge-status info">8 Facilities Online</span>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Hospital Campus</th>
+                                    <th>Region</th>
+                                    <th>ICU Status</th>
+                                    <th>ER Wait Time</th>
+                                    <th>On-Duty Specialists</th>
+                                    <th>EHR Cloud Sync</th>
+                                    <th>Administrative Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>St. Jude Health Pavilion</strong> (HQ)</td>
+                                    <td>Metro Central</td>
+                                    <td><span class="badge-status active">92% (14 Beds Free)</span></td>
+                                    <td>8 mins</td>
+                                    <td>112 Physicians</td>
+                                    <td><span class="badge-status active">Synced (10ms)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-sliders"></i> Manage</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Memorial Surgical Institute</strong></td>
+                                    <td>North Campus</td>
+                                    <td><span class="badge-status active">86% (22 Beds Free)</span></td>
+                                    <td>14 mins</td>
+                                    <td>84 Physicians</td>
+                                    <td><span class="badge-status active">Synced (12ms)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-sliders"></i> Manage</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mayo HealthTech Oncology Wing</strong></td>
+                                    <td>West Medical Park</td>
+                                    <td><span class="badge-status warning">98% (2 Beds Free)</span></td>
+                                    <td>22 mins</td>
+                                    <td>65 Specialists</td>
+                                    <td><span class="badge-status active">Synced (8ms)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-sliders"></i> Manage</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Children’s Specialty &amp; Trauma Hub</strong></td>
+                                    <td>South District</td>
+                                    <td><span class="badge-status active">78% (35 Beds Free)</span></td>
+                                    <td>6 mins</td>
+                                    <td>79 Specialists</td>
+                                    <td><span class="badge-status active">Synced (14ms)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-sliders"></i> Manage</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section 1.4: Critical Triage & Administrative Emergency Incident Dispatch -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-siren"></i> Real-Time Emergency Ambulance &amp; Trauma Inflow</h4>
+                            <span class="badge-status danger">4 En Route</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div class="med-item">
+                                <div class="med-item-left">
+                                    <div class="med-icon" style="background: rgba(244, 63, 94, 0.15); color: #F43F5E;"><i class="ph-bold ph-ambulance"></i></div>
+                                    <div class="med-meta">
+                                        <h5>Unit MED-04 (Severe STEMI)</h5>
+                                        <span>ETA: 4 mins &bull; Bay 2 Prep &bull; Cath Lab Alerted</span>
+                                    </div>
+                                </div>
+                                <span class="badge-status danger">Priority 1</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left">
+                                    <div class="med-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;"><i class="ph-bold ph-helicopter"></i></div>
+                                    <div class="med-meta">
+                                        <h5>AirEvac Heli-09 (Polytrauma)</h5>
+                                        <span>ETA: 9 mins &bull; Helipad A &bull; Trauma Team Red</span>
+                                    </div>
+                                </div>
+                                <span class="badge-status warning">Priority 2</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left">
+                                    <div class="med-icon" style="background: rgba(16, 185, 129, 0.15); color: #10B981;"><i class="ph-bold ph-first-aid"></i></div>
+                                    <div class="med-meta">
+                                        <h5>Unit MED-12 (Acute Stroke NLP Triaged)</h5>
+                                        <span>ETA: 14 mins &bull; CT Scanner 3 Reserved</span>
+                                    </div>
+                                </div>
+                                <span class="badge-status active">Priority 2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-hard-drives"></i> Automated Hospital Supply &amp; Blood Bank Status</h4>
+                            <span class="badge-status active">Optimal Reserves</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-drop"></i></div><div class="med-meta"><h5>O-Negative Packed RBCs</h5><span>240 Units in Central Cryo-Vault &bull; 98% Buffer</span></div></div>
+                                <span class="badge-status active">Stocked</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-wind"></i></div><div class="med-meta"><h5>Liquid Medical Oxygen (LOX)</h5><span>12,000 Liters &bull; 99.4% Bulk Pressure</span></div></div>
+                                <span class="badge-status active">Full</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-pill"></i></div><div class="med-meta"><h5>Critical ICU Vasopressors &amp; Anesthetics</h5><span>Robotic Dispenser Ward 4B &bull; 4,200 Vials</span></div></div>
+                                <span class="badge-status active">Stocked</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 1.5: On-Duty Medical Directors & Department Chiefs -->
+                <div style="margin-top: 1rem;">
+                    <h4 style="font-family: var(--font-main); font-size: 1.15rem; color: #fff; margin-bottom: 1.2rem;"><i class="ph-bold ph-user-gear" style="color: var(--accent-lime);"></i> Presiding Clinical Department Directors</h4>
+                    <div class="doctor-card-grid">
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/pexels-karola-g-7195369.webp" alt="Dr. Robert Vance"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Dr. Robert Vance, MD, FACC</h5>
+                                    <span>Chief Medical Officer &bull; Exec Board</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-shield-check"></i> Super-Admin Clearance</span>
+                                <span class="badge-status active">On Duty</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Comms</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-file-text"></i> Audit Dossier</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Dr. Sarah Mitchell, MD</h5>
+                                    <span>Head of Cardiovascular Surgery</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-clock"></i> In Theatre OR-4</span>
+                                <span class="badge-status active">In Surgery</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Page Theatre</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-file-text"></i> OR Schedule</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Dr. Elena Rostova"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Dr. Elena Rostova, PhD</h5>
+                                    <span>Director of Genomics &amp; Precision Med</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-dna"></i> Lab Wing B</span>
+                                <span class="badge-status info">Sequencing</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Comms</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-file-text"></i> Lab Pipeline</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- MODULE 2: PHYSICIANS, SURGEONS & STAFF CREDENTIALING (#staffTab)          -->
+            <!-- ========================================================================= -->
+            <div id="staffTab" class="dash-tab-panel">
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>Physicians, Clinical Staff &amp; Credentialing Governance</h3>
+                        <p>Real-time staffing rosters, provider utilization, active shift assignments, and board verification audits.</p>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; align-items: center;">
+                        <span class="badge-status active"><i class="ph-bold ph-check-circle"></i> 1,482 Staff Synchronized</span>
+                        <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-user-plus"></i> Onboard Provider</a>
+                    </div>
+                </div>
+
+                <!-- Section 2.1: Staff KPIs -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Total Active Clinicians</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-stethoscope"></i></div>
+                        </div>
+                        <div class="stat-card-value">1,482</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                            <span>+48 this quarter (99.4% Board Certified)</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">On-Duty Shift Roster</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-user-check"></i></div>
+                        </div>
+                        <div class="stat-card-value">428</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-shield-check"></i>
+                            <span>100% Minimum ICU staffing satisfied</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Credentialing Audits Due</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-certificate"></i></div>
+                        </div>
+                        <div class="stat-card-value">14</div>
+                        <div class="stat-card-trend trend-down">
+                            <i class="ph-bold ph-clock-countdown"></i>
+                            <span>Renewal within 30 days &bull; Auto-flagged</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Avg Staff Burnout Index</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-heartbeat"></i></div>
+                        </div>
+                        <div class="stat-card-value">18.2%</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-arrow-down-right"></i>
+                            <span>-4.6% reduction via Ambient AI scribing</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2.2: Staff Workload & Shift Burnout Telemetry Chart -->
+                <div class="dash-box">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-chart-bar"></i> Clinician Workload, Overtime &amp; Scribe Efficiency Analysis</h4>
+                        <span class="badge-status active"><i class="ph-bold ph-sparkle"></i> Ambient AI Active</span>
+                    </div>
+                    <div class="chart-container-wrap">
+                        <canvas id="staffWorkloadChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Section 2.3: Presiding Department Chairs & Lead Specialists -->
+                <div style="margin-top: 2rem;">
+                    <div class="dash-box-header" style="margin-bottom: 1.2rem;">
+                        <h4><i class="ph-bold ph-users-three"></i> Presiding Department Heads &amp; Chief Attending Specialists</h4>
+                        <a href="404.html" class="topbar-action-btn" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;"><i class="ph-bold ph-magnifying-glass"></i> Search Staff Directory</a>
+                    </div>
+                    <div class="doctor-card-grid">
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/vitaly-gariev-X_tBkG0U9yM-unsplash.webp" alt="Dr. Marcus Vance"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Dr. Marcus Vance, MD, FACC</h5>
+                                    <span>Chair of Interventional Cardiology</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-hospital"></i> Metro General &bull; Dept ID: CD-101</span>
+                                <span class="badge-status active">In Clinic</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Dispatch</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-identification-card"></i> Verify DEA/NPI</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Alisha Thorne"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Dr. Alisha Thorne, MD, PhD</h5>
+                                    <span>Director of Neuro-Oncology &amp; Radiosurgery</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-brain"></i> East Coast Neuro Institute</span>
+                                <span class="badge-status active">OR Scheduled</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Dispatch</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-identification-card"></i> Verify DEA/NPI</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/tom-claes-Z-fSqssuFq8-unsplash.webp" alt="Dr. Jonathan Hughes"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Dr. Jonathan Hughes, MD, FCCM</h5>
+                                    <span>Chief of Critical Care &amp; Resuscitation</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-heart-straight"></i> Central ICU Hub</span>
+                                <span class="badge-status danger">Trauma Code</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Dispatch</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-identification-card"></i> Verify DEA/NPI</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2.4: Medical Licensure, NPI & Board Certification Audit Table -->
+                <div class="dash-box" style="margin-top: 2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-certificate"></i> Enterprise Licensure, DEA Verification &amp; Malpractice Audit</h4>
+                        <a href="404.html" class="topbar-action-btn" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;"><i class="ph-bold ph-download-simple"></i> Export Audit Sheet</a>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Practitioner Name</th>
+                                    <th>NPI Identifier</th>
+                                    <th>Primary Specialization</th>
+                                    <th>State Board License</th>
+                                    <th>DEA Registration</th>
+                                    <th>Compliance Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Dr. Marcus Vance, MD</strong></td>
+                                    <td><code>1942083921</code></td>
+                                    <td>Interventional Cardiology</td>
+                                    <td>NY-MD-849204 (Exp: 2028)</td>
+                                    <td><span class="badge-status active">Active Level 2-5</span></td>
+                                    <td><span class="badge-status active">100% Compliant</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-file-text"></i> Audit File</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dr. Alisha Thorne, MD</strong></td>
+                                    <td><code>1083920194</code></td>
+                                    <td>Neurological Surgery</td>
+                                    <td>MA-MD-291039 (Exp: 2027)</td>
+                                    <td><span class="badge-status active">Active Level 2-5</span></td>
+                                    <td><span class="badge-status active">100% Compliant</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-file-text"></i> Audit File</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dr. Jonathan Hughes, MD</strong></td>
+                                    <td><code>1392019482</code></td>
+                                    <td>Critical Care / Pulmonology</td>
+                                    <td>CA-MD-904820 (Exp: Nov 2026)</td>
+                                    <td><span class="badge-status warning">Renewal In Review</span></td>
+                                    <td><span class="badge-status warning">Audit Flag</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-file-text"></i> Audit File</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dr. Claire Dupont, DO</strong></td>
+                                    <td><code>1772940182</code></td>
+                                    <td>Emergency Medicine / Trauma</td>
+                                    <td>IL-MD-402918 (Exp: 2028)</td>
+                                    <td><span class="badge-status active">Active Level 2-5</span></td>
+                                    <td><span class="badge-status active">100% Compliant</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-file-text"></i> Audit File</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section 2.5: Active On-Call Escalation Matrix & Physician Shift Roster -->
+                <div class="dash-grid-2col" style="margin-top: 2rem;">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-phone-call"></i> 24/7 Level-1 Trauma &amp; Surgical On-Call Roster</h4>
+                            <span class="badge-status active">Shift Active (Night 2)</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon" style="background: rgba(244,63,94,0.15); color: #F43F5E;"><i class="ph-bold ph-heart"></i></div><div class="med-meta"><h5>Cardiothoracic Surgery</h5><span>Primary: Dr. Mitchell &bull; Secondary: Dr. Vance &bull; Beeper #901</span></div></div>
+                                <span class="badge-status active">Standby</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon" style="background: rgba(139,92,246,0.15); color: #8B5CF6;"><i class="ph-bold ph-brain"></i></div><div class="med-meta"><h5>Acute Neurosurgery</h5><span>Primary: Dr. Thorne &bull; Secondary: Dr. Patel &bull; Beeper #904</span></div></div>
+                                <span class="badge-status active">Standby</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon" style="background: rgba(245,158,11,0.15); color: #F59E0B;"><i class="ph-bold ph-baby"></i></div><div class="med-meta"><h5>Neonatal Intensive Care (NICU)</h5><span>Primary: Dr. Jenkins &bull; Secondary: Dr. Lee &bull; Beeper #912</span></div></div>
+                                <span class="badge-status active">Standby</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-sparkle"></i> Ambient AI Scribe Clinical Adoption &amp; Time Saved</h4>
+                            <span class="badge-status info">3,420 Hrs Saved/Mo</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-microphone"></i></div><div class="med-meta"><h5>Inpatient EHR Auto-Documentation</h5><span>98.6% provider acceptance rate without manual rewrite</span></div></div>
+                                <span class="badge-status active">98.6%</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-clock"></i></div><div class="med-meta"><h5>Average Note Sign-Off Latency</h5><span>Reduced from 42 mins to 3.8 mins per consultation</span></div></div>
+                                <span class="badge-status active">-91% Time</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-files"></i></div><div class="med-meta"><h5>SNOMED-CT / ICD-10 Coding Accuracy</h5><span>Real-time semantic tagging with 99.8% FDA compliance</span></div></div>
+                                <span class="badge-status active">99.8%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- MODULE 3: CLINICAL AI GOVERNANCE & FDA SaMD SURVEILLANCE (#aiGovernanceTab)-->
+            <!-- ========================================================================= -->
+            <div id="aiGovernanceTab" class="dash-tab-panel">
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>Clinical AI Governance, FDA SaMD &amp; Model Drift Registry</h3>
+                        <p>Enterprise oversight for deep learning diagnostic models, explainability metrics, FDA 510(k) clearances, and bias telemetry.</p>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; align-items: center;">
+                        <span class="badge-status active"><i class="ph-bold ph-shield-check"></i> FDA 510(k) Cleared Mesh</span>
+                        <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-cpu"></i> Deploy New Model</a>
+                    </div>
+                </div>
+
+                <!-- Section 3.1: AI Governance KPIs -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Production SaMD Models</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-cpu"></i></div>
+                        </div>
+                        <div class="stat-card-value">28</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-check"></i>
+                            <span>100% Validated with SHAP/LIME Explainability</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Daily AI Inferences</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-lightning"></i></div>
+                        </div>
+                        <div class="stat-card-value">1.42M</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                            <span>+14.2% daily throughput &bull; 18ms p99</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Overall Diagnostic AUROC</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-target"></i></div>
+                        </div>
+                        <div class="stat-card-value">0.994</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-shield-check"></i>
+                            <span>Multi-hospital benchmark calibrated</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Physician Override Ratio</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-user-switch"></i></div>
+                        </div>
+                        <div class="stat-card-value">0.31%</div>
+                        <div class="stat-card-trend trend-down">
+                            <i class="ph-bold ph-info"></i>
+                            <span>Within ISO-13485 clinical safety tolerance</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3.2: AI Diagnostic Precision & Inference Volume Telemetry Charts -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-line-up"></i> Real-Time AI Inference Throughput &amp; Cloud Latency</h4>
+                            <span class="badge-status active">18ms Average</span>
+                        </div>
+                        <div class="chart-container-wrap">
+                            <canvas id="aiInferenceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-radar"></i> Diagnostic Precision Radar (AUROC, Sensitivity &amp; F1-Score)</h4>
+                            <span class="badge-status active">Calibration Passed</span>
+                        </div>
+                        <div class="chart-container-wrap">
+                            <canvas id="aiPrecisionRadar"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3.3: FDA Registered SaMD Models & Drift Registry -->
+                <div class="dash-box" style="margin-top: 2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-tree-structure"></i> Clinical AI Model Registry, FDA Class &amp; Real-World Drift Status</h4>
+                        <a href="404.html" class="topbar-action-btn" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;"><i class="ph-bold ph-sliders-horizontal"></i> Audit Weights</a>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Model Name &amp; Version</th>
+                                    <th>Target Modality</th>
+                                    <th>FDA Clearance / Class</th>
+                                    <th>Inference Latency</th>
+                                    <th>AUROC Score</th>
+                                    <th>Drift Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>NeuroPulse StrokeCAD v4.2</strong></td>
+                                    <td>Non-contrast Head CT / MRI</td>
+                                    <td><span class="badge-status active">FDA Class II (K220491)</span></td>
+                                    <td>14ms</td>
+                                    <td><code>0.998</code></td>
+                                    <td><span class="badge-status active">Stable (0.01% drift)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> Telemetry</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CardioSight STEMI EarlyWarning v3.8</strong></td>
+                                    <td>12-Lead Continuous ECG Mesh</td>
+                                    <td><span class="badge-status active">FDA Class II (K219382)</span></td>
+                                    <td>9ms</td>
+                                    <td><code>0.995</code></td>
+                                    <td><span class="badge-status active">Stable (0.02% drift)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> Telemetry</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>OncoScan Multi-Organ CADx v5.0</strong></td>
+                                    <td>3D Helical CT / PET Scans</td>
+                                    <td><span class="badge-status active">FDA Breakthrough SaMD</span></td>
+                                    <td>32ms</td>
+                                    <td><code>0.991</code></td>
+                                    <td><span class="badge-status active">Stable (0.03% drift)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> Telemetry</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SepsisPredict Early Deterioration v2.9</strong></td>
+                                    <td>EHR Vitals + Lab Bio-Markers</td>
+                                    <td><span class="badge-status info">Clinical SaMD (CE/MDR)</span></td>
+                                    <td>11ms</td>
+                                    <td><code>0.989</code></td>
+                                    <td><span class="badge-status warning">Minor Recalibration</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> Telemetry</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section 3.4: Deep Learning PACS QC & Medical Vision Feeds -->
+                <div style="margin-top: 2rem;">
+                    <div class="dash-box-header" style="margin-bottom: 1.2rem;">
+                        <h4><i class="ph-bold ph-scan"></i> Real-Time DICOM / PACS Computer Vision Ingestion Feeds</h4>
+                        <span class="badge-status active"><i class="ph-bold ph-broadcast"></i> 100% Ingestion Pipeline Active</span>
+                    </div>
+                    <div class="doctor-card-grid">
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp" alt="PACS Ingestion"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Neuro CT Scan AI Segmentation</h5>
+                                    <span>Stream: Node PACS-Alpha &bull; 100 slices/s</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-cpu"></i> Zero Motion Artifacts</span>
+                                <span class="badge-status active">Segmented</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-eye"></i> View Heatmap</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-download-simple"></i> Export DICOM</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Genomics Pipeline"></div>
+                                <div class="doctor-card-info">
+                                    <h5>CRISPR &amp; Variant Calling AI Engine</h5>
+                                    <span>Stream: HiSeq-X10 &bull; 800 Gbps Bandwidth</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-dna"></i> 99.999% Q-Score</span>
+                                <span class="badge-status active">Processing</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-eye"></i> View Variant Map</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-download-simple"></i> Pipeline Log</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/vitaly-gariev-2kopEHjST-g-unsplash.webp" alt="ICU Telemetry Waveforms"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Waveform Transformer Neural Network</h5>
+                                    <span>Stream: 420 ICU Bedside Monitors</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-waveform"></i> 10,000 Samples/sec</span>
+                                <span class="badge-status active">Synced</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-eye"></i> Waveform Stream</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-sliders"></i> Adjust Alarms</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3.5: Explainability, Clinician Overrides & Safety Auditing -->
+                <div class="dash-box" style="margin-top: 2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-hand-palm"></i> Human-in-the-Loop Diagnostic Overrides &amp; Safety Discrepancies</h4>
+                        <span class="badge-status info">Zero Safety Adverse Events Reported</span>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Audit Event ID</th>
+                                    <th>Clinical System</th>
+                                    <th>AI Suggestion</th>
+                                    <th>Attending Physician Action</th>
+                                    <th>Clinical Rationale</th>
+                                    <th>Safety Review Outcome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>#OVR-84910</code></td>
+                                    <td>OncoScan Lung Nodule CADx</td>
+                                    <td>Solid Nodule (Likelihood 68%)</td>
+                                    <td><span class="badge-status warning">Overridden (Benign Granuloma)</span></td>
+                                    <td>Histopathology verified non-malignant calcification</td>
+                                    <td><span class="badge-status active">Model Weights Updated</span></td>
+                                </tr>
+                                <tr>
+                                    <td><code>#OVR-84904</code></td>
+                                    <td>CardioSight Arrhythmia AI</td>
+                                    <td>Ventricular Bigeminy</td>
+                                    <td><span class="badge-status warning">Overridden (Motion Artifact)</span></td>
+                                    <td>Lead V2 detachment caused transient baseline wandering</td>
+                                    <td><span class="badge-status active">Artifact Filter Tuned</span></td>
+                                </tr>
+                                <tr>
+                                    <td><code>#OVR-84882</code></td>
+                                    <td>SepsisPredict v2.9</td>
+                                    <td>Immediate Fluid Bolus Alert</td>
+                                    <td><span class="badge-status warning">Overridden (CHF Fluid Restrict)</span></td>
+                                    <td>End-stage cardiomyopathy contraindicated volume bolus</td>
+                                    <td><span class="badge-status active">Rule Logic Refined</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================================================= -->
+            <!-- MODULE 4: REVENUE CYCLE RCM & PAYER CONTRACTS (#financeTab)               -->
+            <!-- ========================================================================= -->
+            <div id="financeTab" class="dash-tab-panel">
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>Revenue Cycle Management (RCM) &amp; Payer Governance</h3>
+                        <p>Real-time analytics for claims reconciliation, prior-authorization automation, denial reduction, and value-based care contracts.</p>
+                    </div>
+                    <div style="display: flex; gap: 0.75rem; align-items: center;">
+                        <span class="badge-status active"><i class="ph-bold ph-currency-dollar"></i> $42.8M Reconciled MTD</span>
+                        <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-receipt"></i> Process Batch Billing</a>
+                    </div>
+                </div>
+
+                <!-- Section 4.1: Financial KPIs -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Gross Billed Charges (MTD)</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-coins"></i></div>
+                        </div>
+                        <div class="stat-card-value">$42.8M</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-arrow-up-right"></i>
+                            <span>+8.4% vs prior month ($39.5M)</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Clean Claim Pass Rate</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-check-square-offset"></i></div>
+                        </div>
+                        <div class="stat-card-value">98.4%</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-shield-check"></i>
+                            <span>AI automated scrub &bull; Target &gt;95%</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Average Days in A/R</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-calendar-blank"></i></div>
+                        </div>
+                        <div class="stat-card-value">24.2 Days</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-arrow-down-right"></i>
+                            <span>Reduced by 11.5 days via smart claims</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Value-Based Quality Inflow</span>
+                            <div class="stat-card-icon"><i class="ph-bold ph-trophy"></i></div>
+                        </div>
+                        <div class="stat-card-value">$6.12M</div>
+                        <div class="stat-card-trend trend-up">
+                            <i class="ph-bold ph-star"></i>
+                            <span>Tier-1 CMS Merit Incentive bonus</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4.2: Revenue Cycle & Payer Distribution Charts -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-line"></i> Monthly Hospital Revenue &amp; Clean Claims Volume</h4>
+                            <span class="badge-status active">Q3 Fiscal Audit</span>
+                        </div>
+                        <div class="chart-container-wrap">
+                            <canvas id="financeRevenueChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-pie-slice"></i> Enterprise Payer Mix Distribution</h4>
+                            <span class="badge-status active">4 Major Insurers</span>
+                        </div>
+                        <div class="chart-container-wrap">
+                            <canvas id="payerMixChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4.3: High-Value Inpatient Claims & Prior-Auth AI Table -->
+                <div class="dash-box" style="margin-top: 2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-files"></i> High-Value Inpatient Clinical Claims &amp; Automated Prior-Auth Status</h4>
+                        <a href="404.html" class="topbar-action-btn" style="font-size: 0.8rem; padding: 0.4rem 0.9rem;"><i class="ph-bold ph-funnel"></i> Filter Payer Denial Flags</a>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Claim Tracking #</th>
+                                    <th>Patient MRN</th>
+                                    <th>Primary Insurer</th>
+                                    <th>Procedure &amp; DRG Code</th>
+                                    <th>Billed Amount</th>
+                                    <th>Prior-Auth AI Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>#CLM-90421</code></td>
+                                    <td><code>#MRN-849102</code></td>
+                                    <td>BlueCross BlueShield</td>
+                                    <td>DRG-216: Coronary Artery Bypass Graft</td>
+                                    <td><strong>$128,450.00</strong></td>
+                                    <td><span class="badge-status active">AI Pre-Approved (Instant)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> View EOB</a></td>
+                                </tr>
+                                <tr>
+                                    <td><code>#CLM-90418</code></td>
+                                    <td><code>#MRN-301948</code></td>
+                                    <td>Medicare Part A/B</td>
+                                    <td>DRG-470: Major Joint Replacement</td>
+                                    <td><strong>$46,200.00</strong></td>
+                                    <td><span class="badge-status active">Clean Claim Transmitted</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> View EOB</a></td>
+                                </tr>
+                                <tr>
+                                    <td><code>#CLM-90409</code></td>
+                                    <td><code>#MRN-492019</code></td>
+                                    <td>UnitedHealthcare</td>
+                                    <td>DRG-025: Craniotomy &amp; Endovascular</td>
+                                    <td><strong>$194,800.00</strong></td>
+                                    <td><span class="badge-status warning">Payer Review (Medical Necessity)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-paper-plane-tilt"></i> Resubmit Appeal</a></td>
+                                </tr>
+                                <tr>
+                                    <td><code>#CLM-90392</code></td>
+                                    <td><code>#MRN-784920</code></td>
+                                    <td>Aetna Health Choice</td>
+                                    <td>DRG-871: Severe Sepsis w/ Intubation</td>
+                                    <td><strong>$82,300.00</strong></td>
+                                    <td><span class="badge-status active">Adjudicated &bull; Paid 100%</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.35rem 0.8rem; font-size: 0.78rem;"><i class="ph-bold ph-eye"></i> View EOB</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Section 4.4: Executive Financial Officers Directory -->
+                <div style="margin-top: 2rem;">
+                    <div class="dash-box-header" style="margin-bottom: 1.2rem;">
+                        <h4><i class="ph-bold ph-users"></i> Executive Financial &amp; Managed Care Directors</h4>
+                        <span class="badge-status active"><i class="ph-bold ph-shield-check"></i> Audit Clearance Active</span>
+                    </div>
+                    <div class="doctor-card-grid">
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/pexels-ivan-s-4989172.webp" alt="David Sterling"></div>
+                                <div class="doctor-card-info">
+                                    <h5>David Sterling, CPA, MBA</h5>
+                                    <span>Chief Financial Officer (CFO)</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-bank"></i> Executive Finance Suite</span>
+                                <span class="badge-status active">Active</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Line</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-file-text"></i> Financial Dossier</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Rachel Morgan"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Rachel Morgan, FHFMA</h5>
+                                    <span>VP of Managed Care &amp; Payer Relations</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-handshake"></i> Payer Contracting Unit</span>
+                                <span class="badge-status active">Negotiation</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Line</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-file-text"></i> Fee Schedule</a>
+                            </div>
+                        </div>
+
+                        <div class="doctor-card">
+                            <div class="doctor-card-top">
+                                <div class="doctor-card-photo"><img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="Arthur Pendelton"></div>
+                                <div class="doctor-card-info">
+                                    <h5>Arthur Pendelton, CHFP</h5>
+                                    <span>Director of RCM &amp; Denial Appeals</span>
+                                </div>
+                            </div>
+                            <div class="doctor-card-footer">
+                                <span><i class="ph-bold ph-scales"></i> Revenue Integrity Lab</span>
+                                <span class="badge-status active">Scrubbing</span>
+                            </div>
+                            <div class="doctor-card-actions">
+                                <a href="404.html" class="btn-action-primary"><i class="ph-bold ph-chats-circle"></i> Direct Line</a>
+                                <a href="404.html" class="btn-action-secondary"><i class="ph-bold ph-file-text"></i> Denial Metrics</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4.5: Merchant Gateways & CMS QPP Merit Incentives -->
+                <div class="dash-grid-2col" style="margin-top: 2rem;">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-credit-card"></i> Healthcare Payment Gateways &amp; Co-Pay Settlement</h4>
+                            <span class="badge-status active">PCI-DSS Level 1</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-device-mobile"></i></div><div class="med-meta"><h5>Patient Portal ApplePay &amp; Card Gateway</h5><span>$382,400 settled today &bull; 0.00% fraud rate</span></div></div>
+                                <span class="badge-status active">Operational</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-arrows-clockwise"></i></div><div class="med-meta"><h5>Automated HSA/FSA Eligibility Verification</h5><span>Real-time EDI 270/271 checking active</span></div></div>
+                                <span class="badge-status active">Synced</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-medal"></i> CMS Quality Payment Program (QPP / MIPS)</h4>
+                            <span class="badge-status active">99.2 Points (Exceptional)</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon" style="background: rgba(16,185,129,0.15); color: #10B981;"><i class="ph-bold ph-star-four"></i></div><div class="med-meta"><h5>Promoting Interoperability Category</h5><span>100/100 Points achieved via HL7 FHIR API deployment</span></div></div>
+                                <span class="badge-status active">Max Score</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon" style="background: rgba(195,255,77,0.15); color: var(--accent-lime);"><i class="ph-bold ph-trend-up"></i></div><div class="med-meta"><h5>Cost &amp; Improvement Activities</h5><span>Top 1% nationally for Medicare cost optimization</span></div></div>
+                                <span class="badge-status active">Top 1%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </main>
+
+    <!-- Scripts & Telemetry Automation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // -------------------------------------------------------------
+            // 0. Render Logged-in User Information
+            // -------------------------------------------------------------
+            const storedName = localStorage.getItem('pulse_logged_in_name');
+            const storedEmail = localStorage.getItem('pulse_logged_in_email');
+            const storedRole = localStorage.getItem('pulse_logged_in_role');
+            const adminNameEl = document.getElementById('adminProfileName');
+            const adminRoleEl = document.getElementById('adminProfileRole');
+
+            if (adminNameEl) {
+                if (storedName) {
+                    adminNameEl.textContent = storedName;
+                } else if (storedEmail) {
+                    let emailPrefix = storedEmail.split('@')[0];
+                    let formatted = emailPrefix.replace(/[._-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).trim();
+                    adminNameEl.textContent = formatted;
+                }
+            }
+            if (adminRoleEl && storedRole) {
+                adminRoleEl.textContent = `${storedRole} Director (HQ)`;
+            }
+
+            // -------------------------------------------------------------
+            // 1. Mobile Drawer Navigation & Backdrop Logic
+            // -------------------------------------------------------------
+            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn') || document.getElementById('mobileMenuToggle');
+            const sidebar = document.getElementById('dashSidebar');
+            const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+            const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+
+            function openSidebar() {
+                if (sidebar) sidebar.classList.add('open');
+                if (sidebarBackdrop) sidebarBackdrop.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSidebar() {
+                if (sidebar) sidebar.classList.remove('open');
+                if (sidebarBackdrop) sidebarBackdrop.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            function toggleSidebar() {
+                if (sidebar && sidebar.classList.contains('open')) {
+                    closeSidebar();
+                } else {
+                    openSidebar();
+                }
+            }
+
+            if (sidebarToggleBtn) {
+                sidebarToggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSidebar();
+                });
+            }
+
+            if (sidebarCloseBtn) {
+                sidebarCloseBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            if (sidebarBackdrop) {
+                sidebarBackdrop.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeSidebar();
+                });
+            }
+
+            // -------------------------------------------------------------
+            // 2. Tab Navigation & State Preservation (sessionStorage + hash)
+            // -------------------------------------------------------------
+            const navLinks = document.querySelectorAll('.dash-nav-item[data-tab]');
+            const tabPanels = document.querySelectorAll('.dash-tab-panel');
+
+            function switchTab(targetTabId, pushHash = true) {
+                if (!targetTabId) return;
+
+                // Deactivate all nav links
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-tab') === targetTabId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // Switch panels
+                tabPanels.forEach(panel => {
+                    if (panel.id === targetTabId) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+
+                // Persist state
+                sessionStorage.setItem('activeAdminDashboardTab', targetTabId);
+                if (pushHash) {
+                    history.replaceState(null, null, '#' + targetTabId);
+                }
+
+                // Trigger chart resizing for responsive canvas in newly revealed tabs
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 100);
+
+                // Close sidebar on mobile
+                if (window.innerWidth <= 992) {
+                    closeSidebar();
+                }
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetTabId = this.getAttribute('data-tab');
+                    switchTab(targetTabId, true);
+                });
+            });
+
+            // Restore tab from Hash or SessionStorage
+            function restoreAdminState() {
+                let currentTab = 'overviewTab';
+                if (window.location.hash) {
+                    const hashTab = window.location.hash.substring(1);
+                    if (document.getElementById(hashTab)) {
+                        currentTab = hashTab;
+                    }
+                } else {
+                    const savedTab = sessionStorage.getItem('activeAdminDashboardTab');
+                    if (savedTab && document.getElementById(savedTab)) {
+                        currentTab = savedTab;
+                    }
+                }
+                switchTab(currentTab, false);
+
+                const savedScrollY = sessionStorage.getItem('adminDashboardScrollY');
+                if (savedScrollY !== null) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: parseInt(savedScrollY, 10),
+                            behavior: 'smooth'
+                        });
+                        sessionStorage.removeItem('adminDashboardScrollY');
+                    }, 150);
+                }
+            }
+
+            restoreAdminState();
+
+            window.addEventListener('pageshow', function() {
+                restoreAdminState();
+            });
+
+            window.addEventListener('hashchange', function() {
+                const hashTab = window.location.hash ? window.location.hash.substring(1) : null;
+                if (hashTab && document.getElementById(hashTab)) {
+                    switchTab(hashTab, false);
+                }
+            });
+
+            // -------------------------------------------------------------
+            // 4. Redirect ALL Buttons, Text Links & Icons to 404 Page
+            // -------------------------------------------------------------
+            document.addEventListener('click', function(e) {
+                // Check if target is or is within a button, link, icon, badge, avatar, or interactive action widget
+                const interactiveTarget = e.target.closest(
+                    'a, button, i, svg, .stat-card-icon, .med-icon, .badge-status, .badge-live, .badge-count, ' +
+                    '.topbar-icon-btn, .topbar-action-btn, .dash-box-action, .btn-action-primary, .btn-action-secondary, ' +
+                    '.pill-btn, .patient-avatar, .doctor-avatar, .user-avatar-wrap, .med-item, .doctor-card, .patient-cell'
+                );
+
+                if (!interactiveTarget) return;
+
+                // Do NOT redirect sidebar navigation module tabs
+                if (interactiveTarget.classList.contains('dash-nav-item') || interactiveTarget.closest('.dash-nav-item')) {
+                    return;
+                }
+
+                // Do NOT redirect mobile sidebar drawer toggle / close buttons
+                if (
+                    interactiveTarget.id === 'sidebarToggleBtn' || 
+                    interactiveTarget.id === 'mobileMenuToggle' || 
+                    interactiveTarget.id === 'sidebarCloseBtn' || 
+                    interactiveTarget.id === 'sidebarBackdrop' ||
+                    interactiveTarget.classList.contains('sidebar-toggle-btn') ||
+                    interactiveTarget.classList.contains('sidebar-close-btn') ||
+                    interactiveTarget.classList.contains('sidebar-backdrop') ||
+                    interactiveTarget.closest('#sidebarToggleBtn') || 
+                    interactiveTarget.closest('#mobileMenuToggle') || 
+                    interactiveTarget.closest('.sidebar-toggle-btn') ||
+                    interactiveTarget.closest('#sidebarCloseBtn') || 
+                    interactiveTarget.closest('.sidebar-close-btn') || 
+                    interactiveTarget.closest('#sidebarBackdrop')
+                ) {
+                    return;
+                }
+
+                // Logo click: Navigate and reload the main page of dashboard (Hospital Network & Facility Operations Command)
+                if (interactiveTarget.classList.contains('sidebar-logo') || interactiveTarget.closest('.sidebar-logo')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sessionStorage.removeItem('activeAdminDashboardTab');
+                    sessionStorage.removeItem('dashboardReturnTab');
+                    sessionStorage.removeItem('adminDashboardScrollY');
+                    window.location.href = 'admindashboard.html';
+                    return;
+                }
+
+                // Do NOT redirect Terminate Session logout button to 404 (navigate to login.html)
+                if (interactiveTarget.id === 'logoutBtn' || interactiveTarget.classList.contains('logout-btn') || interactiveTarget.closest('#logoutBtn') || interactiveTarget.closest('.logout-btn')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sessionStorage.removeItem('activeAdminDashboardTab');
+                    sessionStorage.removeItem('adminDashboardScrollY');
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // For all other buttons, text links, icons, badges, avatars & widgets:
+                // 1. Save active admin tab & exact scroll position for Go Back return
+                const currentTab = document.querySelector('.dash-tab-panel.active');
+                const tabId = currentTab ? currentTab.id : 'overviewTab';
+                sessionStorage.setItem('activeAdminDashboardTab', tabId);
+                sessionStorage.setItem('dashboardReturnTab', tabId);
+                sessionStorage.setItem('adminDashboardScrollY', window.scrollY.toString());
+                sessionStorage.setItem('returnUrl', window.location.href);
+
+                // 2. Redirect to 404.html
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.href = '404.html';
+            }, true);
+
+            // -------------------------------------------------------------
+            // 5. Chart.js Global Default Theming
+            // -------------------------------------------------------------
+            Chart.defaults.color = '#8A95A5';
+            Chart.defaults.font.family = "'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+            Chart.defaults.font.size = 11;
+
+            const gridOptions = {
+                color: 'rgba(255, 255, 255, 0.05)',
+                drawBorder: false
+            };
+
+            // -------------------------------------------------------------
+            // Chart 1: Network Bed Occupancy & Forecast (Line)
+            // -------------------------------------------------------------
+            const ctxNetworkBed = document.getElementById('networkBedChart');
+            if (ctxNetworkBed) {
+                new Chart(ctxNetworkBed, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00', '24:00 (F)'],
+                        datasets: [
+                            {
+                                label: 'Occupied ICU Beds',
+                                data: [310, 295, 305, 360, 395, 412, 388, 365, 350],
+                                borderColor: '#C3FF4D',
+                                backgroundColor: 'rgba(195, 255, 77, 0.12)',
+                                borderWidth: 2.5,
+                                fill: true,
+                                tension: 0.35,
+                                pointBackgroundColor: '#C3FF4D',
+                                pointBorderColor: '#0A0D14',
+                                pointHoverRadius: 6
+                            },
+                            {
+                                label: 'Surge Capacity Threshold',
+                                data: [450, 450, 450, 450, 450, 450, 450, 450, 450],
+                                borderColor: '#F43F5E',
+                                borderDash: [6, 6],
+                                borderWidth: 1.5,
+                                fill: false,
+                                pointRadius: 0
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: { boxWidth: 12, color: '#CBD5E1' }
+                            },
+                            tooltip: {
+                                backgroundColor: '#101725',
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#C3FF4D',
+                                borderColor: 'rgba(195, 255, 77, 0.3)',
+                                borderWidth: 1,
+                                padding: 12
+                            }
+                        },
+                        scales: {
+                            x: { grid: gridOptions, ticks: { color: '#8A95A5' } },
+                            y: { grid: gridOptions, ticks: { color: '#8A95A5' }, suggestedMin: 200, suggestedMax: 500 }
+                        }
+                    }
+                });
+            }
+
+            // -------------------------------------------------------------
+            // Chart 2: Cross-Facility Patient & Trauma Load Distribution (Bar)
+            // -------------------------------------------------------------
+            const ctxFacilityDist = document.getElementById('facilityDistChart');
+            if (ctxFacilityDist) {
+                new Chart(ctxFacilityDist, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Metro General', 'St. Jude Cardiac', 'East Memorial', 'Mayo Oncology', 'Children Hub'],
+                        datasets: [
+                            {
+                                label: 'Inpatient Beds Occupied',
+                                data: [480, 290, 195, 128, 140],
+                                backgroundColor: '#38BDF8',
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Available Standby Beds',
+                                data: [40, 20, 25, 4, 38],
+                                backgroundColor: '#C3FF4D',
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: { boxWidth: 12, color: '#CBD5E1' }
+                            },
+                            tooltip: {
+                                backgroundColor: '#101725',
+                                titleColor: '#FFFFFF',
+                                borderColor: 'rgba(255, 255, 255, 0.1)',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: { grid: gridOptions, ticks: { color: '#8A95A5' } },
+                            y: { grid: gridOptions, ticks: { color: '#8A95A5' } }
+                        }
+                    }
+                });
+            }
+
+            // -------------------------------------------------------------
+            // Chart 3: Clinician Workload, Overtime & Scribing (Bar/Line Combo)
+            // -------------------------------------------------------------
+            const ctxStaffWorkload = document.getElementById('staffWorkloadChart');
+            if (ctxStaffWorkload) {
+                new Chart(ctxStaffWorkload, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Cardiology', 'Neurology', 'Critical Care', 'Orthopedics', 'Pediatrics', 'Oncology', 'Emergency'],
+                        datasets: [
+                            {
+                                label: 'Hours Saved via Ambient AI Scribe',
+                                data: [680, 540, 820, 410, 390, 510, 940],
+                                backgroundColor: 'rgba(195, 255, 77, 0.85)',
+                                borderRadius: 6
+                            },
+                            {
+                                label: 'Clinical Direct Patient Hours',
+                                data: [1200, 980, 1450, 890, 780, 920, 1600],
+                                backgroundColor: 'rgba(56, 189, 248, 0.7)',
+                                borderRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: { boxWidth: 12, color: '#CBD5E1' }
+                            }
+                        },
+                        scales: {
+                            x: { grid: gridOptions, ticks: { color: '#8A95A5' } },
+                            y: { grid: gridOptions, ticks: { color: '#8A95A5' } }
+                        }
+                    }
+                });
+            }
+
+            // -------------------------------------------------------------
+            // Chart 4: AI Inference Throughput (Line)
+            // -------------------------------------------------------------
+            const ctxAiInference = document.getElementById('aiInferenceChart');
+            if (ctxAiInference) {
+                new Chart(ctxAiInference, {
+                    type: 'line',
+                    data: {
+                        labels: ['02:00', '05:00', '08:00', '11:00', '14:00', '17:00', '20:00', '23:00'],
+                        datasets: [
+                            {
+                                label: 'Inferences/Min (k)',
+                                data: [12, 14, 48, 92, 110, 88, 62, 30],
+                                borderColor: '#8B5CF6',
+                                backgroundColor: 'rgba(139, 92, 246, 0.15)',
+                                fill: true,
+                                tension: 0.35,
+                                borderWidth: 2.5,
+                                pointBackgroundColor: '#8B5CF6'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            x: { grid: gridOptions, ticks: { color: '#8A95A5' } },
+                            y: { grid: gridOptions, ticks: { color: '#8A95A5' } }
+                        }
+                    }
+                });
+            }
+
+            // -------------------------------------------------------------
+            // Chart 5: Diagnostic Precision Radar (Radar)
+            // -------------------------------------------------------------
+            const ctxAiPrecisionRadar = document.getElementById('aiPrecisionRadar');
+            if (ctxAiPrecisionRadar) {
+                new Chart(ctxAiPrecisionRadar, {
+                    type: 'radar',
+                    data: {
+                        labels: ['AUROC Precision', 'Sensitivity', 'Specificity', 'F1-Score', 'Explainability', 'Low Drift'],
+                        datasets: [
+                            {
+                                label: 'Enterprise SaMD Fleet',
+                                data: [99.4, 98.8, 99.1, 98.6, 97.5, 99.8],
+                                borderColor: '#C3FF4D',
+                                backgroundColor: 'rgba(195, 255, 77, 0.2)',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#C3FF4D'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                grid: { color: 'rgba(255, 255, 255, 0.08)' },
+                                angleLines: { color: 'rgba(255, 255, 255, 0.08)' },
+                                pointLabels: { color: '#CBD5E1', font: { size: 10.5 } },
+                                ticks: { display: false, min: 80, max: 100 }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false }
+                        }
+                    }
+                });
+            }
+
+            // -------------------------------------------------------------
+            // Chart 6: Hospital Revenue & Clean Claim Volume (Line/Bar)
+            // -------------------------------------------------------------
+            const ctxFinanceRevenue = document.getElementById('financeRevenueChart');
+            if (ctxFinanceRevenue) {
+                new Chart(ctxFinanceRevenue, {
+                    type: 'line',
+                    data: {
+                        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct (MTD)'],
+                        datasets: [
+                            {
+                                label: 'Gross Billed ($M)',
+                                data: [34.2, 36.8, 38.4, 39.5, 41.1, 42.8],
+                                borderColor: '#10B981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                                fill: true,
+                                tension: 0.35,
+                                borderWidth: 2.5,
+                                pointBackgroundColor: '#10B981'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: { grid: gridOptions, ticks: { color: '#8A95A5' } },
+                            y: { grid: gridOptions, ticks: { color: '#8A95A5' } }
+                        }
+                    }
+                });
+            }
+
+            // -------------------------------------------------------------
+            // Chart 7: Payer Mix Distribution (Doughnut)
+            // -------------------------------------------------------------
+            const ctxPayerMix = document.getElementById('payerMixChart');
+            if (ctxPayerMix) {
+                new Chart(ctxPayerMix, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['BlueCross BlueShield', 'Medicare / Medicaid', 'UnitedHealthcare', 'Aetna', 'Commercial / Self-Pay'],
+                        datasets: [
+                            {
+                                data: [38, 32, 16, 10, 4],
+                                backgroundColor: ['#38BDF8', '#C3FF4D', '#8B5CF6', '#F59E0B', '#64748B'],
+                                borderWidth: 0,
+                                hoverOffset: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: { boxWidth: 12, color: '#CBD5E1', padding: 14 }
+                            }
+                        },
+                        cutout: '70%'
+                    }
+                });
+            }
+
+        });
+    </script>
+</body>
+</html>

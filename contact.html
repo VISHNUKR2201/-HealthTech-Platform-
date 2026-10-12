@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Clinical Team & Support | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (sessionStorage.getItem('pulse_last_scroll_pos')) {
+            document.documentElement.classList.add('pulse-restoring-scroll');
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           CONTACT PAGE DEDICATED STYLES, LAYOUT & ANIMATIONS
+           ========================================================================== */
+
+        /* Shimmer & Kinetic Animations */
+        @keyframes contactKineticShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes contactBadgePulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(195, 255, 77, 0.25); transform: scale(1); }
+            50% { box-shadow: 0 0 28px rgba(195, 255, 77, 0.55); transform: scale(1.02); }
+        }
+
+        @keyframes contactFloatingAura {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes liveRadarPing {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        /* 1. CLINICAL CONCIERGE HERO SECTION */
+        .contact-hero {
+            position: relative;
+            min-height: 88vh;
+            display: flex;
+            align-items: center;
+            padding: 150px 0 90px;
+            background: linear-gradient(135deg, rgba(0, 35, 22, 0.94) 0%, rgba(0, 20, 12, 0.97) 100%),
+                        url('images/tom-claes-Z-fSqssuFq8-unsplash.webp') center/cover no-repeat;
+            overflow: hidden;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: 10%;
+            width: 680px;
+            height: 680px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.16) 0%, rgba(0, 43, 27, 0) 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .contact-hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 1.4rem;
+            background: rgba(195, 255, 77, 0.12);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.6rem;
+            animation: contactBadgePulse 4s infinite ease-in-out;
+        }
+
+        .contact-hero-title {
+            font-size: 3.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-main);
+            letter-spacing: -0.02em;
+        }
+
+        .contact-hero-title .highlight {
+            background: linear-gradient(120deg, #c3ff4d 0%, #ffffff 50%, #10B981 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: contactKineticShine 4s linear infinite;
+            display: inline-block;
+        }
+
+        .contact-hero-subtext {
+            font-size: 1.15rem;
+            color: #C2D1C8;
+            line-height: 1.75;
+            margin-bottom: 2.3rem;
+            max-width: 580px;
+        }
+
+        .contact-hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Quick Access Dispatch Card */
+        .hero-dispatch-card {
+            background: rgba(0, 35, 22, 0.82);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(195, 255, 77, 0.32);
+            border-radius: 26px;
+            padding: 2.2rem;
+            box-shadow: 0 30px 65px rgba(0, 0, 0, 0.55), 0 0 35px rgba(195, 255, 77, 0.15);
+            animation: contactFloatingAura 6s ease-in-out infinite;
+            transition: all 0.4s ease;
+        }
+
+        .hero-dispatch-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.6);
+            box-shadow: 0 35px 75px rgba(0, 0, 0, 0.65), 0 0 45px rgba(195, 255, 77, 0.28);
+        }
+
+        .dispatch-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.6rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dispatch-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.4rem 0.95rem;
+            background: rgba(195, 255, 77, 0.15);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .dispatch-status .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-lime);
+            position: relative;
+        }
+
+        .dispatch-status .live-dot::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-lime);
+            animation: liveRadarPing 1.8s infinite cubic-bezier(0, 0.2, 0.8, 1);
+        }
+
+        .dispatch-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .dispatch-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .dispatch-item:hover {
+            background: rgba(195, 255, 77, 0.08);
+            border-color: rgba(195, 255, 77, 0.3);
+            transform: translateX(4px);
+        }
+
+        .dispatch-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dispatch-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.3rem;
+        }
+
+        .dispatch-title {
+            font-size: 0.94rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .dispatch-sub {
+            font-size: 0.78rem;
+            color: #94a3b8;
+        }
+
+        /* 2. SECTION COMMON HEADERS */
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3.8rem;
+        }
+
+        .section-badge-center {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.5rem 1.3rem;
+            background: rgba(195, 255, 77, 0.1);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title-center {
+            font-size: 2.65rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle-center {
+            font-size: 1.08rem;
+            color: #A9BDB1;
+            line-height: 1.7;
+        }
+
+        /* 3. MAIN CONSULTATION & DEMO BOOKING SUITE */
+        .booking-section {
+            padding: 110px 0;
+            background-color: #002215;
+            position: relative;
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .booking-info-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .booking-feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 1.8rem;
+            transition: all 0.35s ease;
+        }
+
+        .booking-feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.4);
+            transform: translateX(8px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+        }
+
+        .booking-card-head {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .booking-card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.45rem;
+        }
+
+        .booking-feature-card h3 {
+            font-size: 1.25rem;
+            color: #FFFFFF;
+        }
+
+        .booking-feature-card p {
+            font-size: 0.92rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+        }
+
+        .booking-form-card {
+            background: rgba(0, 35, 22, 0.88);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(195, 255, 77, 0.32);
+            border-radius: 28px;
+            padding: 3rem;
+            box-shadow: 0 30px 65px rgba(0, 0, 0, 0.55);
+        }
+
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-row-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .form-field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .form-field-group label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #E2E8F0;
+        }
+
+        .form-field-group input,
+        .form-field-group select,
+        .form-field-group textarea {
+            width: 100%;
+            padding: 0.95rem 1.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: var(--font-main);
+            font-size: 0.92rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-field-group input:focus,
+        .form-field-group select:focus,
+        .form-field-group textarea:focus {
+            border-color: var(--accent-lime);
+            background: rgba(255, 255, 255, 0.09);
+            box-shadow: 0 0 15px rgba(195, 255, 77, 0.25);
+        }
+
+        .form-field-group select option {
+            background: #002B1B;
+            color: #FFFFFF;
+        }
+
+        /* 4. GLOBAL INFORMATICS HUBS (4-Column Grid) */
+        .locations-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .collaborative-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+            width: 100%;
+        }
+
+        .location-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .location-img-wrap {
+            height: 180px;
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+
+        .location-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            transition: transform 0.6s ease;
+        }
+
+        .location-card:hover .location-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .location-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(0, 43, 27, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.35rem 0.9rem;
+            border-radius: 100px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+        }
+
+        .location-body {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .location-body h3 {
+            font-size: 1.25rem;
+            color: #FFFFFF;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+        }
+
+        .location-address {
+            font-size: 0.88rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .location-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            color: #E2E8F0;
+            margin-bottom: 0.5rem;
+        }
+
+        .location-contact-item i {
+            color: var(--accent-lime);
+            font-size: 1rem;
+        }
+
+        /* 5. 24/7 DEDICATED EMERGENCY CLINICAL HELPDESK (3-Column Grid) */
+        .helpdesk-section {
+            padding: 110px 0;
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.93) 0%, rgba(0, 26, 16, 0.96) 100%),
+                        url('images/trnava-university-LNdPXkrOpeM-unsplash.webp') center/cover no-repeat fixed;
+            position: relative;
+        }
+
+        .helpdesk-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+        }
+
+        .helpdesk-card {
+            background: rgba(0, 35, 22, 0.84);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(195, 255, 77, 0.28);
+            border-radius: 24px;
+            overflow: hidden;
+            padding: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .helpdesk-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.55);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(195, 255, 77, 0.22);
+        }
+
+        .helpdesk-img-wrap {
+            height: 180px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .helpdesk-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .helpdesk-card:hover .helpdesk-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .helpdesk-body {
+            padding: 1.8rem 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .helpdesk-icon {
+            font-size: 2.6rem;
+            color: var(--accent-lime);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .helpdesk-card h3 {
+            font-size: 1.3rem;
+            color: #FFFFFF;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .helpdesk-card p {
+            font-size: 0.92rem;
+            color: #C2D1C8;
+            line-height: 1.65;
+            margin-bottom: 1.4rem;
+        }
+
+        .helpdesk-sla-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.95rem;
+            background: rgba(195, 255, 77, 0.15);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* 6. HOSPITAL INTEGRATION & SANDBOX COORDINATORS (4-Column Grid) */
+        .coordinators-section {
+            padding: 100px 0;
+            background-color: var(--primary-bg);
+        }
+
+        .coordinators-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .coordinator-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .coordinator-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .coordinator-photo-wrap {
+            height: 260px;
+            overflow: hidden;
+            background: #001A10;
+        }
+
+        .coordinator-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            transition: transform 0.6s ease;
+        }
+
+        .coordinator-card:hover .coordinator-photo-wrap img {
+            transform: scale(1.08);
+        }
+
+        .coordinator-info {
+            padding: 1.6rem 1.2rem;
+        }
+
+        .coordinator-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.3rem;
+        }
+
+        .coordinator-role {
+            font-size: 0.85rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .coordinator-schedule-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: var(--accent-lime);
+            font-weight: 700;
+            font-size: 0.84rem;
+            margin-top: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .coordinator-card:hover .coordinator-schedule-btn {
+            transform: translateX(4px);
+        }
+
+        /* 7. FREQUENTLY ASKED QUESTIONS (Accordion) */
+        .faq-section {
+            padding: 110px 0;
+            background-color: #002215;
+        }
+
+        .faq-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover,
+        .faq-item.active {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.35);
+        }
+
+        .faq-question {
+            padding: 1.6rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question h3 {
+            font-size: 1.15rem;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .faq-toggle-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle-icon {
+            transform: rotate(180deg);
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+        }
+
+        .faq-answer {
+            padding: 0 2rem 1.6rem;
+            font-size: 0.94rem;
+            color: #A9BDB1;
+            line-height: 1.65;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* 8. EMERGENCY TELEHEALTH HOTLINE & TRIAGE CTA */
+        .hotline-section {
+            padding: 100px 0;
+            background-color: var(--primary-bg);
+            position: relative;
+        }
+
+        .hotline-box {
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.92) 0%, rgba(0, 60, 38, 0.85) 100%),
+                        url('images/pexels-tara-winstead-7723541.webp') center/cover no-repeat;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            border-radius: 30px;
+            padding: 4.8rem 3.8rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.8rem;
+            align-items: center;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hotline-content h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.2;
+            margin-bottom: 1.3rem;
+        }
+
+        .hotline-content p {
+            font-size: 1.08rem;
+            color: #C2D1C8;
+            line-height: 1.7;
+            margin-bottom: 2.2rem;
+        }
+
+        .hotline-actions-card {
+            background: rgba(0, 35, 22, 0.88);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 22px;
+            padding: 2.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.3rem;
+        }
+
+        .hotline-phone-button {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            padding: 1.2rem 1.6rem;
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            border-radius: 100px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(195, 255, 77, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .hotline-phone-button:hover {
+            background: #d4ff75;
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(195, 255, 77, 0.55);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE BREAKPOINTS & MOBILE VIEW FIXES FOR CONTACT PAGE
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .contact-hero {
+                padding: 130px 0 80px;
+                min-height: auto;
+            }
+            .contact-hero-grid,
+            .booking-grid,
+            .hotline-box {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .contact-hero-text {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .contact-hero-subtext {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .contact-hero-ctas {
+                justify-content: center;
+            }
+            .locations-grid,
+            .coordinators-grid,
+            .helpdesk-grid,
+            .collaborative-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero {
+                padding: 110px 0 60px;
+            }
+            .contact-hero-title {
+                font-size: 2.2rem;
+                line-height: 1.25;
+            }
+            .contact-hero-badge {
+                padding: 0.45rem 1.1rem;
+                font-size: 0.78rem;
+                margin-bottom: 1.2rem;
+            }
+            .contact-hero-subtext {
+                font-size: 1rem;
+                line-height: 1.65;
+                margin-bottom: 1.8rem;
+            }
+            .contact-hero-ctas {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.9rem;
+            }
+            .contact-hero-ctas .btn {
+                width: 100%;
+                justify-content: center;
+                padding: 0.95rem 1.5rem;
+            }
+            .hero-dispatch-card {
+                padding: 1.6rem 1.2rem;
+                border-radius: 20px;
+            }
+            .dispatch-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                text-align: left;
+            }
+            .dispatch-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 0.9rem 1rem;
+            }
+            .section-header-center {
+                margin-bottom: 2.5rem;
+                padding: 0 0.5rem;
+            }
+            .section-title-center {
+                font-size: 1.85rem;
+                line-height: 1.25;
+            }
+            .section-subtitle-center {
+                font-size: 0.94rem;
+                line-height: 1.6;
+            }
+            .booking-section,
+            .locations-section,
+            .coordinators-section,
+            .helpdesk-section,
+            .faq-section,
+            .hotline-section {
+                padding: 60px 0;
+            }
+            .collaborative-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .form-row-2col {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .booking-form-card {
+                padding: 1.8rem 1.2rem;
+                border-radius: 20px;
+            }
+            .booking-feature-card {
+                padding: 1.6rem 1.3rem;
+            }
+            .hotline-box {
+                padding: 2.2rem 1.3rem;
+                border-radius: 20px;
+            }
+            .hotline-content h2 {
+                font-size: 1.75rem;
+                line-height: 1.25;
+            }
+            .hotline-content p {
+                font-size: 0.95rem;
+            }
+            .hotline-actions-card {
+                padding: 1.6rem 1.2rem;
+                border-radius: 18px;
+            }
+            .hotline-phone-button {
+                padding: 1rem 1.2rem;
+                font-size: 1rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-hero-title {
+                font-size: 1.85rem;
+                letter-spacing: -0.01em;
+            }
+            .contact-hero-title .highlight {
+                display: inline;
+                word-break: break-word;
+            }
+            .locations-grid,
+            .coordinators-grid,
+            .helpdesk-grid,
+            .collaborative-grid {
+                grid-template-columns: 1fr;
+                gap: 1.4rem;
+            }
+            .container {
+                padding: 0 1.25rem !important;
+            }
+            .contact-hero-text,
+            .contact-hero-visual {
+                width: 100%;
+                max-width: 100%;
+            }
+            .faq-question {
+                padding: 1.2rem 1rem;
+                font-size: 1rem;
+            }
+            .faq-answer {
+                padding: 0 1rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-indicator" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html" class="active" style="color: var(--accent-lime);">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-pill btn-primary">Login</a>
+                <div class="mobile-toggle" id="mobile-toggle"><i class="ph ph-list"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <div class="mobile-close" id="mobile-close" aria-label="Close navigation"><i class="ph-bold ph-x"></i></div>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html"><span>Home</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="about.html"><span>About</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="service.html"><span>Service</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="blog.html"><span>Blog</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="contact.html" style="color: var(--accent-lime);"><span>Contact</span> <i class="ph-bold ph-caret-right"></i></a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn btn-primary btn-pill full-width">Login <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="mobile-menu-contact-info">
+                    <p><i class="ph-fill ph-envelope-simple"></i> clinical@pulsehealth.tech</p>
+                    <p><i class="ph-fill ph-phone-call"></i> +91 (0427) 244-8900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         SECTION 1: HERO SECTION (Clinical Concierge Layout)
+         ========================================================================= -->
+    <section class="contact-hero">
+        <div class="container contact-hero-grid">
+            <div class="contact-hero-text reveal-left">
+                <div class="contact-hero-badge">
+                    <i class="ph-fill ph-headset"></i>
+                    <span>CLINICAL INFORMATICS CONCIERGE</span>
+                </div>
+                <h1 class="contact-hero-title">
+                    Connect with Our <span class="highlight">Medical AI Architects</span>
+                </h1>
+                <p class="contact-hero-subtext">
+                    Whether you are an enterprise hospital network preparing an EHR cutover or an outpatient clinic seeking ambient documentation, our clinical informatics team responds in under 15 minutes.
+                </p>
+                <div class="contact-hero-ctas">
+                    <a href="404.html" class="btn btn-primary btn-pill">Schedule Consultation <i class="ph-bold ph-arrow-down"></i></a>
+                    <a href="404.html" class="btn btn-outline btn-pill"><i class="ph-bold ph-map-pin"></i> Global Hubs</a>
+                </div>
+            </div>
+
+            <div class="contact-hero-visual reveal-right">
+                <div class="hero-dispatch-card">
+                    <div class="dispatch-header">
+                        <div>
+                            <h4 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 700;">Live Dispatch Center</h4>
+                            <span style="color: #94a3b8; font-size: 0.8rem;">Round-The-Clock Medical Support</span>
+                        </div>
+                        <div class="dispatch-status">
+                            <span class="live-dot"></span>
+                            <span>Online • &lt;15m SLA</span>
+                        </div>
+                    </div>
+
+                    <div class="dispatch-rows">
+                        <div class="dispatch-item">
+                            <div class="dispatch-left">
+                                <div class="dispatch-icon"><i class="ph-bold ph-phone-call"></i></div>
+                                <div>
+                                    <div class="dispatch-title">+91 (0427) 244-8900</div>
+                                    <div class="dispatch-sub">24/7 Direct Clinical Hotline</div>
+                                </div>
+                            </div>
+                            <span style="color: var(--accent-lime); font-size: 0.84rem; font-weight: 700;">Toll-Free</span>
+                        </div>
+
+                        <div class="dispatch-item">
+                            <div class="dispatch-left">
+                                <div class="dispatch-icon"><i class="ph-bold ph-envelope-simple"></i></div>
+                                <div>
+                                    <div class="dispatch-title">clinical@pulsehealth.tech</div>
+                                    <div class="dispatch-sub">Enterprise EHR Inquiries</div>
+                                </div>
+                            </div>
+                            <span style="color: var(--accent-lime); font-size: 0.84rem; font-weight: 700;">Encrypted</span>
+                        </div>
+
+                        <div class="dispatch-item">
+                            <div class="dispatch-left">
+                                <div class="dispatch-icon"><i class="ph-bold ph-shield-check"></i></div>
+                                <div>
+                                    <div class="dispatch-title">security@pulsehealth.tech</div>
+                                    <div class="dispatch-sub">HIPAA BAA &amp; SOC-2 Audit Requests</div>
+                                </div>
+                            </div>
+                            <span style="color: var(--accent-lime); font-size: 0.84rem; font-weight: 700;">Verified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: CLINICAL CONSULTATION & DEMO BOOKING SUITE
+         ========================================================================= -->
+    <section id="booking" class="booking-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-calendar-check"></i>
+                    <span>SCHEDULE INTEGRATION CALL</span>
+                </div>
+                <h2 class="section-title-center">Request an Enterprise Hospital Consultation</h2>
+                <p class="section-subtitle-center">
+                    Custom tailored for Chief Medical Officers, Health IT Directors, and Clinical Department Heads.
+                </p>
+            </div>
+
+            <div class="booking-grid">
+                <div class="booking-info-wrap reveal-left">
+                    <div class="booking-feature-card">
+                        <div class="booking-card-head">
+                            <div class="booking-card-icon"><i class="ph-bold ph-plugs-connected"></i></div>
+                            <h3>Native EHR Integration Mapping</h3>
+                        </div>
+                        <p>Our integration engineers perform a comprehensive architectural audit of your existing Epic, Cerner, or MEDITECH infrastructure.</p>
+                    </div>
+
+                    <div class="booking-feature-card">
+                        <div class="booking-card-head">
+                            <div class="booking-card-icon"><i class="ph-bold ph-shield-star"></i></div>
+                            <h3>14-Day Full Clinical Sandbox</h3>
+                        </div>
+                        <p>Receive pre-configured test credentials for your clinical team with zero disruption to active hospital inpatient workflows.</p>
+                    </div>
+
+                    <div class="booking-feature-card">
+                        <div class="booking-card-head">
+                            <div class="booking-card-icon"><i class="ph-bold ph-lock-key"></i></div>
+                            <h3>Guaranteed HIPAA BAA Execution</h3>
+                        </div>
+                        <p>Full institutional compliance execution with cryptographic data isolation and dedicated regional cloud tenancy.</p>
+                    </div>
+                </div>
+
+                <div class="booking-form-card reveal-right">
+                    <form class="booking-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                        <h3 style="color: #FFFFFF; font-size: 1.35rem; font-weight: 800; margin-bottom: 0.3rem;">Request Technical Demo</h3>
+                        <p style="color: #A9BDB1; font-size: 0.88rem; margin-bottom: 0.8rem;">All clinical data handled with strict BAA confidentiality.</p>
+
+                        <div class="form-row-2col">
+                            <div class="form-field-group">
+                                <label>Full Name &amp; Title</label>
+                                <input type="text" placeholder="Dr. Sarah Mitchell, MD" required>
+                            </div>
+                            <div class="form-field-group">
+                                <label>Hospital / Clinic Email</label>
+                                <input type="email" placeholder="s.mitchell@hospital.org" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row-2col">
+                            <div class="form-field-group">
+                                <label>Healthcare Facility Type</label>
+                                <select required>
+                                    <option value="">Select Facility Type</option>
+                                    <option value="hospital-system">Enterprise Hospital Network (500+ Beds)</option>
+                                    <option value="regional-medical">Regional Medical Center (100-500 Beds)</option>
+                                    <option value="outpatient-clinic">Outpatient Specialty Clinic</option>
+                                    <option value="telehealth-network">Telehealth &amp; Remote Care Provider</option>
+                                    <option value="diagnostic-lab">Diagnostic Lab / Pathology Network</option>
+                                </select>
+                            </div>
+                            <div class="form-field-group">
+                                <label>Primary EHR Platform</label>
+                                <select required>
+                                    <option value="">Select Primary EHR</option>
+                                    <option value="epic">Epic Systems</option>
+                                    <option value="cerner">Oracle Cerner</option>
+                                    <option value="meditech">MEDITECH</option>
+                                    <option value="athena">Athenahealth</option>
+                                    <option value="other">Custom / Other HL7 System</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-field-group">
+                            <label>Clinical Requirements &amp; Specialty Focus</label>
+                            <textarea rows="3" placeholder="Describe your department size, acute care priorities, and clinical objectives..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-pill full-width">Schedule Technical Consultation <i class="ph-bold ph-arrow-right"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: GLOBAL INFORMATICS HUBS (4-Column Grid)
+         ========================================================================= -->
+    <section id="locations" class="locations-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-globe"></i>
+                    <span>REGIONAL HEADQUARTERS</span>
+                </div>
+                <h2 class="section-title-center">Global Medical Informatics Hubs</h2>
+                <p class="section-subtitle-center">
+                    Operating decentralized clinical engineering and regulatory compliance centers worldwide.
+                </p>
+            </div>
+
+            <div class="locations-grid">
+                <!-- Hub 1: Salem / Chennai India -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/trnava-university-LNdPXkrOpeM-unsplash.webp" alt="India Clinical Tech Hub">
+                        <span class="location-badge">Asia HQ</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>Salem Operations Center</h3>
+                        <p class="location-address">MMR complex, Chinnathirupathi, Salem, Tamil Nadu - 636008, India</p>
+                        <div class="location-contact-item"><i class="ph-bold ph-phone-call"></i> +91 (0427) 244-8900</div>
+                        <div class="location-contact-item"><i class="ph-bold ph-envelope-simple"></i> india@pulsehealth.tech</div>
+                    </div>
+                </div>
+
+                <!-- Hub 2: Boston USA -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/marek-studzinski-TLkkKd0gmXU-unsplash.webp" alt="Boston Biomedical Hub">
+                        <span class="location-badge">Americas HQ</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>Boston Innovation Center</h3>
+                        <p class="location-address">400 Technology Square, Cambridge, MA 02139, United States</p>
+                        <div class="location-contact-item"><i class="ph-bold ph-phone-call"></i> +1 (617) 890-4412</div>
+                        <div class="location-contact-item"><i class="ph-bold ph-envelope-simple"></i> us@pulsehealth.tech</div>
+                    </div>
+                </div>
+
+                <!-- Hub 3: London UK -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp" alt="London NHS Telemetry Hub">
+                        <span class="location-badge">Europe HQ</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>London Telemetry Center</h3>
+                        <p class="location-address">250 Euston Road, Bloomsbury, London NW1 2PG, United Kingdom</p>
+                        <div class="location-contact-item"><i class="ph-bold ph-phone-call"></i> +44 (020) 7946-0810</div>
+                        <div class="location-contact-item"><i class="ph-bold ph-envelope-simple"></i> uk@pulsehealth.tech</div>
+                    </div>
+                </div>
+
+                <!-- Hub 4: Singapore -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Singapore Diagnostics Hub">
+                        <span class="location-badge">APAC Node</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>Singapore Biomedical Hub</h3>
+                        <p class="location-address">1 Fusionopolis Way, Connexis North, Singapore 138632</p>
+                        <div class="location-contact-item"><i class="ph-bold ph-phone-call"></i> +65 6789 2200</div>
+                        <div class="location-contact-item"><i class="ph-bold ph-envelope-simple"></i> apac@pulsehealth.tech</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: 24/7 DEDICATED EMERGENCY CLINICAL HELPDESK (3-Column Grid)
+         ========================================================================= -->
+    <section class="helpdesk-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-shield-check"></i>
+                    <span>RAPID ESCALATION CHANNELS</span>
+                </div>
+                <h2 class="section-title-center">24/7 Critical Clinical Support Channels</h2>
+                <p class="section-subtitle-center">
+                    Direct access to board-certified medical informatics engineers and tier-1 telemetry response teams.
+                </p>
+            </div>
+
+            <div class="helpdesk-grid">
+                <!-- Channel 1 -->
+                <div class="helpdesk-card reveal">
+                    <div class="helpdesk-img-wrap">
+                        <img src="images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp" alt="ICU Telemetry Hotline">
+                    </div>
+                    <div class="helpdesk-body">
+                        <div class="helpdesk-icon"><i class="ph-bold ph-heartbeat"></i></div>
+                        <h3>ICU Vitals Telemetry Hotline</h3>
+                        <p>Immediate live phone assistance for bedside telemetry streaming, edge gateway diagnostics, and monitor connectivity.</p>
+                        <div class="helpdesk-sla-pill"><i class="ph-bold ph-timer"></i> &lt;5 Min Response SLA</div>
+                    </div>
+                </div>
+
+                <!-- Channel 2 -->
+                <div class="helpdesk-card reveal">
+                    <div class="helpdesk-img-wrap">
+                        <img src="images/marek-studzinski-TLkkKd0gmXU-unsplash.webp" alt="EHR Interface & HL7 Support">
+                    </div>
+                    <div class="helpdesk-body">
+                        <div class="helpdesk-icon"><i class="ph-bold ph-database"></i></div>
+                        <h3>EHR Interface &amp; HL7 Support</h3>
+                        <p>Dedicated developer escalation for FHIR message queues, ADT/ORU brokers, and Epic/Cerner API webhook verification.</p>
+                        <div class="helpdesk-sla-pill"><i class="ph-bold ph-timer"></i> &lt;15 Min Response SLA</div>
+                    </div>
+                </div>
+
+                <!-- Channel 3 -->
+                <div class="helpdesk-card reveal">
+                    <div class="helpdesk-img-wrap">
+                        <img src="images/neuro-equilibrium-RBvCy94zi08-unsplash.webp" alt="HIPAA Compliance & Legal Liaison">
+                    </div>
+                    <div class="helpdesk-body">
+                        <div class="helpdesk-icon"><i class="ph-bold ph-lock-key"></i></div>
+                        <h3>HIPAA Compliance &amp; Legal Liaison</h3>
+                        <p>Direct channel to our Chief Privacy Officer for Business Associate Agreements (BAA), SOC-2 reports, and data audit logs.</p>
+                        <div class="helpdesk-sla-pill"><i class="ph-bold ph-timer"></i> &lt;2 Hour Response SLA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: HOSPITAL INTEGRATION & SANDBOX COORDINATORS (4-Column Grid)
+         ========================================================================= -->
+    <section class="coordinators-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-users-three"></i>
+                    <span>ONBOARDING SPECIALISTS</span>
+                </div>
+                <h2 class="section-title-center">Meet Your Dedicated Clinical Integration Leads</h2>
+                <p class="section-subtitle-center">
+                    Our medical directors and clinical engineering coordinators guide your hospital through seamless sandbox deployment.
+                </p>
+            </div>
+
+            <div class="coordinators-grid">
+                <!-- Coordinator 1 -->
+                <div class="coordinator-card reveal">
+                    <div class="coordinator-photo-wrap">
+                        <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                    </div>
+                    <div class="coordinator-info">
+                        <h4 class="coordinator-name">Dr. Sarah Mitchell, MD</h4>
+                        <span class="coordinator-role">Enterprise Health Lead</span>
+                        <a href="404.html" class="coordinator-schedule-btn">Schedule Meeting <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Coordinator 2 -->
+                <div class="coordinator-card reveal">
+                    <div class="coordinator-photo-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                    </div>
+                    <div class="coordinator-info">
+                        <h4 class="coordinator-name">Dr. Michael Sterling, MD</h4>
+                        <span class="coordinator-role">ICU &amp; Emergency Lead</span>
+                        <a href="404.html" class="coordinator-schedule-btn">Schedule Meeting <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Coordinator 3 -->
+                <div class="coordinator-card reveal">
+                    <div class="coordinator-photo-wrap">
+                        <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                    </div>
+                    <div class="coordinator-info">
+                        <h4 class="coordinator-name">Elena Rostova, M.Sc</h4>
+                        <span class="coordinator-role">FHIR Systems Architect</span>
+                        <a href="404.html" class="coordinator-schedule-btn">Schedule Meeting <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Coordinator 4 -->
+                <div class="coordinator-card reveal">
+                    <div class="coordinator-photo-wrap">
+                        <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                    </div>
+                    <div class="coordinator-info">
+                        <h4 class="coordinator-name">Dr. Rachel Chen, MD</h4>
+                        <span class="coordinator-role">RPM Telehealth Lead</span>
+                        <a href="404.html" class="coordinator-schedule-btn">Schedule Meeting <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: FREQUENTLY ASKED ENTERPRISE QUESTIONS (Accordion FAQ)
+         ========================================================================= -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-question"></i>
+                    <span>CLEAR ANSWERS</span>
+                </div>
+                <h2 class="section-title-center">Frequently Asked Clinical Questions</h2>
+                <p class="section-subtitle-center">
+                    Answers to common questions regarding enterprise implementation, BAA execution, and EHR integration.
+                </p>
+            </div>
+
+            <div class="faq-wrapper reveal">
+                <!-- FAQ 1 -->
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <h3>How long does a full Epic or Cerner EHR integration take?</h3>
+                        <div class="faq-toggle-icon"><i class="ph-bold ph-caret-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Standard SMART on FHIR v4 integration typically takes 7 to 14 business days. Our clinical engineering team coordinates directly with your hospital IT department to map ADT/ORU message flows and conduct sandbox verification with zero downtime.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What is your guaranteed response SLA for acute care ICU telemetry?</h3>
+                        <div class="faq-toggle-icon"><i class="ph-bold ph-caret-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Our Tier-1 Emergency Helpdesk guarantees a phone response in under 5 minutes for inpatient telemetry anomalies. Enterprise hospital contracts also include 99.999% fault-tolerant cloud availability guarantees.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you execute custom Business Associate Agreements (BAAs)?</h3>
+                        <div class="faq-toggle-icon"><i class="ph-bold ph-caret-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, every institutional engagement includes a mutually executed HIPAA Business Associate Agreement (BAA). We guarantee 256-bit zero-knowledge encryption for all protected health information (PHI) at rest and in transit.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can Pulse Health be deployed on-premise or in dedicated private clouds?</h3>
+                        <div class="faq-toggle-icon"><i class="ph-bold ph-caret-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Yes. While most hospitals utilize our certified isolated AWS/GCP HIPAA cloud tenancy, we also provide containerized on-premise edge appliances that process neural inferences entirely behind your hospital firewall.
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How does your ambient voice scribe handle multi-lingual clinical visits?</h3>
+                        <div class="faq-toggle-icon"><i class="ph-bold ph-caret-down"></i></div>
+                    </div>
+                    <div class="faq-answer">
+                        Our ambient NLP models natively support over 40 languages and medical dialects, seamlessly translating and generating structured English SOAP notes and ICD-10 billing codes directly in the electronic chart.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: CLINICAL PARTNERSHIP & RESEARCH TENDERS (3-Column Grid)
+         ========================================================================= -->
+    <section class="locations-section" style="background-color: var(--primary-bg);">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-handshake"></i>
+                    <span>COLLABORATIVE ENGAGEMENTS</span>
+                </div>
+                <h2 class="section-title-center">Partner With Pulse Health Research</h2>
+                <p class="section-subtitle-center">
+                    Empowering university medical centers, research foundations, and bio-engineering fellows.
+                </p>
+            </div>
+
+            <div class="collaborative-grid">
+                <!-- Card 1 -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/pexels-edward-jenner-4031695.webp" alt="Clinical Trials Partnership">
+                        <span class="location-badge">Multi-Center Trials</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>Academic Clinical Trials</h3>
+                        <p class="location-address">Co-develop algorithmic validation trials and publish peer-reviewed papers with our bio-engineering fellows.</p>
+                        <a href="404.html" class="coordinator-schedule-btn">Submit Trial Protocol <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Hospital Tenders">
+                        <span class="location-badge">Institutional RFP</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>Hospital Procurement RFPs</h3>
+                        <p class="location-address">Submit your health system's Request for Proposal (RFP) for rapid commercial quotes and compliance documentation.</p>
+                        <a href="404.html" class="coordinator-schedule-btn">Upload RFP Documents <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="location-card reveal">
+                    <div class="location-img-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="ISV Integrations">
+                        <span class="location-badge">Developer API</span>
+                    </div>
+                    <div class="location-body">
+                        <h3>Medical Device &amp; ISV Partners</h3>
+                        <p class="location-address">Integrate your medical hardware sensors, wearable monitors, or diagnostic analyzers with the Pulse Health Cloud.</p>
+                        <a href="404.html" class="coordinator-schedule-btn">Access Developer SDK <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 8: EMERGENCY HOTLINE & TRIAGE CTA
+         ========================================================================= -->
+    <section class="hotline-section">
+        <div class="container">
+            <div class="hotline-box reveal">
+                <div class="hotline-content">
+                    <div class="section-badge-center" style="margin-bottom: 1.1rem;">
+                        <i class="ph-bold ph-phone-call"></i>
+                        <span>DIRECT CLINICAL LINE</span>
+                    </div>
+                    <h2>Need Immediate Clinical Assistance?</h2>
+                    <p>
+                        Our on-call medical informatics directors and emergency telemetry dispatchers are available 24/7/365 to support your hospital operations.
+                    </p>
+                    <div style="display: flex; gap: 1.6rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> Direct Clinician Hotline
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> Zero Automated Phone Trees
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hotline-actions-card">
+                    <h3 style="color: #FFFFFF; font-size: 1.3rem; font-weight: 700;">Connect with Hospital On-Call</h3>
+                    <p style="color: #C2D1C8; font-size: 0.88rem;">Immediate connection to an informatics specialist.</p>
+                    <a href="404.html" class="hotline-phone-button">
+                        <i class="ph-bold ph-phone-call" style="font-size: 1.5rem;"></i>
+                        <span>+91 (0427) 244-8900</span>
+                    </a>
+                    <a href="404.html" class="btn btn-outline btn-pill full-width">Launch Encrypted Web Chat <i class="ph-bold ph-chat-circle-dots"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         FOOTER SECTION
+         ========================================================================= -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <!-- Brand & Socials Column -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <p class="footer-brand-desc">Next-generation clinical operating system and AI health infrastructure transforming compassionate, precise patient care worldwide.</p>
+                <div class="footer-social-icons">
+                    <a href="404.html" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="ph-bold ph-x-logo"></i></a>
+                    <a href="404.html" aria-label="LinkedIn"><i class="ph-bold ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html"><i class="ph-bold ph-caret-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="ph-bold ph-caret-right"></i> About</a></li>
+                    <li><a href="service.html"><i class="ph-bold ph-caret-right"></i> Service</a></li>
+                    <li><a href="blog.html"><i class="ph-bold ph-caret-right"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="ph-bold ph-caret-right"></i> Contact</a></li>
+                    <li><a href="login.html"><i class="ph-bold ph-caret-right"></i> Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact Info Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Our Office</h4>
+                <div class="footer-contact-details">
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <strong>Address:</strong>
+                            <p>MMR complex, Chinnathirupathi,<br>salem, tamilnadu</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <strong>Email:</strong>
+                            <p><a href="404.html">support@pulsehealth.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-phone-call"></i></div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong>
+                            <p>+91 (0427) 244-8900</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Newsletter</h4>
+                <p class="footer-newsletter-text">Subscribe to receive monthly medical technology breakthroughs &amp; clinical insights.</p>
+                <form class="footer-newsletter-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit"><i class="ph-bold ph-paper-plane-right"></i> Join</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="container footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <p>&copy; 2026 Pulse HealthTech Platform. All Rights Reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">Terms of Service</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Kinetic Transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- Interactive FAQ Accordion Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(otherItem => otherItem.classList.remove('active'));
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

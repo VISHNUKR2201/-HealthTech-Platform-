@@ -1,0 +1,2343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical User Dashboard | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Chart.js for Interactive Clinical Telemetry & Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* ==========================================================================
+           CLINICAL USER DASHBOARD STYLES & LAYOUT
+           ========================================================================== */
+        :root {
+            --bg-body: #00170e;
+            --bg-sidebar: #002316;
+            --bg-card: rgba(0, 38, 24, 0.75);
+            --bg-card-hover: rgba(0, 48, 30, 0.9);
+            --border-card: rgba(195, 255, 77, 0.18);
+            --border-card-hover: rgba(195, 255, 77, 0.45);
+            --accent-lime: #c3ff4d;
+            --accent-teal: #10B981;
+            --accent-cyan: #06b6d4;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --text-dim: #64748B;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --sidebar-width: 270px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background-color: #00170e;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: clip;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            background-color: #00170e;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            width: 100%;
+            max-width: 100vw;
+            display: flex;
+            overflow-x: clip;
+            position: relative;
+        }
+
+        /* Ambient Background Glow */
+        .dash-ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.08) 0%, rgba(0, 35, 22, 0) 70%);
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+            max-width: 100vw;
+        }
+
+        /* 1. SIDEBAR NAVIGATION */
+        .dash-sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-sidebar);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            transition: var(--transition);
+            backdrop-filter: blur(20px);
+        }
+
+        .sidebar-header {
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .sidebar-logo img {
+            height: 42px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .sidebar-close-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .sidebar-nav-container {
+            flex: 1;
+            padding: 1.5rem 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .nav-section-title {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.8rem 0.8rem 0.4rem;
+        }
+
+        .dash-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1rem;
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-family: var(--font-main);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+            position: relative;
+        }
+
+        .dash-nav-item i {
+            font-size: 1.25rem;
+            color: #94A3B8;
+            transition: var(--transition);
+        }
+
+        .dash-nav-item .nav-badge {
+            margin-left: auto;
+            background: rgba(195, 255, 77, 0.15);
+            color: var(--accent-lime);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.15rem 0.5rem;
+            border-radius: 100px;
+        }
+
+        .dash-nav-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #FFFFFF;
+        }
+
+        .dash-nav-item:hover i {
+            color: var(--accent-lime);
+        }
+
+        .dash-nav-item.active {
+            background: rgba(195, 255, 77, 0.12);
+            color: var(--accent-lime);
+            border-color: rgba(195, 255, 77, 0.35);
+            box-shadow: 0 4px 16px rgba(195, 255, 77, 0.15);
+        }
+
+        .dash-nav-item.active i {
+            color: var(--accent-lime);
+        }
+
+        /* Sidebar User Profile & Logout */
+        .sidebar-footer {
+            padding: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(0, 20, 12, 0.5);
+        }
+
+        .user-profile-widget {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .user-avatar-wrap {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--accent-lime);
+            flex-shrink: 0;
+        }
+
+        .user-avatar-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .user-online-dot {
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 9px;
+            height: 9px;
+            background: #10B981;
+            border-radius: 50%;
+            border: 1.5px solid #002316;
+        }
+
+        .user-meta h5 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.2;
+        }
+
+        .user-meta span {
+            font-size: 0.74rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            width: 100%;
+            padding: 0.65rem 1rem;
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            border-radius: 10px;
+            color: #FDA4AF;
+            font-family: var(--font-main);
+            font-size: 0.86rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: rgba(244, 63, 94, 0.25);
+            color: #FFFFFF;
+            border-color: #F43F5E;
+            box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+        }
+
+        /* 2. MAIN DASHBOARD CONTENT AREA */
+        .dash-main {
+            margin-left: var(--sidebar-width);
+            flex: 1 1 auto;
+            width: calc(100% - var(--sidebar-width));
+            max-width: calc(100% - var(--sidebar-width));
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+            overflow-x: clip;
+            box-sizing: border-box;
+        }
+
+        /* Dashboard Top Header (Fixed Sticky Header Across All Views) */
+        .dash-topbar {
+            height: 78px;
+            padding: 0 2.2rem;
+            background: rgba(0, 26, 16, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 950;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .sidebar-toggle-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #FFFFFF;
+            font-size: 1.3rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topbar-greeting h2 {
+            font-family: var(--font-main);
+            font-size: 1.28rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .topbar-greeting span.badge-live {
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(16, 185, 129, 0.18);
+            color: #34D399;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            padding: 0.2rem 0.55rem;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .badge-live .live-pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: liveDotPulse 1.5s infinite;
+        }
+
+        @keyframes liveDotPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+        }
+
+
+        .topbar-icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #CBD5E1;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .topbar-icon-btn:hover {
+            background: rgba(195, 255, 77, 0.15);
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+        }
+
+        .topbar-icon-btn .badge-count {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 17px;
+            height: 17px;
+            background: #F43F5E;
+            color: #FFFFFF;
+            font-size: 0.65rem;
+            font-weight: 800;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #00170e;
+        }
+
+        .topbar-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: var(--accent-lime);
+            color: #002B1B;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 14px rgba(195, 255, 77, 0.25);
+        }
+
+        .topbar-action-btn:hover {
+            background: #d4ff70;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(195, 255, 77, 0.4);
+        }
+
+        /* 3. DASHBOARD TAB VIEW CONTAINER */
+        .dash-body {
+            padding: 2.2rem;
+            flex: 1 1 auto;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .dash-tab-panel {
+            display: none;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+        }
+
+        .dash-tab-panel.active {
+            display: block;
+            animation: fadeInPanel 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeInPanel {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Common Section Header */
+        .section-header-wrap {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 1rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .section-header-wrap h3 {
+            font-family: var(--font-main);
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.2;
+            word-break: break-word;
+        }
+
+        .section-header-wrap p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            word-break: break-word;
+        }
+
+        /* Common Stat Cards Grid */
+        .stat-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.4rem;
+            margin-bottom: 2.2rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .stat-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(195, 255, 77, 0.1);
+        }
+
+        .stat-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.85rem;
+        }
+
+        .stat-card-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-card-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .stat-card-icon.lime { background: rgba(195, 255, 77, 0.15); color: var(--accent-lime); }
+        .stat-card-icon.teal { background: rgba(16, 185, 129, 0.15); color: var(--accent-teal); }
+        .stat-card-icon.cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+        .stat-card-icon.rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
+
+        .stat-card-val {
+            font-family: var(--font-main);
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.1;
+            margin-bottom: 0.45rem;
+            word-break: break-word;
+        }
+
+        .stat-card-trend {
+            font-size: 0.78rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .trend-up { color: #34D399; }
+        .trend-down { color: #F87171; }
+        .trend-neutral { color: #94A3B8; }
+
+        /* Chart & Visuals Two Column Grid */
+        .dash-grid-2col {
+            display: grid;
+            grid-template-columns: 1.6fr 1.1fr;
+            gap: 1.8rem;
+            margin-bottom: 2.2rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .dash-grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.6rem;
+            margin-bottom: 2.2rem;
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+        }
+
+        .dash-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 1.75rem;
+            backdrop-filter: blur(16px);
+            transition: var(--transition);
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow: visible;
+            box-sizing: border-box;
+        }
+
+        .dash-box:hover {
+            border-color: rgba(195, 255, 77, 0.35);
+        }
+
+        .dash-box-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.4rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .dash-box-header h4 {
+            font-family: var(--font-main);
+            font-size: 1.12rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+            word-break: break-word;
+        }
+
+        .dash-box-header h4 i {
+            color: var(--accent-lime);
+        }
+
+        .dash-box-action {
+            color: var(--accent-lime);
+            font-size: 0.84rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: var(--transition);
+        }
+
+        .dash-box-action:hover {
+            text-decoration: underline;
+        }
+
+        /* Clinical Data Table (Fully Responsive with Touch-Scroll & Custom Scrollbar) */
+        .dash-table-wrap,
+        .table-responsive {
+            width: 100% !important;
+            max-width: 100% !important;
+            min-width: 0 !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            display: block !important;
+            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(195, 255, 77, 0.45) rgba(0, 20, 12, 0.6);
+            border-radius: 14px;
+            background: rgba(0, 18, 10, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            padding: 0.35rem 0.5rem;
+            margin-bottom: 0.5rem;
+            box-sizing: border-box;
+        }
+
+        .dash-table-wrap::-webkit-scrollbar,
+        .table-responsive::-webkit-scrollbar {
+            height: 7px;
+        }
+
+        .dash-table-wrap::-webkit-scrollbar-track,
+        .table-responsive::-webkit-scrollbar-track {
+            background: rgba(0, 20, 12, 0.6);
+            border-radius: 10px;
+        }
+
+        .dash-table-wrap::-webkit-scrollbar-thumb,
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: rgba(195, 255, 77, 0.35);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 20, 12, 0.8);
+        }
+
+        .dash-table-wrap::-webkit-scrollbar-thumb:hover,
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: rgba(195, 255, 77, 0.75);
+        }
+
+        .dash-table {
+            width: 100%;
+            min-width: 680px;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.88rem;
+        }
+
+        .dash-table th {
+            color: var(--text-dim);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.74rem;
+            letter-spacing: 0.05em;
+            padding: 0.95rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            white-space: nowrap;
+            background: rgba(0, 24, 15, 0.5);
+        }
+
+        .dash-table td {
+            padding: 0.95rem 1.1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #CBD5E1;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .dash-table tr:hover td {
+            background: rgba(255, 255, 255, 0.025);
+            color: #FFFFFF;
+        }
+
+        .patient-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .patient-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .patient-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-status.active { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-status.warning { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-status.danger { background: rgba(244, 63, 94, 0.15); color: #FB7185; border: 1px solid rgba(244, 63, 94, 0.3); }
+
+        /* Doctor & Diagnostic Profile Cards */
+        .doctor-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .doctor-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 18px;
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .doctor-card:hover {
+            border-color: var(--accent-lime);
+            transform: translateY(-4px);
+        }
+
+        .doctor-card-top {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .doctor-card-photo {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1.5px solid var(--accent-lime);
+            flex-shrink: 0;
+        }
+
+        .doctor-card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .doctor-card-info h5 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .doctor-card-info span {
+            font-size: 0.8rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+        }
+
+        .doctor-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 0.85rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* Prescription Pills & Med Tracker */
+        .med-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.95rem 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            margin-bottom: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .med-item:hover {
+            background: rgba(195, 255, 77, 0.06);
+            border-color: rgba(195, 255, 77, 0.25);
+        }
+
+        .med-item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .med-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(195, 255, 77, 0.12);
+            color: var(--accent-lime);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .med-meta h5 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .med-meta span {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* Diagnostic Scan & Image Thumbnails */
+        .scan-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+        }
+
+        .scan-item {
+            background: rgba(0, 24, 15, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .scan-item:hover {
+            border-color: var(--accent-lime);
+            transform: translateY(-3px);
+        }
+
+        .scan-thumb {
+            height: 130px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .scan-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .scan-item:hover .scan-thumb img {
+            transform: scale(1.08);
+        }
+
+        .scan-info {
+            padding: 0.9rem;
+        }
+
+        .scan-info h5 {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 0.2rem;
+        }
+
+        .scan-info p {
+            font-size: 0.75rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+        }
+
+        /* 4. RESPONSIVE DASHBOARD BREAKPOINTS */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 15, 9, 0.82);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 998;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .sidebar-backdrop.open {
+            display: block;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @media (max-width: 1200px) {
+            .stat-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .dash-grid-2col {
+                grid-template-columns: 1fr;
+            }
+            .dash-grid-3col, .doctor-card-grid, .scan-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            :root {
+                --sidebar-width: 0px;
+            }
+            html, body {
+                width: 100%;
+                max-width: 100vw;
+                overflow-x: clip;
+            }
+            body {
+                display: block;
+            }
+            .dash-sidebar {
+                transform: translateX(-100%);
+                width: 290px;
+                z-index: 999;
+                box-shadow: none;
+            }
+            .dash-sidebar.open {
+                transform: translateX(0);
+                box-shadow: 0 0 60px rgba(0, 0, 0, 0.95);
+            }
+            .sidebar-close-btn {
+                display: flex;
+            }
+            .dash-main {
+                margin-left: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                display: block;
+                overflow-x: clip;
+            }
+            .sidebar-toggle-btn {
+                display: flex;
+            }
+            .dash-topbar {
+                padding: 0 1.25rem;
+                height: 72px;
+                width: 100% !important;
+                max-width: 100% !important;
+                position: sticky;
+                top: 0;
+                z-index: 950;
+            }
+            .dash-body {
+                padding: 1.4rem 1.1rem;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                overflow-x: clip;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dash-body {
+                padding: 1rem 0.85rem;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .section-header-wrap {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.85rem;
+                margin-bottom: 1.25rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .section-header-wrap h3 {
+                font-size: 1.25rem;
+                line-height: 1.3;
+                word-break: break-word;
+            }
+            .section-header-wrap p {
+                font-size: 0.82rem;
+            }
+            .section-header-wrap .topbar-action-btn {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                padding: 0.7rem 1rem;
+                border-radius: 12px;
+            }
+            .section-header-wrap .topbar-action-btn span {
+                display: inline;
+            }
+            .stat-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.85rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .stat-card {
+                padding: 1rem 0.85rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .stat-card-val {
+                font-size: 1.45rem;
+            }
+            .stat-card-title {
+                font-size: 0.72rem;
+            }
+            .stat-card-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+            .dash-grid-2col, .dash-grid-3col, .doctor-card-grid, .scan-grid {
+                grid-template-columns: 1fr;
+                width: 100%;
+                max-width: 100%;
+            }
+            .dash-box {
+                padding: 1.15rem 0.95rem;
+                margin-bottom: 1.2rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .dash-box-header {
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin-bottom: 0.95rem;
+                width: 100%;
+            }
+            .dash-box-header h4 {
+                font-size: 0.95rem;
+                word-break: break-word;
+            }
+            .dash-table-wrap {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+                max-width: 100%;
+            }
+            .dash-table {
+                min-width: 520px;
+                width: 100%;
+            }
+            .topbar-greeting h2 {
+                font-size: 1.05rem;
+            }
+            .topbar-greeting span.badge-live {
+                display: none;
+            }
+            .dash-topbar .topbar-action-btn span {
+                display: none;
+            }
+            .dash-topbar .topbar-action-btn {
+                padding: 0.55rem 0.65rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-cards-grid {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                width: 100%;
+                max-width: 100%;
+            }
+            .dash-topbar {
+                padding: 0 0.85rem;
+                height: 62px;
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .topbar-left {
+                gap: 0.6rem;
+                min-width: 0;
+            }
+            .topbar-right {
+                gap: 0.45rem;
+                flex-shrink: 0;
+            }
+            .topbar-icon-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .dash-topbar .topbar-action-btn {
+                height: 36px;
+                padding: 0 0.65rem;
+            }
+            .doctor-card-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+            }
+            .doctor-card-actions a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .doc-details-grid {
+                grid-template-columns: 1fr;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dash-ambient-glow"></div>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- =========================================================================
+         1. SIDEBAR NAVIGATION (With Logo, 5+ Menu Lists & Logout Action)
+         ========================================================================= -->
+    <aside class="dash-sidebar" id="dashSidebar">
+        
+        <!-- Sidebar Header with Logo Redirect -->
+        <div class="sidebar-header">
+            <a href="userdashboard.html" class="sidebar-logo">
+                <img src="logo.webp" alt="Pulse HealthTech Dashboard Logo">
+            </a>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar">
+                <i class="ph-bold ph-x"></i>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation Menu Items (6 Comprehensive Menus) -->
+        <div class="sidebar-nav-container">
+            <div class="nav-section-title">Clinical Operations</div>
+
+            <!-- Menu Item 1: Overview & Vitals Telemetry -->
+            <a class="dash-nav-item active" data-tab="overviewTab">
+                <i class="ph-bold ph-activity"></i>
+                <span>Clinical Overview</span>
+                <span class="nav-badge">Live</span>
+            </a>
+
+            <!-- Menu Item 2: Appointments & Teleconsultations -->
+            <a class="dash-nav-item" data-tab="appointmentsTab">
+                <i class="ph-bold ph-calendar-check"></i>
+                <span>Appointments</span>
+                <span class="nav-badge">8 Today</span>
+            </a>
+
+            <!-- Menu Item 3: Patient Health Records & EHR -->
+            <a class="dash-nav-item" data-tab="ehrTab">
+                <i class="ph-bold ph-folder-user"></i>
+                <span>Health Records (EHR)</span>
+            </a>
+
+            <!-- Menu Item 4: AI Diagnostics & Ambient Scribing -->
+            <a class="dash-nav-item" data-tab="aiDiagnosticsTab">
+                <i class="ph-bold ph-brain"></i>
+                <span>AI Diagnostics</span>
+                <span class="nav-badge">99.4%</span>
+            </a>
+
+            <!-- Menu Item 5: Prescriptions & Med Tracker -->
+            <a class="dash-nav-item" data-tab="prescriptionsTab">
+                <i class="ph-bold ph-pill"></i>
+                <span>Prescriptions &amp; Rx</span>
+            </a>
+        </div>
+
+        <!-- Sidebar Footer with User Profile & Logout -->
+        <div class="sidebar-footer">
+            <div class="user-profile-widget">
+                <div class="user-avatar-wrap">
+                    <img src="images/pexels-karola-g-7195190.webp" alt="User Profile Avatar" id="userSidebarAvatar">
+                    <div class="user-online-dot"></div>
+                </div>
+                <div class="user-meta">
+                    <h5 id="userProfileName">Clinical User</h5>
+                    <span id="userProfileRole">Attending Specialist</span>
+                </div>
+            </div>
+
+            <!-- Logout Link -> Redirects directly to login.html -->
+            <a href="login.html" class="logout-btn" id="logoutBtn">
+                <i class="ph-bold ph-sign-out"></i>
+                <span>Logout Session</span>
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- =========================================================================
+         2. MAIN DASHBOARD CONTENT (Top Bar & Tab Panels)
+         ========================================================================= -->
+    <main class="dash-main">
+        
+        <!-- Sticky Top Bar -->
+        <header class="dash-topbar">
+            <div class="topbar-left">
+                <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Toggle navigation drawer">
+                    <i class="ph-bold ph-list"></i>
+                </button>
+                <div class="topbar-greeting">
+                    <h2>
+                        Clinical Command Station 
+                        <span class="badge-live"><span class="live-pulse-dot"></span> Telemetry Active</span>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="topbar-right">
+                <button class="topbar-icon-btn" title="Emergency Triage Alerts">
+                    <i class="ph-bold ph-bell"></i>
+                    <span class="badge-count">3</span>
+                </button>
+
+                <button class="topbar-icon-btn" title="FHIR Cloud Sync">
+                    <i class="ph-bold ph-cloud-check"></i>
+                </button>
+
+                <a href="404.html" class="topbar-action-btn">
+                    <i class="ph-bold ph-plus-circle"></i>
+                    <span>New Consultation</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Dashboard Body with 5+ Comprehensive Menu Panels -->
+        <div class="dash-body">
+
+            <!-- =================================================================
+                 MENU 1: CLINICAL OVERVIEW & ICU TELEMETRY
+                 (Includes 5 Sub-sections: Stats, Realtime Chart, Patient Queue, Device Status, AI Alerts)
+                 ================================================================= -->
+            <div class="dash-tab-panel active" id="overviewTab">
+                
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>ICU Vitals &amp; Patient Telemetry Station</h3>
+                        <p>Real-time clinical metrics streaming from Ward 4B, ICU 2, and Cardiac Step-Down Unit.</p>
+                    </div>
+                    <div>
+                        <span class="badge-status active"><i class="ph-fill ph-shield-check"></i> 100% HIPAA Encrypted</span>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 1.1: Metric Summary Cards -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Active Inpatients</span>
+                            <div class="stat-card-icon lime"><i class="ph-bold ph-bed"></i></div>
+                        </div>
+                        <div class="stat-card-val">142</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-arrow-up-right"></i> +6 Admitted today</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Telemetry Streams</span>
+                            <div class="stat-card-icon teal"><i class="ph-bold ph-heartbeat"></i></div>
+                        </div>
+                        <div class="stat-card-val">98.8%</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-check"></i> Zero Packet Loss</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Avg Triage Response</span>
+                            <div class="stat-card-icon cyan"><i class="ph-bold ph-timer"></i></div>
+                        </div>
+                        <div class="stat-card-val">3.4m</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-arrow-down-right"></i> 18% Faster SLA</div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-top">
+                            <span class="stat-card-title">Critical Alerts</span>
+                            <div class="stat-card-icon rose"><i class="ph-bold ph-warning"></i></div>
+                        </div>
+                        <div class="stat-card-val">2</div>
+                        <div class="stat-card-trend trend-down"><i class="ph-bold ph-shield-warning"></i> Under ICU review</div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 1.2 & 1.3: Realtime ECG Graph & Department Bed Occupancy Chart -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-waveform"></i> Multi-Lead ECG &amp; Hemodynamic Telemetry</h4>
+                            <span class="badge-status active">60 FPS Real-Time</span>
+                        </div>
+                        <div style="height: 280px; width: 100%;">
+                            <canvas id="telemetryChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-donut"></i> Bed Occupancy by Specialty</h4>
+                            <a href="404.html" class="dash-box-action">Ward Map <i class="ph-bold ph-arrow-right"></i></a>
+                        </div>
+                        <div style="height: 280px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="occupancyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 1.4: High-Risk Inpatient Triage Table with WebP Avatars -->
+                <div class="dash-box" style="margin-bottom: 2.2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-users-three"></i> Priority Inpatient Vitals Monitor</h4>
+                        <a href="404.html" class="dash-box-action">View Full Ward <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient &amp; MRN</th>
+                                    <th>Assigned Specialty</th>
+                                    <th>SpO2 &amp; Heart Rate</th>
+                                    <th>Blood Pressure</th>
+                                    <th>Clinical Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="patient-cell">
+                                            <div class="patient-avatar">
+                                                <img src="images/pexels-karola-g-7195379.webp" alt="Patient Arthur">
+                                            </div>
+                                            <div>
+                                                <strong>Arthur Vance</strong>
+                                                <div style="font-size: 0.76rem; color: #94A3B8;">MRN-884920 &bull; Room 304</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Cardiology / Post-PCI</td>
+                                    <td><span style="color: #34D399; font-weight: 700;">99%</span> &bull; 74 bpm</td>
+                                    <td>122 / 80 mmHg</td>
+                                    <td><span class="badge-status active">Stable</span></td>
+                                    <td><a href="404.html" class="dash-box-action"><i class="ph-bold ph-eye"></i> Review</a></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="patient-cell">
+                                            <div class="patient-avatar">
+                                                <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Patient Clara">
+                                            </div>
+                                            <div>
+                                                <strong>Clara O'Connor</strong>
+                                                <div style="font-size: 0.76rem; color: #94A3B8;">MRN-912401 &bull; ICU Bed 02</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Neuro-Trauma ICU</td>
+                                    <td><span style="color: #FBBF24; font-weight: 700;">94%</span> &bull; 108 bpm</td>
+                                    <td>148 / 95 mmHg</td>
+                                    <td><span class="badge-status warning">Elevated BP</span></td>
+                                    <td><a href="404.html" class="dash-box-action"><i class="ph-bold ph-eye"></i> Review</a></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="patient-cell">
+                                            <div class="patient-avatar">
+                                                <img src="images/pexels-karola-g-7195369.webp" alt="Patient Marcus">
+                                            </div>
+                                            <div>
+                                                <strong>Marcus Brody</strong>
+                                                <div style="font-size: 0.76rem; color: #94A3B8;">MRN-430911 &bull; Ward 4B</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>Pulmonology</td>
+                                    <td><span style="color: #34D399; font-weight: 700;">98%</span> &bull; 68 bpm</td>
+                                    <td>118 / 76 mmHg</td>
+                                    <td><span class="badge-status active">Discharge Ready</span></td>
+                                    <td><a href="404.html" class="dash-box-action"><i class="ph-bold ph-eye"></i> Review</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 1.5: Medical Imaging & Telemetry Hub Assets -->
+                <div class="dash-box">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-scan"></i> Connected Clinical Facilities &amp; Edge Hardware</h4>
+                        <span class="badge-status active">4 Hubs Synchronized</span>
+                    </div>
+                    <div class="scan-grid">
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/trnava-university-LNdPXkrOpeM-unsplash.webp" alt="Salem Bio Hub"></div>
+                            <div class="scan-info">
+                                <h5>Salem Telemetry Center</h5>
+                                <p>Latency: 4ms &bull; 64 ICU Beds</p>
+                            </div>
+                        </div>
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/marek-studzinski-TLkkKd0gmXU-unsplash.webp" alt="Boston Biomedical"></div>
+                            <div class="scan-info">
+                                <h5>Boston Medical Cloud</h5>
+                                <p>FHIR R4 Server &bull; 120 Nodes</p>
+                            </div>
+                        </div>
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp" alt="London NHS Telemetry"></div>
+                            <div class="scan-info">
+                                <h5>London NHS Integration</h5>
+                                <p>DICOM Edge Cache &bull; Active</p>
+                            </div>
+                        </div>
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Singapore Diagnostics"></div>
+                            <div class="scan-info">
+                                <h5>Singapore Genom Hub</h5>
+                                <p>NextSeq 2000 Pipeline</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =================================================================
+                 MENU 2: APPOINTMENTS & TELECONSULTATIONS
+                 (Includes 5 Sub-sections: Schedule Stats, Weekly Consult Graph, Upcoming Calendar, Doctors, Queue)
+                 ================================================================= -->
+            <div class="dash-tab-panel" id="appointmentsTab">
+                
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>Clinical Consultations &amp; Telehealth Queue</h3>
+                        <p>Manage encrypted WebRTC teleconsultations, follow-ups, and in-person patient visits.</p>
+                    </div>
+                    <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-calendar-plus"></i> Book Telehealth</a>
+                </div>
+
+                <!-- Sub-Section 2.1: Appointment KPIs -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Booked Today</span><div class="stat-card-icon lime"><i class="ph-bold ph-calendar-check"></i></div></div>
+                        <div class="stat-card-val">28</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-video-camera"></i> 14 Teleconsults</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Completed</span><div class="stat-card-icon teal"><i class="ph-bold ph-check-circle"></i></div></div>
+                        <div class="stat-card-val">19</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-clock"></i> On Schedule</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Waiting Room</span><div class="stat-card-icon cyan"><i class="ph-bold ph-hourglass"></i></div></div>
+                        <div class="stat-card-val">4</div>
+                        <div class="stat-card-trend trend-neutral"><i class="ph-bold ph-user-circle"></i> Avg Wait: 4.2m</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Cancellations</span><div class="stat-card-icon rose"><i class="ph-bold ph-x-circle"></i></div></div>
+                        <div class="stat-card-val">1</div>
+                        <div class="stat-card-trend trend-down"><i class="ph-bold ph-calendar-x"></i> Rescheduled</div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 2.2: Weekly Consultation Volume Chart -->
+                <div class="dash-box" style="margin-bottom: 2.2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-chart-line-up"></i> Weekly Consultation Volume &amp; Specialty Distribution</h4>
+                        <span class="badge-status active">Oct 2026 Analytics</span>
+                    </div>
+                    <div style="height: 260px; width: 100%;">
+                        <canvas id="appointmentsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 2.3: Attending Physicians on Duty -->
+                <h4 style="font-family: var(--font-main); font-size: 1.15rem; color: #fff; margin-bottom: 1rem;"><i class="ph-bold ph-stethoscope" style="color: var(--accent-lime);"></i> On-Duty Attending Specialists</h4>
+                <div class="doctor-card-grid">
+                    <div class="doctor-card">
+                        <div class="doctor-card-top">
+                            <div class="doctor-card-photo"><img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah"></div>
+                            <div class="doctor-card-info">
+                                <h5>Dr. Sarah Mitchell, MD</h5>
+                                <span>Cardiology &bull; Room 402</span>
+                            </div>
+                        </div>
+                        <div class="doctor-card-footer">
+                            <span><i class="ph-bold ph-clock"></i> 08:00 - 16:00</span>
+                            <span class="badge-status active">6 Consults Left</span>
+                        </div>
+                    </div>
+
+                    <div class="doctor-card">
+                        <div class="doctor-card-top">
+                            <div class="doctor-card-photo"><img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael"></div>
+                            <div class="doctor-card-info">
+                                <h5>Dr. Michael Sterling, MD</h5>
+                                <span>Neurology &bull; Telehealth 1</span>
+                            </div>
+                        </div>
+                        <div class="doctor-card-footer">
+                            <span><i class="ph-bold ph-clock"></i> 09:00 - 17:00</span>
+                            <span class="badge-status active">In Teleconsult</span>
+                        </div>
+                    </div>
+
+                    <div class="doctor-card">
+                        <div class="doctor-card-top">
+                            <div class="doctor-card-photo"><img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Dr. Elena"></div>
+                            <div class="doctor-card-info">
+                                <h5>Dr. Elena Rostova, PhD</h5>
+                                <span>Genomics &bull; Lab Suite 3</span>
+                            </div>
+                        </div>
+                        <div class="doctor-card-footer">
+                            <span><i class="ph-bold ph-clock"></i> 10:00 - 18:00</span>
+                            <span class="badge-status warning">Reviewing Labs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 2.4 & 2.5: Queue & Action Triggers -->
+                <div class="dash-box">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-video-camera"></i> Live Telehealth Video Intake Queue</h4>
+                        <span class="badge-status active">Encrypted WebRTC</span>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Consult Type</th>
+                                    <th>Scheduled Time</th>
+                                    <th>Assigned Specialist</th>
+                                    <th>Telehealth Room</th>
+                                    <th>Launch Call</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>David Reynolds</strong> (Age 54)</td>
+                                    <td>Post-Op Cardiac Review</td>
+                                    <td>14:30 PM (In 10m)</td>
+                                    <td>Dr. Sarah Mitchell</td>
+                                    <td><span class="badge-status active">Ready (HD)</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.4rem 0.9rem; font-size: 0.8rem;"><i class="ph-bold ph-phone-call"></i> Join</a></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Emily Watson</strong> (Age 29)</td>
+                                    <td>Neurology Migraine Followup</td>
+                                    <td>15:00 PM</td>
+                                    <td>Dr. Michael Sterling</td>
+                                    <td><span class="badge-status warning">Waiting</span></td>
+                                    <td><a href="404.html" class="topbar-action-btn" style="padding: 0.4rem 0.9rem; font-size: 0.8rem;"><i class="ph-bold ph-phone-call"></i> Join</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =================================================================
+                 MENU 3: ELECTRONIC HEALTH RECORDS (EHR & FHIR)
+                 (Includes 5 Sub-sections: Records Stats, Lab Progress Graph, FHIR Sync, Patient Archive, DICOM Scans)
+                 ================================================================= -->
+            <div class="dash-tab-panel" id="ehrTab">
+                
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>HL7 FHIR Electronic Health Record Pipeline</h3>
+                        <p>Interoperable patient records connected to Epic Systems, Cerner Millennium, and LOINC diagnostics.</p>
+                    </div>
+                    <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-file-arrow-up"></i> Import FHIR Bundle</a>
+                </div>
+
+                <!-- Sub-Section 3.1: EHR Metrics -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Indexed Records</span><div class="stat-card-icon lime"><i class="ph-bold ph-folder-user"></i></div></div>
+                        <div class="stat-card-val">128.4k</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-cloud-check"></i> 100% Validated</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Lab Panels Synced</span><div class="stat-card-icon teal"><i class="ph-bold ph-flask"></i></div></div>
+                        <div class="stat-card-val">3,840</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-check-double"></i> LOINC Compliant</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">DICOM Image Sets</span><div class="stat-card-icon cyan"><i class="ph-bold ph-camera"></i></div></div>
+                        <div class="stat-card-val">9,410</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-hard-drives"></i> PACS Synced</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">FHIR Queries/Min</span><div class="stat-card-icon rose"><i class="ph-bold ph-lightning"></i></div></div>
+                        <div class="stat-card-val">4.2k</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-gauge"></i> 12ms Latency</div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 3.2: Biomarker Trend Graph -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-bar"></i> Multi-Patient Glycemic &amp; Biomarker Dispersion</h4>
+                            <span class="badge-status active">HbA1c &amp; Lipids</span>
+                        </div>
+                        <div style="height: 270px; width: 100%;">
+                            <canvas id="ehrBiomarkerChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-shield-check"></i> FHIR Interoperability Status</h4>
+                            <span class="badge-status active">All Systems Online</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-database"></i></div><div class="med-meta"><h5>Epic Community Connect</h5><span>FHIR R4 Endpoint &bull; Active Sync</span></div></div>
+                                <span class="badge-status active">Online</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-cpu"></i></div><div class="med-meta"><h5>Cerner Millennium Gateway</h5><span>HL7 v2.5.1 Feed &bull; 0 Errors</span></div></div>
+                                <span class="badge-status active">Online</span>
+                            </div>
+                            <div class="med-item">
+                                <div class="med-item-left"><div class="med-icon"><i class="ph-bold ph-dna"></i></div><div class="med-meta"><h5>Genomic Variant Repository</h5><span>VCF / GVF Storage &bull; 98TB</span></div></div>
+                                <span class="badge-status active">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 3.3, 3.4, 3.5: Clinical Diagnostic Radiology Scans & Lab Panels -->
+                <div class="dash-box">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-x-ray"></i> Diagnostic Scans &amp; High-Resolution PACS Radiology</h4>
+                        <a href="404.html" class="dash-box-action">Open DICOM Viewer <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                    <div class="scan-grid">
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/tom-claes-Z-fSqssuFq8-unsplash.webp" alt="Cardiology Scan"></div>
+                            <div class="scan-info">
+                                <h5>Cardiac Angiography</h5>
+                                <p>MRN-884920 &bull; 1080p Cine</p>
+                            </div>
+                        </div>
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Endoscopy"></div>
+                            <div class="scan-info">
+                                <h5>Flexible Bronchoscopy</h5>
+                                <p>MRN-430911 &bull; Biopsy Verified</p>
+                            </div>
+                        </div>
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/pexels-edward-jenner-4031695.webp" alt="Genomics Review"></div>
+                            <div class="scan-info">
+                                <h5>Pharmacogenomic Panel</h5>
+                                <p>CYP2C19 Genotyping &bull; Complete</p>
+                            </div>
+                        </div>
+                        <div class="scan-item">
+                            <div class="scan-thumb"><img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="Lab Work"></div>
+                            <div class="scan-info">
+                                <h5>Arterial Blood Gas (ABG)</h5>
+                                <p>ICU Bed 02 &bull; pH 7.38</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =================================================================
+                 MENU 4: AI CLINICAL DIAGNOSTICS & AMBIENT SCRIBING
+                 (Includes 5 Sub-sections: AI KPIs, Diagnostic Radar Chart, Ambient Scribing Stream, Risk Matrix, NLP Model)
+                 ================================================================= -->
+            <div class="dash-tab-panel" id="aiDiagnosticsTab">
+                
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>AI Ambient Clinical Scribing &amp; Diagnostic Intelligence</h3>
+                        <p>Real-time conversational NLP converting doctor-patient dialogues into structured SOAP notes and SNOMED-CT codes.</p>
+                    </div>
+                    <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-microphone"></i> Start Ambient Scribing</a>
+                </div>
+
+                <!-- Sub-Section 4.1: AI Intelligence Metrics -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">NLP Transcription Accuracy</span><div class="stat-card-icon lime"><i class="ph-bold ph-brain"></i></div></div>
+                        <div class="stat-card-val">99.4%</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-check-circle"></i> Medical Lexicon v4.2</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Hours Saved / Doctor</span><div class="stat-card-icon teal"><i class="ph-bold ph-hourglass-high"></i></div></div>
+                        <div class="stat-card-val">2.8h/day</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-sparkle"></i> Auto SOAP Generation</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">ICD-10 Mappings</span><div class="stat-card-icon cyan"><i class="ph-bold ph-tree-structure"></i></div></div>
+                        <div class="stat-card-val">100%</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-check"></i> Zero Billing Rejections</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Diagnostic Warnings</span><div class="stat-card-icon rose"><i class="ph-bold ph-shield-warning"></i></div></div>
+                        <div class="stat-card-val">3</div>
+                        <div class="stat-card-trend trend-down"><i class="ph-bold ph-bell-ringing"></i> Drug interaction flag</div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 4.2 & 4.3: AI Model Accuracy Chart & Live SOAP Note Stream -->
+                <div class="dash-grid-2col">
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-chart-polar"></i> Diagnostic Precision Across Clinical Sub-Specialties</h4>
+                            <span class="badge-status active">AUC 0.992</span>
+                        </div>
+                        <div style="height: 280px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                            <canvas id="aiRadarChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="dash-box">
+                        <div class="dash-box-header">
+                            <h4><i class="ph-bold ph-waveform"></i> Live Ambient Scribe (SOAP Note Stream)</h4>
+                            <span class="badge-status active"><i class="ph-fill ph-record"></i> Processing Audio</span>
+                        </div>
+                        <div style="background: rgba(0, 18, 10, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 1.2rem; font-size: 0.86rem; line-height: 1.6; color: #E2E8F0;">
+                            <p style="color: var(--accent-lime); font-weight: 700; margin-bottom: 0.4rem;">[Subjective &bull; Scribe Output 14:12:05]</p>
+                            <p>Patient reports mild retrosternal chest tightness radiating to left shoulder upon exertion. No dyspnea at rest.</p>
+                            <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 0.8rem 0;">
+                            <p style="color: #38BDF8; font-weight: 700; margin-bottom: 0.4rem;">[Objective &bull; Vitals Synthesized]</p>
+                            <p>HR: 76 bpm, BP: 128/82 mmHg, SpO2: 99%. Troponin I: &lt;0.01 ng/mL (Normal). ECG reveals normal sinus rhythm without ST elevation.</p>
+                            <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 0.8rem 0;">
+                            <p style="color: #34D399; font-weight: 700; margin-bottom: 0.4rem;">[Plan &amp; CPT/ICD Codes]</p>
+                            <p>ICD-10: I20.9 (Angina pectoris). Schedule treadmill stress echo. Prescribe sublingual Nitroglycerin PRN.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 4.4 & 4.5: AI Clinical Advisory Panel -->
+                <div class="dash-box">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-shield-star"></i> AI Clinical Decision Support &amp; Drug Interaction Guardian</h4>
+                        <span class="badge-status active">FDA Cleared Algorithms</span>
+                    </div>
+                    <div class="dash-grid-3col" style="margin-bottom: 0;">
+                        <div class="med-item" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                            <span class="badge-status warning">Pharmacogenomic Alert</span>
+                            <h5 style="color: #fff; font-size: 0.95rem;">Clopidogrel vs CYP2C19*2</h5>
+                            <p style="font-size: 0.8rem; color: #94A3B8;">Patient is intermediate metabolizer. Recommend Prasugrel 10mg alternative.</p>
+                        </div>
+                        <div class="med-item" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                            <span class="badge-status active">Renal Dosing Check</span>
+                            <h5 style="color: #fff; font-size: 0.95rem;">eGFR: 82 mL/min/1.73m²</h5>
+                            <p style="font-size: 0.8rem; color: #94A3B8;">Normal renal function. Full standard dosing of Metformin and ACE inhibitors permitted.</p>
+                        </div>
+                        <div class="med-item" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
+                            <span class="badge-status danger">Allergy Contraindication</span>
+                            <h5 style="color: #fff; font-size: 0.95rem;">Penicillin Class Warning</h5>
+                            <p style="font-size: 0.8rem; color: #94A3B8;">Severe anaphylaxis recorded in 2021. Cephalosporin crossover risk flagged.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =================================================================
+                 MENU 5: PRESCRIPTIONS & PHARMACY ORDERS
+                 (Includes 5 Sub-sections: Rx Stats, Adherence Graph, Active Meds, e-Prescribe Action, Pharmacy Delivery)
+                 ================================================================= -->
+            <div class="dash-tab-panel" id="prescriptionsTab">
+                
+                <div class="section-header-wrap">
+                    <div>
+                        <h3>e-Prescribing &amp; Medication Adherence Suite</h3>
+                        <p>Direct electronic dispatch to Surescripts-certified pharmacies and smart blister-pack adherence telemetry.</p>
+                    </div>
+                    <a href="404.html" class="topbar-action-btn"><i class="ph-bold ph-plus-circle"></i> Issue New e-Rx</a>
+                </div>
+
+                <!-- Sub-Section 5.1: Prescription KPIs -->
+                <div class="stat-cards-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Active Prescriptions</span><div class="stat-card-icon lime"><i class="ph-bold ph-pill"></i></div></div>
+                        <div class="stat-card-val">842</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-check"></i> Surescripts Verified</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Patient Adherence</span><div class="stat-card-icon teal"><i class="ph-bold ph-chart-line-up"></i></div></div>
+                        <div class="stat-card-val">94.2%</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-arrow-up-right"></i> +3.1% this month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Refill Requests</span><div class="stat-card-icon cyan"><i class="ph-bold ph-arrows-clockwise"></i></div></div>
+                        <div class="stat-card-val">12</div>
+                        <div class="stat-card-trend trend-neutral"><i class="ph-bold ph-clock"></i> 6 Pending Approval</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-top"><span class="stat-card-title">Interaction Alerts</span><div class="stat-card-icon rose"><div class="stat-card-icon rose"><i class="ph-bold ph-shield-warning"></i></div></div></div>
+                        <div class="stat-card-val">0</div>
+                        <div class="stat-card-trend trend-up"><i class="ph-bold ph-shield-check"></i> Clean Pipeline</div>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 5.2: Medication Adherence Trend Graph -->
+                <div class="dash-box" style="margin-bottom: 2.2rem;">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-chart-bar"></i> 6-Month Chronic Disease Medication Adherence Cohort</h4>
+                        <span class="badge-status active">Hypertension &bull; Diabetes &bull; Statin Therapy</span>
+                    </div>
+                    <div style="height: 260px; width: 100%;">
+                        <canvas id="adherenceChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Sub-Section 5.3, 5.4, 5.5: Active Medication Dispatch Table -->
+                <div class="dash-box">
+                    <div class="dash-box-header">
+                        <h4><i class="ph-bold ph-receipt"></i> Recent Electronic Prescriptions (e-Rx Orders)</h4>
+                        <a href="404.html" class="dash-box-action">Pharmacy Ledger <i class="ph-bold ph-arrow-right"></i></a>
+                    </div>
+                    <div class="dash-table-wrap">
+                        <table class="dash-table">
+                            <thead>
+                                <tr>
+                                    <th>Medication &amp; Dosage</th>
+                                    <th>Patient MRN</th>
+                                    <th>Frequency &amp; Route</th>
+                                    <th>Dispense Qty</th>
+                                    <th>Fulfillment Status</th>
+                                    <th>Refill Auth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="med-item-left">
+                                            <div class="med-icon"><i class="ph-bold ph-pill"></i></div>
+                                            <div><strong>Atorvastatin Calcium</strong><div style="font-size: 0.76rem; color: #94A3B8;">40 mg Oral Tablet</div></div>
+                                        </div>
+                                    </td>
+                                    <td>MRN-884920 (Arthur V.)</td>
+                                    <td>Once Daily at Bedtime</td>
+                                    <td>90 Tablets (3 Months)</td>
+                                    <td><span class="badge-status active"><i class="ph-fill ph-check-circle"></i> Dispensed</span></td>
+                                    <td><span style="color: var(--accent-lime); font-weight: 700;">3 Refills Left</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="med-item-left">
+                                            <div class="med-icon"><i class="ph-bold ph-pill"></i></div>
+                                            <div><strong>Metoprolol Succinate ER</strong><div style="font-size: 0.76rem; color: #94A3B8;">50 mg 24hr Tablet</div></div>
+                                        </div>
+                                    </td>
+                                    <td>MRN-912401 (Clara O.)</td>
+                                    <td>Once Daily Morning</td>
+                                    <td>30 Tablets</td>
+                                    <td><span class="badge-status active"><i class="ph-fill ph-check-circle"></i> Delivered</span></td>
+                                    <td><span style="color: var(--accent-lime); font-weight: 700;">2 Refills Left</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="med-item-left">
+                                            <div class="med-icon"><i class="ph-bold ph-pill"></i></div>
+                                            <div><strong>Empagliflozin (Jardiance)</strong><div style="font-size: 0.76rem; color: #94A3B8;">10 mg Tablet</div></div>
+                                        </div>
+                                    </td>
+                                    <td>MRN-430911 (Marcus B.)</td>
+                                    <td>Once Daily with Breakfast</td>
+                                    <td>30 Tablets</td>
+                                    <td><span class="badge-status warning"><i class="ph-fill ph-hourglass"></i> In Triage</span></td>
+                                    <td><a href="404.html" class="dash-box-action"><i class="ph-bold ph-check"></i> Authorize</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- =========================================================================
+         INTERACTIVE DASHBOARD NAVIGATION & CHART RENDERING LOGIC
+         ========================================================================= -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 0. Render Logged-in User Information
+            const storedName = localStorage.getItem('pulse_logged_in_name');
+            const storedEmail = localStorage.getItem('pulse_logged_in_email');
+            const storedRole = localStorage.getItem('pulse_logged_in_role');
+            const userNameEl = document.getElementById('userProfileName');
+            const userRoleEl = document.getElementById('userProfileRole');
+
+            if (userNameEl) {
+                if (storedName) {
+                    userNameEl.textContent = storedName;
+                } else if (storedEmail) {
+                    let emailPrefix = storedEmail.split('@')[0];
+                    let formatted = emailPrefix.replace(/[._-]+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).trim();
+                    userNameEl.textContent = formatted;
+                }
+            }
+            if (userRoleEl && storedRole) {
+                userRoleEl.textContent = `${storedRole} Specialist`;
+            }
+
+            // 1. Sidebar Navigation Tab Switching & State Persistence
+            const navItems = document.querySelectorAll('.dash-nav-item');
+            const tabPanels = document.querySelectorAll('.dash-tab-panel');
+
+            function activateTab(targetTabId, updateHistory = true) {
+                if (!targetTabId) return;
+                const targetPanel = document.getElementById(targetTabId);
+                if (!targetPanel) return;
+
+                navItems.forEach(nav => {
+                    if (nav.getAttribute('data-tab') === targetTabId) {
+                        nav.classList.add('active');
+                    } else {
+                        nav.classList.remove('active');
+                    }
+                });
+
+                tabPanels.forEach(panel => {
+                    if (panel.id === targetTabId) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+
+                // Persist state in sessionStorage and URL hash
+                sessionStorage.setItem('activeDashboardTab', targetTabId);
+                if (updateHistory) {
+                    history.replaceState({ tab: targetTabId }, '', '#' + targetTabId);
+                }
+            }
+
+            // Restore saved tab and scroll position
+            function restoreDashboardState() {
+                const hashTab = window.location.hash ? window.location.hash.substring(1) : null;
+                const savedTab = sessionStorage.getItem('activeDashboardTab');
+                const targetTab = hashTab || savedTab || 'overviewTab';
+                
+                activateTab(targetTab, false);
+
+                const savedScrollY = sessionStorage.getItem('dashboardScrollY');
+                if (savedScrollY !== null) {
+                    const scrollPos = parseInt(savedScrollY, 10);
+                    // Immediate scroll + delayed layout scroll
+                    window.scrollTo({ top: scrollPos, behavior: 'instant' });
+                    setTimeout(() => {
+                        window.scrollTo({ top: scrollPos, behavior: 'instant' });
+                    }, 50);
+                    setTimeout(() => {
+                        window.scrollTo({ top: scrollPos, behavior: 'instant' });
+                    }, 150);
+                }
+            }
+
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetTabId = item.getAttribute('data-tab');
+                    if (!targetTabId) return;
+
+                    // Reset saved scroll on explicit menu click
+                    sessionStorage.setItem('dashboardScrollY', '0');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    activateTab(targetTabId, true);
+
+                    // Close sidebar on mobile once selected
+                    if (window.innerWidth <= 992) {
+                        const sidebarElem = document.getElementById('dashSidebar');
+                        const backdropElem = document.getElementById('sidebarBackdrop');
+                        if (sidebarElem) sidebarElem.classList.remove('open');
+                        if (backdropElem) backdropElem.classList.remove('open');
+                    }
+                });
+            });
+
+            // Initial restore
+            restoreDashboardState();
+
+            // Listen to pageshow for back-forward navigation cache
+            window.addEventListener('pageshow', (event) => {
+                restoreDashboardState();
+            });
+
+            window.addEventListener('hashchange', () => {
+                const hashTab = window.location.hash ? window.location.hash.substring(1) : null;
+                if (hashTab) {
+                    activateTab(hashTab, false);
+                }
+            });
+
+            // 2. All Dashboard Action Buttons & Links -> Redirect to 404 with exact state saved
+            document.addEventListener('click', (e) => {
+                const target = e.target.closest('a, button');
+                if (!target) return;
+
+                // Do NOT intercept sidebar tabs
+                if (target.classList.contains('dash-nav-item') || target.closest('.dash-nav-item')) return;
+                // Do NOT intercept sidebar toggle/close buttons or backdrop
+                if (target.id === 'sidebarToggleBtn' || target.id === 'sidebarCloseBtn' || target.id === 'sidebarBackdrop' || target.closest('#sidebarToggleBtn') || target.closest('#sidebarCloseBtn')) return;
+
+                // Logo click: Navigate and reload the main page of dashboard (Clinical Overview)
+                if (target.classList.contains('sidebar-logo') || target.closest('.sidebar-logo')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    sessionStorage.removeItem('activeDashboardTab');
+                    sessionStorage.removeItem('dashboardScrollY');
+                    sessionStorage.removeItem('pulse_return_page');
+                    window.location.href = 'userdashboard.html';
+                    return;
+                }
+
+                // Do NOT intercept logout button (leads directly to login.html)
+                if (target.id === 'logoutBtn' || target.closest('#logoutBtn') || target.classList.contains('logout-btn')) {
+                    sessionStorage.removeItem('activeDashboardTab');
+                    sessionStorage.removeItem('dashboardScrollY');
+                    return;
+                }
+
+                // For all other buttons, text links, review actions, filters, search clicks:
+                // 1. Save current active tab & exact scroll position
+                const currentActiveNav = document.querySelector('.dash-nav-item.active');
+                const currentTab = currentActiveNav ? currentActiveNav.getAttribute('data-tab') : 'overviewTab';
+                sessionStorage.setItem('activeDashboardTab', currentTab);
+                sessionStorage.setItem('dashboardScrollY', window.scrollY.toString());
+
+                // 2. Navigate to 404.html
+                e.preventDefault();
+                window.location.href = '404.html';
+            });
+
+            // 3. Mobile Sidebar Toggle Drawer
+            const sidebar = document.getElementById('dashSidebar');
+            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+            const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+            const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+            if (sidebarToggleBtn) {
+                sidebarToggleBtn.addEventListener('click', () => {
+                    if (sidebar) sidebar.classList.toggle('open');
+                    if (sidebarBackdrop) sidebarBackdrop.classList.toggle('open');
+                });
+            }
+
+            if (sidebarCloseBtn) {
+                sidebarCloseBtn.addEventListener('click', () => {
+                    if (sidebar) sidebar.classList.remove('open');
+                    if (sidebarBackdrop) sidebarBackdrop.classList.remove('open');
+                });
+            }
+
+            if (sidebarBackdrop) {
+                sidebarBackdrop.addEventListener('click', () => {
+                    if (sidebar) sidebar.classList.remove('open');
+                    sidebarBackdrop.classList.remove('open');
+                });
+            }
+
+            // 4. Initialize Interactive Clinical Telemetry Charts
+            // Chart 1: ECG & Telemetry Streaming Line Chart
+            const telemetryCtx = document.getElementById('telemetryChart');
+            if (telemetryCtx) {
+                new Chart(telemetryCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                        datasets: [
+                            {
+                                label: 'Heart Rate (bpm)',
+                                data: [72, 70, 68, 74, 82, 78, 75, 80, 76, 74, 72, 73],
+                                borderColor: '#c3ff4d',
+                                backgroundColor: 'rgba(195, 255, 77, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                pointBackgroundColor: '#c3ff4d',
+                                pointRadius: 4,
+                            },
+                            {
+                                label: 'SpO2 (%)',
+                                data: [98, 98, 99, 97, 98, 99, 98, 99, 98, 99, 98, 99],
+                                borderColor: '#10B981',
+                                borderDash: [5, 5],
+                                tension: 0.3,
+                                fill: false,
+                                pointBackgroundColor: '#10B981',
+                                pointRadius: 3,
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { labels: { color: '#CBD5E1', font: { family: 'Plus Jakarta Sans', weight: '600' } } }
+                        },
+                        scales: {
+                            x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94A3B8' } },
+                            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94A3B8' } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Specialty Bed Occupancy Donut
+            const occupancyCtx = document.getElementById('occupancyChart');
+            if (occupancyCtx) {
+                new Chart(occupancyCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Cardiology', 'Neurology', 'ICU Step-Down', 'Pulmonology', 'Orthopedics'],
+                        datasets: [{
+                            data: [38, 26, 20, 10, 6],
+                            backgroundColor: ['#c3ff4d', '#10B981', '#06b6d4', '#f59e0b', '#f43f5e'],
+                            borderColor: '#002316',
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom', labels: { color: '#CBD5E1', font: { family: 'Plus Jakarta Sans', size: 11 } } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 3: Weekly Appointments Volume
+            const appointmentsCtx = document.getElementById('appointmentsChart');
+            if (appointmentsCtx) {
+                new Chart(appointmentsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                        datasets: [
+                            {
+                                label: 'In-Clinic Visits',
+                                data: [18, 22, 19, 25, 20, 8, 4],
+                                backgroundColor: '#c3ff4d',
+                                borderRadius: 8
+                            },
+                            {
+                                label: 'Telehealth Encrypted Video',
+                                data: [12, 16, 14, 18, 15, 10, 6],
+                                backgroundColor: '#10B981',
+                                borderRadius: 8
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { labels: { color: '#CBD5E1' } } },
+                        scales: {
+                            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
+                            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 4: EHR Biomarkers & Glycemic Control
+            const ehrBioCtx = document.getElementById('ehrBiomarkerChart');
+            if (ehrBioCtx) {
+                new Chart(ehrBioCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                        datasets: [{
+                            label: 'Mean Fasting Glucose (mg/dL)',
+                            data: [134, 128, 122, 118, 114, 108],
+                            borderColor: '#38BDF8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { labels: { color: '#CBD5E1' } } },
+                        scales: {
+                            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
+                            y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } }
+                        }
+                    }
+                });
+            }
+
+            // Chart 5: AI Clinical Intelligence Radar
+            const aiRadarCtx = document.getElementById('aiRadarChart');
+            if (aiRadarCtx) {
+                new Chart(aiRadarCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Cardiology', 'Neurology', 'Genomics', 'Radiology NLP', 'Pharmacology', 'Pathology'],
+                        datasets: [{
+                            label: 'Pulse AI Accuracy (%)',
+                            data: [99.6, 98.9, 99.4, 99.8, 99.2, 98.7],
+                            backgroundColor: 'rgba(195, 255, 77, 0.25)',
+                            borderColor: '#c3ff4d',
+                            pointBackgroundColor: '#10B981',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: '#c3ff4d'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(255,255,255,0.1)' },
+                                grid: { color: 'rgba(255,255,255,0.08)' },
+                                pointLabels: { color: '#CBD5E1', font: { family: 'Plus Jakarta Sans', size: 10 } },
+                                ticks: { display: false, min: 90, max: 100 }
+                            }
+                        },
+                        plugins: { legend: { labels: { color: '#CBD5E1' } } }
+                    }
+                });
+            }
+
+            // Chart 6: Chronic Disease Medication Adherence
+            const adherenceCtx = document.getElementById('adherenceChart');
+            if (adherenceCtx) {
+                new Chart(adherenceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Cardiovascular', 'Type 2 Diabetes', 'Hyperlipidemia', 'Respiratory Asthma', 'Thyroid'],
+                        datasets: [{
+                            label: 'Adherence Compliance Rate (%)',
+                            data: [96.4, 92.8, 95.1, 91.5, 98.2],
+                            backgroundColor: ['#c3ff4d', '#10B981', '#06b6d4', '#f59e0b', '#a855f7'],
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } },
+                            y: { min: 80, max: 100, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94A3B8' } }
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

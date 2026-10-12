@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Services & AI Solutions | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (sessionStorage.getItem('pulse_last_scroll_pos')) {
+            document.documentElement.classList.add('pulse-restoring-scroll');
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           SERVICE PAGE DEDICATED STYLES, LAYOUT & ANIMATIONS
+           ========================================================================== */
+
+        /* Shimmer & Kinetic Animations */
+        @keyframes serviceKineticGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes serviceBadgePulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(195, 255, 77, 0.25); transform: scale(1); }
+            50% { box-shadow: 0 0 28px rgba(195, 255, 77, 0.55); transform: scale(1.02); }
+        }
+
+        @keyframes serviceCardLift {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes radarPing {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        /* 1. UNIQUE SERVICE HERO SECTION (Interactive Command Center Layout) */
+        .service-hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 150px 0 90px;
+            background: linear-gradient(135deg, rgba(0, 35, 22, 0.94) 0%, rgba(0, 20, 12, 0.97) 100%),
+                        url('images/cesar-badilla-miranda-0Fv4M2hSZJU-unsplash.webp') center/cover no-repeat;
+            overflow: hidden;
+        }
+
+        .service-hero::after {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 500px;
+            background: radial-gradient(ellipse, rgba(195, 255, 77, 0.12) 0%, rgba(0, 43, 27, 0) 70%);
+            filter: blur(80px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .service-hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 1.4rem;
+            background: rgba(195, 255, 77, 0.12);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.6rem;
+            animation: serviceBadgePulse 4s infinite ease-in-out;
+        }
+
+        .service-hero-title {
+            font-size: 3.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-main);
+            letter-spacing: -0.02em;
+        }
+
+        .service-hero-title .highlight {
+            background: linear-gradient(120deg, #c3ff4d 0%, #ffffff 50%, #10B981 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: serviceKineticGlow 4s linear infinite;
+            display: inline-block;
+        }
+
+        .service-hero-subtext {
+            font-size: 1.15rem;
+            color: #C2D1C8;
+            line-height: 1.75;
+            margin-bottom: 2.3rem;
+            max-width: 580px;
+        }
+
+        .service-hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Service Telemetry Command Card */
+        .service-command-card {
+            background: rgba(0, 35, 22, 0.82);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(195, 255, 77, 0.32);
+            border-radius: 26px;
+            padding: 2.2rem;
+            box-shadow: 0 30px 65px rgba(0, 0, 0, 0.55), 0 0 35px rgba(195, 255, 77, 0.15);
+            position: relative;
+            animation: serviceCardLift 6s ease-in-out infinite;
+            transition: all 0.4s ease;
+        }
+
+        .service-command-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.6);
+            box-shadow: 0 35px 75px rgba(0, 0, 0, 0.65), 0 0 45px rgba(195, 255, 77, 0.28);
+        }
+
+        .command-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.6rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .command-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.4rem 0.95rem;
+            background: rgba(195, 255, 77, 0.15);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .command-status-pill .radar-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-lime);
+            position: relative;
+        }
+
+        .command-status-pill .radar-dot::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-lime);
+            animation: radarPing 1.8s infinite cubic-bezier(0, 0.2, 0.8, 1);
+        }
+
+        .command-service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .command-service-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.95rem 1.1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .command-service-row:hover {
+            background: rgba(195, 255, 77, 0.08);
+            border-color: rgba(195, 255, 77, 0.3);
+            transform: translateX(4px);
+        }
+
+        .command-row-left {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .command-row-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.2rem;
+        }
+
+        .command-row-title {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .command-row-metric {
+            font-size: 0.85rem;
+            color: var(--accent-lime);
+            font-weight: 700;
+        }
+
+        /* 2. SECTION COMMON HEADERS */
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-badge-center {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.5rem 1.3rem;
+            background: rgba(195, 255, 77, 0.1);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title-center {
+            font-size: 2.65rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle-center {
+            font-size: 1.08rem;
+            color: #A9BDB1;
+            line-height: 1.7;
+        }
+
+        /* 3. CORE AI CLINICAL SERVICES SUITE (3x2 Grid) */
+        .core-services-section {
+            padding: 110px 0;
+            background-color: #002215;
+            position: relative;
+        }
+
+        .core-services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+        }
+
+        .core-service-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .core-service-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(195, 255, 77, 0.2);
+        }
+
+        .core-card-img-wrap {
+            height: 220px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .core-card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            transition: transform 0.6s ease;
+        }
+
+        .core-service-card:hover .core-card-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .core-card-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(0, 43, 27, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.35rem 0.95rem;
+            border-radius: 100px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.35);
+        }
+
+        .core-card-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .core-service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .core-service-card h3 {
+            font-size: 1.35rem;
+            color: #FFFFFF;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .core-service-card p {
+            font-size: 0.94rem;
+            color: #A9BDB1;
+            line-height: 1.65;
+            margin-bottom: 1.4rem;
+        }
+
+        .core-service-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            margin-bottom: 1.8rem;
+            padding-top: 1.1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .core-feature-row {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.88rem;
+            color: #E2E8F0;
+        }
+
+        .core-feature-row i {
+            color: var(--accent-lime);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .core-card-action {
+            margin-top: auto;
+        }
+
+        /* 4. DEPARTMENTAL SPECIALTY WORKFLOWS SECTION (Split Interactive Showcase) */
+        .specialty-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+            position: relative;
+        }
+
+        .specialty-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .specialty-visual-wrapper {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(195, 255, 77, 0.28);
+            height: 520px;
+        }
+
+        .specialty-visual-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .specialty-visual-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .specialty-visual-badge {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            right: 25px;
+            background: rgba(0, 35, 22, 0.92);
+            backdrop-filter: blur(18px);
+            padding: 1.3rem 1.6rem;
+            border-radius: 18px;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .specialty-visual-badge i {
+            font-size: 2.5rem;
+            color: var(--accent-lime);
+        }
+
+        .specialty-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+
+        .specialty-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 1.8rem;
+            transition: all 0.35s ease;
+            cursor: pointer;
+        }
+
+        .specialty-item:hover,
+        .specialty-item.active {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(195, 255, 77, 0.45);
+            transform: translateX(8px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+        }
+
+        .specialty-item-head {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .specialty-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.45rem;
+        }
+
+        .specialty-item h3 {
+            font-size: 1.25rem;
+            color: #FFFFFF;
+        }
+
+        .specialty-item p {
+            font-size: 0.94rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+        }
+
+        /* 5. HOSPITAL EHR & DEVICE INTEROPERABILITY (4-Pillar Grid) */
+        .interop-section {
+            padding: 110px 0;
+            background-color: #002215;
+        }
+
+        .interop-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .interop-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            overflow: hidden;
+            padding: 0;
+            text-align: center;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .interop-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .interop-img-wrap {
+            height: 160px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .interop-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .interop-card:hover .interop-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .interop-card-body {
+            padding: 1.8rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-grow: 1;
+        }
+
+        .interop-icon {
+            font-size: 2.5rem;
+            color: var(--accent-lime);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .interop-card h4 {
+            font-size: 1.25rem;
+            color: #FFFFFF;
+            margin-bottom: 0.65rem;
+        }
+
+        .interop-card p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* 6. TELEHEALTH & REMOTE PATIENT MONITORING SUITE */
+        .rpm-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+            position: relative;
+        }
+
+        .rpm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .rpm-feature-box-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .rpm-feature-box {
+            display: flex;
+            gap: 1.3rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 1.6rem;
+            transition: all 0.35s ease;
+        }
+
+        .rpm-feature-box:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.35);
+            transform: translateX(8px);
+        }
+
+        .rpm-box-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .rpm-box-content h4 {
+            font-size: 1.18rem;
+            color: #FFFFFF;
+            margin-bottom: 0.35rem;
+        }
+
+        .rpm-box-content p {
+            font-size: 0.9rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+        }
+
+        .rpm-visual-frame {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.55);
+            height: 480px;
+        }
+
+        .rpm-visual-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            display: block;
+        }
+
+        .rpm-floating-pill {
+            position: absolute;
+            top: 22px;
+            left: 22px;
+            background: rgba(0, 35, 22, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+            padding: 0.95rem 1.4rem;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 0.92rem;
+        }
+
+        .rpm-floating-pill i {
+            color: var(--accent-lime);
+            font-size: 1.35rem;
+        }
+
+        /* 7. DIAGNOSTIC LAB & GENOMICS INFERENCE PIPELINES */
+        .genomics-section {
+            padding: 110px 0;
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.93) 0%, rgba(0, 26, 16, 0.96) 100%),
+                        url('images/pexels-edward-jenner-4031695.webp') center/cover no-repeat fixed;
+            position: relative;
+        }
+
+        .genomics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+        }
+
+        .genomics-card {
+            background: rgba(0, 35, 22, 0.82);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(195, 255, 77, 0.28);
+            border-radius: 24px;
+            overflow: hidden;
+            padding: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .genomics-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.55);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(195, 255, 77, 0.22);
+        }
+
+        .genomics-img-wrap {
+            height: 180px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .genomics-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .genomics-card:hover .genomics-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .genomics-card-body {
+            padding: 1.8rem 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .genomics-icon {
+            font-size: 2.4rem;
+            color: var(--accent-lime);
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .genomics-card h3 {
+            font-size: 1.3rem;
+            color: #FFFFFF;
+            margin-bottom: 0.7rem;
+            font-weight: 700;
+        }
+
+        .genomics-card p {
+            font-size: 0.92rem;
+            color: #C2D1C8;
+            line-height: 1.65;
+        }
+
+        /* 8. ENTERPRISE SLA & CLINICAL CONCIERGE SERVICES */
+        .sla-section {
+            padding: 100px 0;
+            background-color: var(--primary-bg);
+        }
+
+        .sla-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .sla-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 2.4rem 1.6rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .sla-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .sla-icon {
+            font-size: 2.8rem;
+            color: var(--accent-lime);
+            margin-bottom: 1.1rem;
+            display: inline-block;
+        }
+
+        .sla-counter {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.4rem;
+            font-family: var(--font-main);
+        }
+
+        .sla-label {
+            font-size: 0.94rem;
+            color: #C2D1C8;
+            font-weight: 600;
+        }
+
+        /* 9. SERVICE CONFIGURATOR & ONBOARDING CTA */
+        .service-cta-section {
+            padding: 100px 0;
+            background-color: #002215;
+            position: relative;
+        }
+
+        .service-cta-box {
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.92) 0%, rgba(0, 60, 38, 0.85) 100%),
+                        url('images/trnava-university-LNdPXkrOpeM-unsplash.webp') center/cover no-repeat;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            border-radius: 30px;
+            padding: 4.8rem 3.8rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.8rem;
+            align-items: center;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-cta-content h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.2;
+            margin-bottom: 1.3rem;
+        }
+
+        .service-cta-content p {
+            font-size: 1.08rem;
+            color: #C2D1C8;
+            line-height: 1.7;
+            margin-bottom: 2.2rem;
+        }
+
+        .service-cta-form {
+            background: rgba(0, 35, 22, 0.88);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 22px;
+            padding: 2.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .service-cta-form input,
+        .service-cta-form select {
+            width: 100%;
+            padding: 0.95rem 1.25rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: var(--font-main);
+            font-size: 0.94rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .service-cta-form input:focus,
+        .service-cta-form select:focus {
+            border-color: var(--accent-lime);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(195, 255, 77, 0.25);
+        }
+
+        .service-cta-form select option {
+            background: #002B1B;
+            color: #FFFFFF;
+        }
+
+        /* Responsive Breakpoints for Service Page */
+        @media (max-width: 1024px) {
+            .service-hero-grid,
+            .specialty-grid,
+            .rpm-grid,
+            .service-cta-box {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .core-services-grid,
+            .genomics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .interop-grid,
+            .sla-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .service-hero-title {
+                font-size: 2.4rem;
+            }
+            .core-services-grid,
+            .genomics-grid,
+            .interop-grid,
+            .sla-grid {
+                grid-template-columns: 1fr;
+            }
+            .service-cta-box {
+                padding: 2.6rem 1.6rem;
+            }
+            .section-title-center {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-indicator" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html" class="active" style="color: var(--accent-lime);">Service</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-pill btn-primary">Login</a>
+                <div class="mobile-toggle" id="mobile-toggle"><i class="ph ph-list"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <div class="mobile-close" id="mobile-close" aria-label="Close navigation"><i class="ph-bold ph-x"></i></div>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html"><span>Home</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="about.html"><span>About</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="service.html" style="color: var(--accent-lime);"><span>Service</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="blog.html"><span>Blog</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="contact.html"><span>Contact</span> <i class="ph-bold ph-caret-right"></i></a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn btn-primary btn-pill full-width">Login <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="mobile-menu-contact-info">
+                    <p><i class="ph-fill ph-envelope-simple"></i> clinical@pulsehealth.tech</p>
+                    <p><i class="ph-fill ph-phone-call"></i> +91 (0427) 244-8900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         SECTION 1: HERO SECTION (Command Center Concept)
+         ========================================================================= -->
+    <section class="service-hero">
+        <div class="container service-hero-grid">
+            <div class="service-hero-text reveal-left">
+                <div class="service-hero-badge">
+                    <i class="ph-fill ph-cpu"></i>
+                    <span>HOSPITAL-GRADE AI SUITE</span>
+                </div>
+                <h1 class="service-hero-title">
+                    Clinical Intelligence <span class="highlight">Services &amp; Cloud Matrix</span>
+                </h1>
+                <p class="service-hero-subtext">
+                    Comprehensive artificial intelligence services engineered for acute care hospitals, diagnostic networks, and remote health teams. Eliminating documentation fatigue while driving faster triage.
+                </p>
+                <div class="service-hero-ctas">
+                    <a href="#core-services" class="btn btn-primary btn-pill">Explore Services <i class="ph-bold ph-arrow-down"></i></a>
+                    <a href="#specialties" class="btn btn-outline btn-pill"><i class="ph-bold ph-stethoscope"></i> Clinical Specialties</a>
+                </div>
+            </div>
+
+            <div class="service-hero-visual reveal-right">
+                <div class="service-command-card">
+                    <div class="command-header">
+                        <div>
+                            <h4 style="color: #FFFFFF; font-size: 1.15rem; font-weight: 700;">Live Telemetry Hub</h4>
+                            <span style="color: #94a3b8; font-size: 0.8rem;">Real-Time Service Orchestration</span>
+                        </div>
+                        <div class="command-status-pill">
+                            <span class="radar-dot"></span>
+                            <span>All Nodes Active</span>
+                        </div>
+                    </div>
+
+                    <div class="command-service-list">
+                        <div class="command-service-row">
+                            <div class="command-row-left">
+                                <div class="command-row-icon"><i class="ph-bold ph-microphone"></i></div>
+                                <div>
+                                    <div class="command-row-title">Ambient Medical Scribing</div>
+                                    <span style="color: #94a3b8; font-size: 0.78rem;">Continuous Conversational NLP</span>
+                                </div>
+                            </div>
+                            <span class="command-row-metric">99.8% Acc</span>
+                        </div>
+
+                        <div class="command-service-row">
+                            <div class="command-row-left">
+                                <div class="command-row-icon"><i class="ph-bold ph-heartbeat"></i></div>
+                                <div>
+                                    <div class="command-row-title">ICU Vitals Telemetry</div>
+                                    <span style="color: #94a3b8; font-size: 0.78rem;">12ms Stream Latency</span>
+                                </div>
+                            </div>
+                            <span class="command-row-metric">&lt;12ms</span>
+                        </div>
+
+                        <div class="command-service-row">
+                            <div class="command-row-left">
+                                <div class="command-row-icon"><i class="ph-bold ph-brain"></i></div>
+                                <div>
+                                    <div class="command-row-title">Predictive Sepsis Warning</div>
+                                    <span style="color: #94a3b8; font-size: 0.78rem;">6-Hour Early Forecast</span>
+                                </div>
+                            </div>
+                            <span class="command-row-metric">94.2% Sens</span>
+                        </div>
+
+                        <div class="command-service-row">
+                            <div class="command-row-left">
+                                <div class="command-row-icon"><i class="ph-bold ph-shield-check"></i></div>
+                                <div>
+                                    <div class="command-row-title">FHIR Cloud Ingestion</div>
+                                    <span style="color: #94a3b8; font-size: 0.78rem;">Zero PHI Leakage Guarantee</span>
+                                </div>
+                            </div>
+                            <span class="command-row-metric">HIPAA Tier-1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: CORE CLINICAL AI SERVICE SUITES (6-Service 3x2 Grid)
+         ========================================================================= -->
+    <section id="core-services" class="core-services-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-sparkle"></i>
+                    <span>ENTERPRISE CAPABILITIES</span>
+                </div>
+                <h2 class="section-title-center">Core AI Clinical Service Suites</h2>
+                <p class="section-subtitle-center">
+                    Six specialized medical technology pillars designed to integrate seamlessly into existing EHRs, bedside monitors, and lab networks.
+                </p>
+            </div>
+
+            <div class="core-services-grid">
+                <!-- Service 1 -->
+                <div class="core-service-card reveal">
+                    <div class="core-card-img-wrap">
+                        <img src="images/pexels-ivan-s-4989172.webp" alt="Ambient Voice Scribing">
+                        <span class="core-card-tag">Ambient AI</span>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="core-service-icon"><i class="ph-bold ph-microphone"></i></div>
+                        <h3>Ambient Clinical NLP Scribing</h3>
+                        <p>Automatically records, contextualizes, and drafts SOAP notes, prescriptions, and ICD-10 codes in real-time during patient examinations.</p>
+                        <div class="core-service-features">
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> 78% reduction in charting hours</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Supports 40+ clinical specialties</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Native Epic &amp; Cerner 1-click sync</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="core-service-card reveal">
+                    <div class="core-card-img-wrap">
+                        <img src="images/pexels-edward-jenner-4031695.webp" alt="Neural Diagnostic Imaging">
+                        <span class="core-card-tag">Computer Vision</span>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="core-service-icon"><i class="ph-bold ph-scan"></i></div>
+                        <h3>Neural Diagnostic Vision</h3>
+                        <p>High-precision neural networks for automated triage on CT scans, X-rays, MRIs, and 12-lead ECG traces with automated abnormality heatmaps.</p>
+                        <div class="core-service-features">
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> 99.4% intracranial bleed detection</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Zero-latency DICOM PACS streaming</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> FDA SaMD cleared inference models</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="core-service-card reveal">
+                    <div class="core-card-img-wrap">
+                        <img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Predictive ICU Telemetry">
+                        <span class="core-card-tag">Predictive Cloud</span>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="core-service-icon"><i class="ph-bold ph-heartbeat"></i></div>
+                        <h3>Predictive ICU Telemetry</h3>
+                        <p>Continuous vitals monitoring that forecasts acute decompensation, septic shock, and cardiac arrhythmia hours before physical onset.</p>
+                        <div class="core-service-features">
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Up to 6 hours early sepsis warning</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> 12ms ultra-low edge telemetry</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> 42% decrease in alarm fatigue</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="core-service-card reveal">
+                    <div class="core-card-img-wrap">
+                        <img src="images/tran-mau-tri-tam-HmHkyn8-IIA-unsplash.webp" alt="Remote Patient Telehealth">
+                        <span class="core-card-tag">Connected Care</span>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="core-service-icon"><i class="ph-bold ph-video-camera"></i></div>
+                        <h3>Telehealth &amp; RPM Matrix</h3>
+                        <p>Encrypted HD virtual consultation suite integrated with continuous cellular wearable telemetry for chronic disease management.</p>
+                        <div class="core-service-features">
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> 256-bit encrypted audio/video</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Real-time bluetooth device streaming</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Automated Medicare RPM billing codes</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="core-service-card reveal">
+                    <div class="core-card-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Surgical Informatics">
+                        <span class="core-card-tag">Surgical Hub</span>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="core-service-icon"><i class="ph-bold ph-scissors"></i></div>
+                        <h3>Intraoperative Surgical AI</h3>
+                        <p>Real-time surgical video indexing, instrument tracking, and automated operative record generation directly to hospital billing.</p>
+                        <div class="core-service-features">
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Automated OR milestone tracking</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Video audit for quality control</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Automated operative note drafting</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="core-service-card reveal">
+                    <div class="core-card-img-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="Pathology & Lab Diagnostics">
+                        <span class="core-card-tag">Precision Lab</span>
+                    </div>
+                    <div class="core-card-body">
+                        <div class="core-service-icon"><i class="ph-bold ph-flask"></i></div>
+                        <h3>Automated Lab &amp; Pathology</h3>
+                        <p>High-throughput automated classification of blood smears, histology biopsy slices, and rapid antimicrobial susceptibility profiling.</p>
+                        <div class="core-service-features">
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> 5x faster pathology screening</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> Instant critical lab result alerts</div>
+                            <div class="core-feature-row"><i class="ph-bold ph-check-circle"></i> LIS/LIMS bidirectional pipeline</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: DEPARTMENTAL CLINICAL WORKFLOWS (Interactive Showcase)
+         ========================================================================= -->
+    <section id="specialties" class="specialty-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-hospital"></i>
+                    <span>CLINICAL DEPARTMENTS</span>
+                </div>
+                <h2 class="section-title-center">Tailored Solutions for Hospital Specialties</h2>
+                <p class="section-subtitle-center">
+                    Every medical specialty has distinct operational rhythms. Our software modules adapt to your clinical guidelines.
+                </p>
+            </div>
+
+            <div class="specialty-grid">
+                <div class="specialty-visual-wrapper reveal-left">
+                    <img src="images/pexels-karola-g-7195379.webp" alt="Specialty Workflow Display">
+                    <div class="specialty-visual-badge">
+                        <i class="ph-bold ph-shield-star"></i>
+                        <div>
+                            <strong style="color: #FFFFFF; font-size: 1.05rem; display: block;">Emergency Care Optimized</strong>
+                            <span style="color: #A9BDB1; font-size: 0.84rem;">Average triage intake time reduced to 90 seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="specialty-list reveal-right">
+                    <!-- Specialty 1 -->
+                    <div class="specialty-item active">
+                        <div class="specialty-item-head">
+                            <div class="specialty-item-icon"><i class="ph-bold ph-ambulance"></i></div>
+                            <h3>Emergency Medicine &amp; Trauma Triage</h3>
+                        </div>
+                        <p>Instantaneous multi-source acuity scoring that flags hidden internal hemorrhages, stroke windows, and respiratory distress upon patient arrival.</p>
+                    </div>
+
+                    <!-- Specialty 2 -->
+                    <div class="specialty-item">
+                        <div class="specialty-item-head">
+                            <div class="specialty-item-icon"><i class="ph-bold ph-heart"></i></div>
+                            <h3>Cardiology &amp; Hemodynamics</h3>
+                        </div>
+                        <p>Continuous AI monitoring of arterial line waveforms, real-time ST-segment elevation warnings, and automatic ejection fraction estimations.</p>
+                    </div>
+
+                    <!-- Specialty 3 -->
+                    <div class="specialty-item">
+                        <div class="specialty-item-head">
+                            <div class="specialty-item-icon"><i class="ph-bold ph-dna"></i></div>
+                            <h3>Oncology &amp; Precision Genomics</h3>
+                        </div>
+                        <p>Matching tumor molecular markers with targeted clinical trial protocols and flagging contraindicating chemotherapy drug interactions.</p>
+                    </div>
+
+                    <!-- Specialty 4 -->
+                    <div class="specialty-item">
+                        <div class="specialty-item-head">
+                            <div class="specialty-item-icon"><i class="ph-bold ph-baby"></i></div>
+                            <h3>Pediatrics &amp; Neonatal ICU (NICU)</h3>
+                        </div>
+                        <p>Specialized pediatric vital ranges and weight-adjusted dosage calculations with non-invasive video-based infant distress monitoring.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: HOSPITAL EHR & DEVICE INTEROPERABILITY (4-Pillar Grid)
+         ========================================================================= -->
+    <section class="interop-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-plugs-connected"></i>
+                    <span>SEAMLESS INTEGRATION</span>
+                </div>
+                <h2 class="section-title-center">EHR &amp; Medical Device Interoperability</h2>
+                <p class="section-subtitle-center">
+                    Zero rip-and-replace required. We plug directly into your existing enterprise electronic medical records and telemetry infrastructure.
+                </p>
+            </div>
+
+            <div class="interop-grid">
+                <!-- Pillar 1 -->
+                <div class="interop-card reveal">
+                    <div class="interop-img-wrap">
+                        <img src="images/hh-e-LwYlLzteMxo-unsplash.webp" alt="EHR Native Sync">
+                    </div>
+                    <div class="interop-card-body">
+                        <div class="interop-icon"><i class="ph-bold ph-database"></i></div>
+                        <h4>EHR Native Sync</h4>
+                        <p>Certified FHIR v4 and SMART on FHIR integration with Epic Systems, Oracle Cerner, MEDITECH, and Athenahealth.</p>
+                    </div>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="interop-card reveal">
+                    <div class="interop-img-wrap">
+                        <img src="images/neuro-equilibrium-GQzPQB6nPxU-unsplash.webp" alt="Device Telemetry">
+                    </div>
+                    <div class="interop-card-body">
+                        <div class="interop-icon"><i class="ph-bold ph-broadcast"></i></div>
+                        <h4>Device Telemetry</h4>
+                        <p>Universal device driver layer supporting Philips, GE Healthcare, Mindray, and Welch Allyn inpatient vitals monitors.</p>
+                    </div>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="interop-card reveal">
+                    <div class="interop-img-wrap">
+                        <img src="images/john-paul-cuvinar-hH9xWAwdDfE-unsplash.webp" alt="HL7 Message Broker">
+                    </div>
+                    <div class="interop-card-body">
+                        <div class="interop-icon"><i class="ph-bold ph-arrows-clockwise"></i></div>
+                        <h4>HL7 v2 &amp; v3 Engine</h4>
+                        <p>High-throughput real-time ADT, ORU, and MDM message broker processing over 50,000 clinical events per second.</p>
+                    </div>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="interop-card reveal">
+                    <div class="interop-img-wrap">
+                        <img src="images/lightsaber-collection-hqBr-KfgR8o-unsplash.webp" alt="Zero-Trust Cloud">
+                    </div>
+                    <div class="interop-card-body">
+                        <div class="interop-icon"><i class="ph-bold ph-cloud-check"></i></div>
+                        <h4>Zero-Trust BAA Cloud</h4>
+                        <p>Encrypted data channels with isolated tenant databases, HIPAA Business Associate Agreement, and full SOC-2 Type II audits.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: REMOTE PATIENT MONITORING (RPM)
+         ========================================================================= -->
+    <section class="rpm-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-device-mobile"></i>
+                    <span>CONNECTED CARE</span>
+                </div>
+                <h2 class="section-title-center">Continuous Remote Patient Monitoring (RPM)</h2>
+                <p class="section-subtitle-center">
+                    Extending hospital-grade clinical oversight directly into patients' homes to prevent 30-day readmissions.
+                </p>
+            </div>
+
+            <div class="rpm-grid">
+                <div class="rpm-feature-box-list reveal-left">
+                    <div class="rpm-feature-box">
+                        <div class="rpm-box-icon"><i class="ph-bold ph-activity"></i></div>
+                        <div class="rpm-box-content">
+                            <h4>Cellular Wearable Hub</h4>
+                            <p>Pre-configured blood pressure cuffs, pulse oximeters, and glucose monitors that transmit data instantly without requiring patient Wi-Fi setup.</p>
+                        </div>
+                    </div>
+
+                    <div class="rpm-feature-box">
+                        <div class="rpm-box-icon"><i class="ph-bold ph-bell-ringing"></i></div>
+                        <div class="rpm-box-content">
+                            <h4>Intelligent Escalation Triage</h4>
+                            <p>Automated clinical rules engines that detect sudden weight spikes in heart failure patients and dispatch nurse check-ins immediately.</p>
+                        </div>
+                    </div>
+
+                    <div class="rpm-feature-box">
+                        <div class="rpm-box-icon"><i class="ph-bold ph-currency-dollar"></i></div>
+                        <div class="rpm-box-content">
+                            <h4>Automated CPT Reimbursement</h4>
+                            <p>Built-in time-tracking and automated generation of CPT 99453, 99454, 99457, and 99458 billing reports for maximum revenue capture.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rpm-visual-frame reveal-right">
+                    <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="RPM Telemetry In Action">
+                    <div class="rpm-floating-pill">
+                        <i class="ph-bold ph-shield-check"></i>
+                        <span>64% Reduction in 30-Day Hospital Readmissions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: DIAGNOSTIC LAB & GENOMICS INFERENCE
+         ========================================================================= -->
+    <section class="genomics-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-dna"></i>
+                    <span>GENOMIC &amp; LAB MATRIX</span>
+                </div>
+                <h2 class="section-title-center">Molecular Pathology &amp; Diagnostic Pipelines</h2>
+                <p class="section-subtitle-center">
+                    Accelerating diagnostic lab throughput with automated machine learning inference.
+                </p>
+            </div>
+
+            <div class="genomics-grid">
+                <!-- Lab Card 1 -->
+                <div class="genomics-card reveal">
+                    <div class="genomics-img-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Automated Blood Smear Analysis">
+                    </div>
+                    <div class="genomics-card-body">
+                        <div class="genomics-icon"><i class="ph-bold ph-eyedropper"></i></div>
+                        <h3>Automated Blood Smear Analysis</h3>
+                        <p>Computer vision models that segment white blood cell differential counts, detect blast cells, and flag malaria parasites in seconds.</p>
+                    </div>
+                </div>
+
+                <!-- Lab Card 2 -->
+                <div class="genomics-card reveal">
+                    <div class="genomics-img-wrap">
+                        <img src="images/pexels-silverkblack-39192372.webp" alt="Genomic Variant Pathogenicity">
+                    </div>
+                    <div class="genomics-card-body">
+                        <div class="genomics-icon"><i class="ph-bold ph-tree-structure"></i></div>
+                        <h3>Genomic Variant Pathogenicity</h3>
+                        <p>Deep neural classification of Next-Generation Sequencing (NGS) data, prioritizing rare genetic mutations and pharmacogenomic risks.</p>
+                    </div>
+                </div>
+
+                <!-- Lab Card 3 -->
+                <div class="genomics-card reveal">
+                    <div class="genomics-img-wrap">
+                        <img src="images/pexels-tara-winstead-7723541.webp" alt="Rapid Antimicrobial Susceptibility">
+                    </div>
+                    <div class="genomics-card-body">
+                        <div class="genomics-icon"><i class="ph-bold ph-bug"></i></div>
+                        <h3>Rapid Antimicrobial Susceptibility</h3>
+                        <p>Predicting optimal antibiotic regimens from optical microscopy growth patterns hours before traditional agar disc diffusion results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: ENTERPRISE SLA & CLINICAL SUPPORT
+         ========================================================================= -->
+    <section class="sla-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-certificate"></i>
+                    <span>ENTERPRISE GUARANTEE</span>
+                </div>
+                <h2 class="section-title-center">Mission-Critical Uptime &amp; Medical Concierge</h2>
+                <p class="section-subtitle-center">
+                    Healthcare infrastructure cannot tolerate downtime. We provide institutional grade reliability and round-the-clock clinical engineering support.
+                </p>
+            </div>
+
+            <div class="sla-grid">
+                <div class="sla-item reveal">
+                    <div class="sla-icon"><i class="ph-bold ph-shield-check"></i></div>
+                    <div class="sla-counter counter" data-target="99.999" data-suffix="%">0%</div>
+                    <div class="sla-label">System Uptime SLA</div>
+                </div>
+
+                <div class="sla-item reveal">
+                    <div class="sla-icon"><i class="ph-bold ph-timer"></i></div>
+                    <div class="sla-counter counter" data-target="15" data-suffix=" min">0 min</div>
+                    <div class="sla-label">Critical Escalation Response</div>
+                </div>
+
+                <div class="sla-item reveal">
+                    <div class="sla-icon"><i class="ph-bold ph-headset"></i></div>
+                    <div class="sla-counter counter" data-target="24" data-suffix="/7">0/7</div>
+                    <div class="sla-label">Clinical Informatics Support</div>
+                </div>
+
+                <div class="sla-item reveal">
+                    <div class="sla-icon"><i class="ph-bold ph-lock-key"></i></div>
+                    <div class="sla-counter counter" data-target="100" data-suffix="%">0%</div>
+                    <div class="sla-label">BAA Guaranteed Privacy</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 8: SERVICE ONBOARDING & CONSULTATION CTA
+         ========================================================================= -->
+    <section class="service-cta-section">
+        <div class="container">
+            <div class="service-cta-box reveal">
+                <div class="service-cta-content">
+                    <div class="section-badge-center" style="margin-bottom: 1.1rem;">
+                        <i class="ph-bold ph-sparkle"></i>
+                        <span>SCHEDULE CLINICAL CONSULTATION</span>
+                    </div>
+                    <h2>Deploy Pulse Health in Your Hospital Network</h2>
+                    <p>
+                        Speak with our medical informatics engineers to design a custom integration plan tailored to your electronic medical records and clinical volume.
+                    </p>
+                    <div style="display: flex; gap: 1.6rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> 30-Day Sandbox Deployment
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> Custom EHR Workflow Mapping
+                        </div>
+                    </div>
+                </div>
+
+                <form class="service-cta-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <h3 style="color: #FFFFFF; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;">Select Service Package</h3>
+                    <input type="text" placeholder="Dr. Full Name, MD" required>
+                    <input type="email" placeholder="Hospital / Clinical Email" required>
+                    <button type="submit" class="btn btn-primary btn-pill full-width">Request Architecture Call <i class="ph-bold ph-arrow-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         FOOTER SECTION
+         ========================================================================= -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <!-- Brand & Socials Column -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <p class="footer-brand-desc">Next-generation clinical operating system and AI health infrastructure transforming compassionate, precise patient care worldwide.</p>
+                <div class="footer-social-icons">
+                    <a href="404.html" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="ph-bold ph-x-logo"></i></a>
+                    <a href="404.html" aria-label="LinkedIn"><i class="ph-bold ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html"><i class="ph-bold ph-caret-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="ph-bold ph-caret-right"></i> About</a></li>
+                    <li><a href="service.html"><i class="ph-bold ph-caret-right"></i> Service</a></li>
+                    <li><a href="blog.html"><i class="ph-bold ph-caret-right"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="ph-bold ph-caret-right"></i> Contact</a></li>
+                    <li><a href="login.html"><i class="ph-bold ph-caret-right"></i> Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact Info Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Our Office</h4>
+                <div class="footer-contact-details">
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <strong>Address:</strong>
+                            <p>MMR complex, Chinnathirupathi,<br>salem, tamilnadu</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <strong>Email:</strong>
+                            <p><a href="404.html">support@pulsehealth.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-phone-call"></i></div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong>
+                            <p>+91 (0427) 244-8900</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Newsletter</h4>
+                <p class="footer-newsletter-text">Subscribe to receive monthly medical technology breakthroughs &amp; clinical insights.</p>
+                <form class="footer-newsletter-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit"><i class="ph-bold ph-paper-plane-right"></i> Join</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="container footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <p>&copy; 2026 Pulse HealthTech Platform. All Rights Reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">Terms of Service</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Kinetic Transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

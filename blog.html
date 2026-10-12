@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Blog & AI Insights | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script>
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        if (sessionStorage.getItem('pulse_last_scroll_pos')) {
+            document.documentElement.classList.add('pulse-restoring-scroll');
+        }
+    </script>
+
+    <style>
+        /* ==========================================================================
+           BLOG PAGE DEDICATED STYLES, EDITORIAL LAYOUT & ANIMATIONS
+           ========================================================================== */
+
+        /* Shimmer & Kinetic Animations */
+        @keyframes blogKineticShine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes blogBadgePulse {
+            0%, 100% { box-shadow: 0 0 12px rgba(195, 255, 77, 0.25); transform: scale(1); }
+            50% { box-shadow: 0 0 28px rgba(195, 255, 77, 0.55); transform: scale(1.02); }
+        }
+
+        @keyframes spotlightFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes scrollLeftToRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        /* 1. EDITORIAL MAGAZINE HERO SECTION */
+        .blog-hero {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 150px 0 90px;
+            background: linear-gradient(135deg, rgba(0, 35, 22, 0.94) 0%, rgba(0, 20, 12, 0.97) 100%),
+                        url('images/marek-studzinski-TLkkKd0gmXU-unsplash.webp') center/cover no-repeat;
+            overflow: hidden;
+        }
+
+        .blog-hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: 10%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.16) 0%, rgba(0, 43, 27, 0) 70%);
+            border-radius: 50%;
+            filter: blur(90px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .blog-hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4.5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.55rem 1.4rem;
+            background: rgba(195, 255, 77, 0.12);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.6rem;
+            animation: blogBadgePulse 4s infinite ease-in-out;
+        }
+
+        .blog-hero-title {
+            font-size: 3.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            color: #FFFFFF;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-main);
+            letter-spacing: -0.02em;
+        }
+
+        .blog-hero-title .highlight {
+            background: linear-gradient(120deg, #c3ff4d 0%, #ffffff 50%, #10B981 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: blogKineticShine 4s linear infinite;
+            display: inline-block;
+        }
+
+        .blog-hero-subtext {
+            font-size: 1.15rem;
+            color: #C2D1C8;
+            line-height: 1.75;
+            margin-bottom: 2.3rem;
+            max-width: 580px;
+        }
+
+        .blog-hero-ctas {
+            display: flex;
+            align-items: center;
+            gap: 1.3rem;
+            flex-wrap: wrap;
+        }
+
+        /* Hero Spotlight Featured Article Card */
+        .spotlight-card {
+            background: rgba(0, 35, 22, 0.82);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(195, 255, 77, 0.32);
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 30px 65px rgba(0, 0, 0, 0.55), 0 0 35px rgba(195, 255, 77, 0.15);
+            animation: spotlightFloat 6s ease-in-out infinite;
+            transition: all 0.4s ease;
+        }
+
+        .spotlight-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.6);
+            box-shadow: 0 35px 75px rgba(0, 0, 0, 0.65), 0 0 45px rgba(195, 255, 77, 0.28);
+        }
+
+        .spotlight-img-wrap {
+            height: 220px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            transition: transform 0.6s ease;
+        }
+
+        .spotlight-card:hover .spotlight-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .spotlight-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0, 43, 27, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+        }
+
+        .spotlight-body {
+            padding: 2rem;
+        }
+
+        .spotlight-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            font-size: 0.84rem;
+            color: #94a3b8;
+            margin-bottom: 0.85rem;
+        }
+
+        .spotlight-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .spotlight-title {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.35;
+            margin-bottom: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .spotlight-card:hover .spotlight-title {
+            color: var(--accent-lime);
+        }
+
+        .spotlight-excerpt {
+            font-size: 0.94rem;
+            color: #A9BDB1;
+            line-height: 1.65;
+            margin-bottom: 1.4rem;
+        }
+
+        .spotlight-author {
+            display: flex;
+            align-items: center;
+            gap: 0.95rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spotlight-author img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 15%;
+            border: 2px solid var(--accent-lime);
+        }
+
+        /* 2. SECTION COMMON HEADERS */
+        .section-header-center {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3.8rem;
+        }
+
+        .section-badge-center {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.5rem 1.3rem;
+            background: rgba(195, 255, 77, 0.1);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 100px;
+            color: var(--accent-lime);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-title-center {
+            font-size: 2.65rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.25;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle-center {
+            font-size: 1.08rem;
+            color: #A9BDB1;
+            line-height: 1.7;
+        }
+
+        /* 3. TRENDING RESEARCH & PEER-REVIEWED INSIGHTS (Interactive Category Filter) */
+        .trending-section {
+            padding: 110px 0;
+            background-color: #002215;
+            position: relative;
+        }
+
+        .blog-filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 3.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.65rem 1.45rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            color: #C2D1C8;
+            font-family: var(--font-main);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            border-color: var(--accent-lime);
+            box-shadow: 0 6px 20px rgba(195, 255, 77, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+            transition: all 0.4s ease;
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .article-card.hide {
+            display: none;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(195, 255, 77, 0.2);
+        }
+
+        .article-img-wrap {
+            height: 220px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .article-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            transition: transform 0.6s ease;
+        }
+
+        .article-card:hover .article-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .article-tag {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0, 43, 27, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.35rem 0.95rem;
+            border-radius: 100px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.35);
+        }
+
+        .article-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            font-size: 0.82rem;
+            color: #94a3b8;
+            margin-bottom: 0.8rem;
+        }
+
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .article-card h3 {
+            font-size: 1.28rem;
+            color: #FFFFFF;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+
+        .article-card:hover h3 {
+            color: var(--accent-lime);
+        }
+
+        .article-card p {
+            font-size: 0.92rem;
+            color: #A9BDB1;
+            line-height: 1.65;
+            margin-bottom: 1.6rem;
+        }
+
+        .article-footer {
+            margin-top: auto;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .article-author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .article-author-info img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 15%;
+            border: 1.5px solid var(--accent-lime);
+        }
+
+        .article-read-more {
+            color: var(--accent-lime);
+            font-weight: 700;
+            font-size: 0.88rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: transform 0.3s ease;
+        }
+
+        .article-card:hover .article-read-more {
+            transform: translateX(4px);
+        }
+
+        /* 4. WHITEPAPERS SECTION (2-Column Deep Dive) */
+        .whitepaper-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+            position: relative;
+        }
+
+        .whitepaper-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4.5rem;
+            align-items: center;
+        }
+
+        .whitepaper-visual-wrapper {
+            position: relative;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 28px 65px rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(195, 255, 77, 0.28);
+            height: 520px;
+        }
+
+        .whitepaper-visual-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .whitepaper-visual-wrapper:hover img {
+            transform: scale(1.05);
+        }
+
+        .whitepaper-floating-badge {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            right: 25px;
+            background: rgba(0, 35, 22, 0.92);
+            backdrop-filter: blur(18px);
+            padding: 1.3rem 1.6rem;
+            border-radius: 18px;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .whitepaper-floating-badge i {
+            font-size: 2.5rem;
+            color: var(--accent-lime);
+        }
+
+        .whitepaper-content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.6rem;
+        }
+
+        .whitepaper-card-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 1.8rem;
+            transition: all 0.35s ease;
+        }
+
+        .whitepaper-card-item:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.4);
+            transform: translateX(8px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+        }
+
+        .whitepaper-item-head {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .whitepaper-item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(195, 255, 77, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-lime);
+            font-size: 1.45rem;
+        }
+
+        .whitepaper-card-item h3 {
+            font-size: 1.22rem;
+            color: #FFFFFF;
+        }
+
+        .whitepaper-card-item p {
+            font-size: 0.92rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+        }
+
+        /* 5. CONTINUOUS SCROLLER CARDS (Left to Right Moving Tracks) */
+        .auto-scroller-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            padding: 1rem 0 2rem;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .auto-scroller-track {
+            display: flex;
+            gap: 2.2rem;
+            width: max-content;
+            animation: scrollLeftToRight 36s linear infinite;
+        }
+
+        .auto-scroller-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Health System Trials Section (Scroller) */
+        .casestudy-section {
+            padding: 110px 0;
+            background-color: #002215;
+            overflow: hidden;
+        }
+
+        .casestudy-card-item {
+            flex: 0 0 360px;
+            width: 360px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .casestudy-card-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(195, 255, 77, 0.5);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(195, 255, 77, 0.2);
+        }
+
+        .casestudy-img-wrap {
+            height: 210px;
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+        }
+
+        .casestudy-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            transition: transform 0.6s ease;
+        }
+
+        .casestudy-card-item:hover .casestudy-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .casestudy-stat-badge {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            background: rgba(0, 43, 27, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 0.35rem 0.95rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--accent-lime);
+            border: 1px solid rgba(195, 255, 77, 0.4);
+        }
+
+        .casestudy-body {
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .casestudy-body h3 {
+            font-size: 1.22rem;
+            color: #FFFFFF;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .casestudy-body p {
+            font-size: 0.9rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+            margin-bottom: 1.4rem;
+        }
+
+        /* 6. Medical AI Video Podcasts Section (Scroller) */
+        .medtalks-section {
+            padding: 110px 0;
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.93) 0%, rgba(0, 26, 16, 0.96) 100%),
+                        url('images/trnava-university-LNdPXkrOpeM-unsplash.webp') center/cover no-repeat fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .medtalk-card-item {
+            flex: 0 0 350px;
+            width: 350px;
+            background: rgba(0, 35, 22, 0.84);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(195, 255, 77, 0.28);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .medtalk-card-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(195, 255, 77, 0.55);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(195, 255, 77, 0.22);
+        }
+
+        .medtalk-thumb-wrap {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .medtalk-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+            transition: transform 0.6s ease;
+        }
+
+        .medtalk-card-item:hover .medtalk-thumb-wrap img {
+            transform: scale(1.08);
+        }
+
+        .medtalk-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: var(--accent-lime);
+            color: var(--primary-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            box-shadow: 0 0 25px rgba(195, 255, 77, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .medtalk-card-item:hover .medtalk-play-btn {
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        .medtalk-duration {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.76rem;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .medtalk-body {
+            padding: 1.8rem;
+        }
+
+        .medtalk-body h4 {
+            font-size: 1.15rem;
+            color: #FFFFFF;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
+        }
+
+        .medtalk-body p {
+            font-size: 0.88rem;
+            color: #C2D1C8;
+            line-height: 1.6;
+        }
+
+        /* 7. Clinical Authors & Editorial Board (Scroller) */
+        .authors-section {
+            padding: 110px 0;
+            background-color: var(--primary-bg);
+            overflow: hidden;
+        }
+
+        .author-card-item {
+            flex: 0 0 290px;
+            width: 290px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            overflow: hidden;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .author-card-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.45);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+        }
+
+        .author-photo-wrap {
+            height: 270px;
+            overflow: hidden;
+            background: #001A10;
+        }
+
+        .author-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 15%;
+            transition: transform 0.6s ease;
+        }
+
+        .author-card-item:hover .author-photo-wrap img {
+            transform: scale(1.08);
+        }
+
+        .author-info {
+            padding: 1.6rem 1.2rem;
+        }
+
+        .author-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.3rem;
+        }
+
+        .author-role {
+            font-size: 0.85rem;
+            color: var(--accent-lime);
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+
+        .author-articles-count {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        /* 8. Downloadable Playbooks Section */
+        .resources-section {
+            padding: 100px 0;
+            background-color: #002215;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.2rem;
+        }
+
+        .resource-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: 2.2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(195, 255, 77, 0.4);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        .resource-icon {
+            font-size: 2.6rem;
+            color: var(--accent-lime);
+            margin-bottom: 1.2rem;
+            display: inline-block;
+        }
+
+        .resource-card h3 {
+            font-size: 1.25rem;
+            color: #FFFFFF;
+            margin-bottom: 0.65rem;
+            font-weight: 700;
+        }
+
+        .resource-card p {
+            font-size: 0.9rem;
+            color: #A9BDB1;
+            line-height: 1.6;
+            margin-bottom: 1.6rem;
+        }
+
+        .resource-card-action {
+            margin-top: auto;
+        }
+
+        /* 9. Newsletter CTA Section */
+        .blog-cta-section {
+            padding: 100px 0;
+            background-color: var(--primary-bg);
+            position: relative;
+        }
+
+        .blog-cta-box {
+            background: linear-gradient(135deg, rgba(0, 43, 27, 0.92) 0%, rgba(0, 60, 38, 0.85) 100%),
+                        url('images/pexels-tara-winstead-7723541.webp') center/cover no-repeat;
+            border: 1px solid rgba(195, 255, 77, 0.35);
+            border-radius: 30px;
+            padding: 4.8rem 3.8rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3.8rem;
+            align-items: center;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.55);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-cta-content h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            line-height: 1.2;
+            margin-bottom: 1.3rem;
+        }
+
+        .blog-cta-content p {
+            font-size: 1.08rem;
+            color: #C2D1C8;
+            line-height: 1.7;
+            margin-bottom: 2.2rem;
+        }
+
+        .blog-cta-form {
+            background: rgba(0, 35, 22, 0.88);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(195, 255, 77, 0.3);
+            border-radius: 22px;
+            padding: 2.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .blog-cta-form input,
+        .blog-cta-form select {
+            width: 100%;
+            padding: 0.95rem 1.25rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-family: var(--font-main);
+            font-size: 0.94rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .blog-cta-form input:focus,
+        .blog-cta-form select:focus {
+            border-color: var(--accent-lime);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(195, 255, 77, 0.25);
+        }
+
+        .blog-cta-form select option {
+            background: #002B1B;
+            color: #FFFFFF;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .blog-hero-grid,
+            .whitepaper-grid,
+            .blog-cta-box {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .articles-grid,
+            .resources-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .blog-hero-title {
+                font-size: 2.4rem;
+            }
+            .articles-grid,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            .blog-cta-box {
+                padding: 2.6rem 1.6rem;
+            }
+            .section-title-center {
+                font-size: 2rem;
+            }
+            .casestudy-card-item {
+                flex: 0 0 300px;
+                width: 300px;
+            }
+            .medtalk-card-item {
+                flex: 0 0 290px;
+                width: 290px;
+            }
+            .author-card-item {
+                flex: 0 0 260px;
+                width: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Scroll Progress Indicator -->
+    <div class="scroll-progress-indicator" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+                <li><a href="blog.html" class="active" style="color: var(--accent-lime);">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-pill btn-primary">Login</a>
+                <div class="mobile-toggle" id="mobile-toggle"><i class="ph ph-list"></i></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-Screen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-header">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <div class="mobile-close" id="mobile-close" aria-label="Close navigation"><i class="ph-bold ph-x"></i></div>
+            </div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html"><span>Home</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="about.html"><span>About</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="service.html"><span>Service</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="blog.html" style="color: var(--accent-lime);"><span>Blog</span> <i class="ph-bold ph-caret-right"></i></a></li>
+                <li><a href="contact.html"><span>Contact</span> <i class="ph-bold ph-caret-right"></i></a></li>
+            </ul>
+            <div class="mobile-menu-footer">
+                <a href="login.html" class="btn btn-primary btn-pill full-width">Login <i class="ph-bold ph-arrow-right"></i></a>
+                <div class="mobile-menu-contact-info">
+                    <p><i class="ph-fill ph-envelope-simple"></i> clinical@pulsehealth.tech</p>
+                    <p><i class="ph-fill ph-phone-call"></i> +91 (0427) 244-8900</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         SECTION 1: HERO SECTION (Editorial Spotlight Layout)
+         ========================================================================= -->
+    <section class="blog-hero">
+        <div class="container blog-hero-grid">
+            <div class="blog-hero-text reveal-left">
+                <div class="blog-hero-badge">
+                    <i class="ph-fill ph-newspaper-clipping"></i>
+                    <span>PULSE CLINICAL JOURNAL</span>
+                </div>
+                <h1 class="blog-hero-title">
+                    Frontier HealthTech &amp; <span class="highlight">Clinical AI Insights</span>
+                </h1>
+                <p class="blog-hero-subtext">
+                    Peer-reviewed medical AI breakthroughs, telemetry case studies, and healthcare informatics strategies authored by practicing clinicians and bio-engineering fellows.
+                </p>
+                <div class="blog-hero-ctas">
+                    <a href="404.html" class="btn btn-primary btn-pill">Explore Articles <i class="ph-bold ph-arrow-down"></i></a>
+                    <a href="404.html" class="btn btn-outline btn-pill"><i class="ph-bold ph-file-text"></i> Clinical Whitepapers</a>
+                </div>
+            </div>
+
+            <div class="blog-hero-visual reveal-right">
+                <!-- Featured Spotlight Card -->
+                <div class="spotlight-card">
+                    <div class="spotlight-img-wrap">
+                        <img src="images/tom-claes-Z-fSqssuFq8-unsplash.webp" alt="Featured Clinical Study">
+                        <span class="spotlight-tag">Featured Breakthrough</span>
+                    </div>
+                    <div class="spotlight-body">
+                        <div class="spotlight-meta">
+                            <span><i class="ph-bold ph-calendar-blank"></i> Oct 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 7 min read</span>
+                            <span><i class="ph-bold ph-tag"></i> Neural Telemetry</span>
+                        </div>
+                        <h3 class="spotlight-title">Multi-Modal Vitals Ingestion Decreases ICU Sepsis Latency by 42%</h3>
+                        <p class="spotlight-excerpt">
+                            Clinical trial evaluation across 120 hospital networks demonstrating continuous edge inference superiority over intermittent nurse charting.
+                        </p>
+                        <div class="spotlight-author">
+                            <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                            <div>
+                                <strong style="color: #FFFFFF; font-size: 0.92rem; display: block;">Dr. Sarah Mitchell, MD</strong>
+                                <span style="color: var(--accent-lime); font-size: 0.78rem;">Chief of Cardiology &amp; Clinical Informatics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: TRENDING ARTICLES & RESEARCH (Interactive Filter with min 2 cards per tag)
+         ========================================================================= -->
+    <section id="trending" class="trending-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-trend-up"></i>
+                    <span>PEER-REVIEWED PAPERS</span>
+                </div>
+                <h2 class="section-title-center">Latest Clinical Intelligence &amp; Research</h2>
+                <p class="section-subtitle-center">
+                    Click any filter below to explore peer-reviewed articles across specialized healthtech domains.
+                </p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="blog-filter-bar reveal">
+                <button class="filter-btn active" data-filter="all">All Topics</button>
+                <button class="filter-btn" data-filter="clinical-ai">Clinical AI</button>
+                <button class="filter-btn" data-filter="ambient-scribing">Ambient Scribing</button>
+                <button class="filter-btn" data-filter="icu-telemetry">ICU Telemetry</button>
+                <button class="filter-btn" data-filter="genomics-lab">Genomics &amp; Lab</button>
+                <button class="filter-btn" data-filter="hospital-security">Hospital Security</button>
+            </div>
+
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Card 1: Clinical AI -->
+                <div class="article-card" data-category="clinical-ai">
+                    <div class="article-img-wrap">
+                        <img src="images/pexels-edward-jenner-4031695.webp" alt="Diagnostic Vision AI">
+                        <span class="article-tag">Clinical AI</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Oct 06, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 8 min</span>
+                        </div>
+                        <h3>Automated Intracranial Hemorrhage Triage on Non-Contrast Head CTs</h3>
+                        <p>Multi-center validation trial comparing emergency radiologist reading speed with and without neural abnormality prioritization overlays.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Dr. Marcus Thorne">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. M. Thorne</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Head of Bio-AI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Clinical AI -->
+                <div class="article-card" data-category="clinical-ai">
+                    <div class="article-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Surgical Vision AI">
+                        <span class="article-tag">Clinical AI</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Sep 29, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 7 min</span>
+                        </div>
+                        <h3>Real-Time Computer Vision in Minimally Invasive Laparoscopic Surgery</h3>
+                        <p>Anatomical boundary tracking and critical structure heatmapping during complex abdominal oncological resections.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Aris Vance">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. A. Vance</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Clinical Trials Director</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Ambient Scribing -->
+                <div class="article-card" data-category="ambient-scribing">
+                    <div class="article-img-wrap">
+                        <img src="images/pexels-ivan-s-4989172.webp" alt="Ambient Voice Scribing">
+                        <span class="article-tag">Ambient Scribing</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Oct 04, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 5 min</span>
+                        </div>
+                        <h3>Eradicating Physician Burnout: The Rise of Ambient Voice Documentation</h3>
+                        <p>How deep acoustic neural models extract clinical symptoms during patient visits and automatically populate FHIR-compliant EHR charts.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. M. Sterling</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Emergency CMO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Ambient Scribing -->
+                <div class="article-card" data-category="ambient-scribing">
+                    <div class="article-img-wrap">
+                        <img src="images/tom-claes-Z-fSqssuFq8-unsplash.webp" alt="Multi-Lingual Scribing">
+                        <span class="article-tag">Ambient Scribing</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Sep 22, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 6 min</span>
+                        </div>
+                        <h3>Multi-Dialect Conversational NLP in Outpatient Primary Care</h3>
+                        <p>Evaluating conversational medical transcription across 14 diverse languages with 99.7% ICD-10 medical terminology accuracy.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. S. Mitchell</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Medical Founder</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: ICU Telemetry -->
+                <div class="article-card" data-category="icu-telemetry">
+                    <div class="article-img-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="Remote Telemetry">
+                        <span class="article-tag">ICU Telemetry</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Sep 16, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 9 min</span>
+                        </div>
+                        <h3>Managing Congestive Heart Failure at Home: Continuous Cellular Telemetry</h3>
+                        <p>How daily automated biometric streams prevented 64% of 30-day readmissions across 4,200 post-discharge cardiology patients.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. R. Chen</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Telemetry Lead</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6: ICU Telemetry -->
+                <div class="article-card" data-category="icu-telemetry">
+                    <div class="article-img-wrap">
+                        <img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Pediatric Telemetry">
+                        <span class="article-tag">ICU Telemetry</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Sep 08, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 7 min</span>
+                        </div>
+                        <h3>Multi-Modal Edge Vitals Ingestion in Neonatal Intensive Care Units</h3>
+                        <p>Real-time infant distress telemetry reducing false nurse alarms by 42% while preserving continuous bradycardia alerts.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. M. Sterling</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Emergency CMO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 7: Genomics & Lab -->
+                <div class="article-card" data-category="genomics-lab">
+                    <div class="article-img-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="Digital Pathology">
+                        <span class="article-tag">Genomics &amp; Lab</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Aug 28, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 6 min</span>
+                        </div>
+                        <h3>High-Throughput Digital Pathology: Automated Micro-Biopsy Classification</h3>
+                        <p>Accelerating turnaround times for rare lymphoid neoplasm screenings using self-supervised spatial transcriptomics models.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Dr. Marcus Thorne">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. M. Thorne</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Head of Bio-AI</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 8: Genomics & Lab -->
+                <div class="article-card" data-category="genomics-lab">
+                    <div class="article-img-wrap">
+                        <img src="images/pexels-tara-winstead-7723528.webp" alt="Genomic Sequencing">
+                        <span class="article-tag">Genomics &amp; Lab</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Aug 18, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 8 min</span>
+                        </div>
+                        <h3>Rapid Whole-Genome Sequencing in Rare Pediatric Inborn Errors of Metabolism</h3>
+                        <p>Deep neural identification of pathogenic DNA variants delivering critical diagnostic answers within 6 hours of blood collection.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Aris Vance">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Dr. A. Vance</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Clinical Trials Director</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 9: Hospital Security -->
+                <div class="article-card" data-category="hospital-security">
+                    <div class="article-img-wrap">
+                        <img src="images/lightsaber-collection-hqBr-KfgR8o-unsplash.webp" alt="Zero-Trust Telemetry">
+                        <span class="article-tag">Hospital Security</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Sep 19, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 6 min</span>
+                        </div>
+                        <h3>Zero-Trust Medical Telemetry: Protecting PHI in Connected Hospital Clouds</h3>
+                        <p>Technical architecture breakdown of federated learning pipelines that prevent ransomware and data compromise across distributed wards.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Elena Rostova</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Chief Technology Officer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 10: Hospital Security -->
+                <div class="article-card" data-category="hospital-security">
+                    <div class="article-img-wrap">
+                        <img src="images/neuro-equilibrium-GQzPQB6nPxU-unsplash.webp" alt="HIPAA & SOC-2 Compliance">
+                        <span class="article-tag">Hospital Security</span>
+                    </div>
+                    <div class="article-body">
+                        <div class="article-meta">
+                            <span><i class="ph-bold ph-calendar"></i> Sep 02, 2026</span>
+                            <span><i class="ph-bold ph-clock"></i> 5 min</span>
+                        </div>
+                        <h3>HIPAA &amp; SOC-2 Type II Certification for Edge Clinical Inference Nodes</h3>
+                        <p>Ensuring end-to-end cryptographic isolation and immutable audit logging for on-premise medical AI server appliances.</p>
+                        <div class="article-footer">
+                            <div class="article-author-info">
+                                <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                                <div>
+                                    <strong style="color: #FFFFFF; font-size: 0.84rem; display: block;">Elena Rostova</strong>
+                                    <span style="color: #94a3b8; font-size: 0.74rem;">Chief Technology Officer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3: EDITOR'S CHOICE & WHITEPAPERS (2-Column Deep Dive)
+         ========================================================================= -->
+    <section id="whitepapers" class="whitepaper-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-book-open"></i>
+                    <span>COMPREHENSIVE WHITEPAPERS</span>
+                </div>
+                <h2 class="section-title-center">Institutional Case Studies &amp; Standards</h2>
+                <p class="section-subtitle-center">
+                    In-depth clinical implementation blueprints for Chief Medical Officers and hospital IT leadership.
+                </p>
+            </div>
+
+            <div class="whitepaper-grid">
+                <div class="whitepaper-visual-wrapper reveal-left">
+                    <img src="images/vitaly-gariev-egCFrNJ6Djw-unsplash.webp" alt="Hospital Implementation Whitepaper">
+                    <div class="whitepaper-floating-badge">
+                        <i class="ph-bold ph-certificate"></i>
+                        <div>
+                            <strong style="color: #FFFFFF; font-size: 1.05rem; display: block;">2026 Enterprise Hospital Blueprint</strong>
+                            <span style="color: #A9BDB1; font-size: 0.84rem;">Clinical AI Governance &amp; Epic FHIR v4 Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="whitepaper-content-list reveal-right">
+                    <!-- Paper 1 -->
+                    <div class="whitepaper-card-item">
+                        <div class="whitepaper-item-head">
+                            <div class="whitepaper-item-icon"><i class="ph-bold ph-file-pdf"></i></div>
+                            <div>
+                                <h3>The Clinical Economics of Ambient Scribing</h3>
+                                <span style="color: var(--accent-lime); font-size: 0.78rem; font-weight: 700;">PDF • 28 Pages • ROI Analysis</span>
+                            </div>
+                        </div>
+                        <p>Comprehensive financial and operational model assessing physician retention, chart completeness, and $1.4M annual hospital cost savings per 200 beds.</p>
+                    </div>
+
+                    <!-- Paper 2 -->
+                    <div class="whitepaper-card-item">
+                        <div class="whitepaper-item-head">
+                            <div class="whitepaper-item-icon"><i class="ph-bold ph-file-pdf"></i></div>
+                            <div>
+                                <h3>FDA Good Machine Learning Practice (GMLP)</h3>
+                                <span style="color: var(--accent-lime); font-size: 0.78rem; font-weight: 700;">PDF • 44 Pages • Regulatory Framework</span>
+                            </div>
+                        </div>
+                        <p>Step-by-step regulatory roadmap for deploying SaMD algorithmic models in acute care settings with zero clinical bias.</p>
+                    </div>
+
+                    <!-- Paper 3 -->
+                    <div class="whitepaper-card-item">
+                        <div class="whitepaper-item-head">
+                            <div class="whitepaper-item-icon"><i class="ph-bold ph-file-pdf"></i></div>
+                            <div>
+                                <h3>Continuous ICU Edge Telemetry Architecture</h3>
+                                <span style="color: var(--accent-lime); font-size: 0.78rem; font-weight: 700;">PDF • 36 Pages • Technical Guide</span>
+                            </div>
+                        </div>
+                        <p>Hardware and driver integration guidelines connecting Philips IntelliVue and GE Healthcare monitors into decentralized FHIR inference clusters.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 4: HEALTH SYSTEM TRIALS (5 Cards - Moving Left to Right Automatically)
+         ========================================================================= -->
+    <section class="casestudy-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-buildings"></i>
+                    <span>HEALTH SYSTEM TRIALS</span>
+                </div>
+                <h2 class="section-title-center">Real-World Hospital Deployments &amp; Clinical Impact</h2>
+                <p class="section-subtitle-center">
+                    Documented outcomes and operational transformations across premier global healthcare systems.
+                </p>
+            </div>
+        </div>
+
+        <!-- Continuous Left-to-Right Moving Track -->
+        <div class="auto-scroller-wrapper">
+            <div class="auto-scroller-track" style="animation-duration: 38s;">
+                <!-- Trial 1 -->
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Trauma Center Trial">
+                        <span class="casestudy-stat-badge">-78% Triage Latency</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>Metro Trauma Center: 18-Month ICU Triage Study</h3>
+                        <p>Deploying automated early warning sepsis neural networks reduced emergency department boarding times by 3.4 hours per patient.</p>
+                    </div>
+                </div>
+
+                <!-- Trial 2 -->
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/tran-mau-tri-tam-HmHkyn8-IIA-unsplash.webp" alt="Cardiology Telehealth Trial">
+                        <span class="casestudy-stat-badge">64% Readmission Drop</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>Apex Cardiology Network: 4,000 Patient RPM Rollout</h3>
+                        <p>Continuous cellular blood pressure telemetry and weight escalation algorithms resulted in zero preventable 30-day heart failure readmissions.</p>
+                    </div>
+                </div>
+
+                <!-- Trial 3 -->
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pexels-edward-jenner-4031695.webp" alt="Radiology AI Trial">
+                        <span class="casestudy-stat-badge">99.8% Diagnostic Sync</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>University Health: Multi-Site PACS Diagnostic AI</h3>
+                        <p>Automated CT intracranial hemorrhage triaging flagged critical scans in under 18 seconds, accelerating emergency neurosurgery consults.</p>
+                    </div>
+                </div>
+
+                <!-- Trial 4 (NEW) -->
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Surgical Center Trial">
+                        <span class="casestudy-stat-badge">-52% Operative Latency</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>St. Jude Surgical Institute: Real-Time OR Informatics</h3>
+                        <p>Intraoperative video tracking automated surgical documentation and reduced post-op chart completion time by over 50 minutes per case.</p>
+                    </div>
+                </div>
+
+                <!-- Trial 5 (NEW) -->
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="Pathology Lab Trial">
+                        <span class="casestudy-stat-badge">5x Pathology Speed</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>Synapse Lab Network: Multi-Center Biopsy Inference</h3>
+                        <p>Deploying automated micro-biopsy classification decreased pathology turnaround times from 72 hours down to 14 hours across 8 states.</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR SEAMLESS INFINITE LOOP -->
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Trauma Center Trial">
+                        <span class="casestudy-stat-badge">-78% Triage Latency</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>Metro Trauma Center: 18-Month ICU Triage Study</h3>
+                        <p>Deploying automated early warning sepsis neural networks reduced emergency department boarding times by 3.4 hours per patient.</p>
+                    </div>
+                </div>
+
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/tran-mau-tri-tam-HmHkyn8-IIA-unsplash.webp" alt="Cardiology Telehealth Trial">
+                        <span class="casestudy-stat-badge">64% Readmission Drop</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>Apex Cardiology Network: 4,000 Patient RPM Rollout</h3>
+                        <p>Continuous cellular blood pressure telemetry and weight escalation algorithms resulted in zero preventable 30-day heart failure readmissions.</p>
+                    </div>
+                </div>
+
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pexels-edward-jenner-4031695.webp" alt="Radiology AI Trial">
+                        <span class="casestudy-stat-badge">99.8% Diagnostic Sync</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>University Health: Multi-Site PACS Diagnostic AI</h3>
+                        <p>Automated CT intracranial hemorrhage triaging flagged critical scans in under 18 seconds, accelerating emergency neurosurgery consults.</p>
+                    </div>
+                </div>
+
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="Surgical Center Trial">
+                        <span class="casestudy-stat-badge">-52% Operative Latency</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>St. Jude Surgical Institute: Real-Time OR Informatics</h3>
+                        <p>Intraoperative video tracking automated surgical documentation and reduced post-op chart completion time by over 50 minutes per case.</p>
+                    </div>
+                </div>
+
+                <div class="casestudy-card-item">
+                    <div class="casestudy-img-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-9574519.webp" alt="Pathology Lab Trial">
+                        <span class="casestudy-stat-badge">5x Pathology Speed</span>
+                    </div>
+                    <div class="casestudy-body">
+                        <h3>Synapse Lab Network: Multi-Center Biopsy Inference</h3>
+                        <p>Deploying automated micro-biopsy classification decreased pathology turnaround times from 72 hours down to 14 hours across 8 states.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: PULSE MEDTALKS PODCAST (5 Cards - Moving Left to Right Automatically)
+         ========================================================================= -->
+    <section class="medtalks-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-video-camera"></i>
+                    <span>PULSE MEDTALKS PODCAST</span>
+                </div>
+                <h2 class="section-title-center">Conversations with Medical AI Visionaries</h2>
+                <p class="section-subtitle-center">
+                    Watch our monthly video podcast featuring leading hospital CIOs, ICU intensivists, and bio-engineering researchers.
+                </p>
+            </div>
+        </div>
+
+        <!-- Continuous Left-to-Right Moving Track -->
+        <div class="auto-scroller-wrapper">
+            <div class="auto-scroller-track" style="animation-duration: 40s;">
+                <!-- Video 1 -->
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/tom-claes-Z-fSqssuFq8-unsplash.webp" alt="MedTalks Episode 24">
+                        <span class="medtalk-duration">38:15</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 24: The Future of Ambient Clinical Intelligence in the ICU</h4>
+                        <p>Dr. Sarah Mitchell discusses how zero-touch microphones are revolutionizing bedside rounds and reducing charting burnout.</p>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="MedTalks Episode 23">
+                        <span class="medtalk-duration">44:20</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 23: Machine Vision in the Operating Room</h4>
+                        <p>Dr. Aris Vance explores intraoperative surgical video indexing and real-time anatomical safety boundaries.</p>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pexels-ivan-s-4989172.webp" alt="MedTalks Episode 22">
+                        <span class="medtalk-duration">32:50</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 22: Scaling FHIR v4 Interoperability Globally</h4>
+                        <p>Elena Rostova breaks down the technical hurdles of streaming millions of HL7 messages without latency bottlenecks.</p>
+                    </div>
+                </div>
+
+                <!-- Video 4 (NEW) -->
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="MedTalks Episode 21">
+                        <span class="medtalk-duration">29:40</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 21: Remote Patient Monitoring Beyond Chronic Care</h4>
+                        <p>Dr. Rachel Chen reviews the clinical economics of continuous cellular vitals tracking for post-surgical oncology patients.</p>
+                    </div>
+                </div>
+
+                <!-- Video 5 (NEW) -->
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="MedTalks Episode 20">
+                        <span class="medtalk-duration">41:10</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 20: Genomic AI and Targeted Pharmacogenomics</h4>
+                        <p>Dr. Marcus Thorne discusses deep learning breakthroughs in predicting patient drug response from whole-exome sequencing.</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR SEAMLESS INFINITE LOOP -->
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/tom-claes-Z-fSqssuFq8-unsplash.webp" alt="MedTalks Episode 24">
+                        <span class="medtalk-duration">38:15</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 24: The Future of Ambient Clinical Intelligence in the ICU</h4>
+                        <p>Dr. Sarah Mitchell discusses how zero-touch microphones are revolutionizing bedside rounds and reducing charting burnout.</p>
+                    </div>
+                </div>
+
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pusen-medical-xng_v6hrL3I-unsplash.webp" alt="MedTalks Episode 23">
+                        <span class="medtalk-duration">44:20</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 23: Machine Vision in the Operating Room</h4>
+                        <p>Dr. Aris Vance explores intraoperative surgical video indexing and real-time anatomical safety boundaries.</p>
+                    </div>
+                </div>
+
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pexels-ivan-s-4989172.webp" alt="MedTalks Episode 22">
+                        <span class="medtalk-duration">32:50</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 22: Scaling FHIR v4 Interoperability Globally</h4>
+                        <p>Elena Rostova breaks down the technical hurdles of streaming millions of HL7 messages without latency bottlenecks.</p>
+                    </div>
+                </div>
+
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pexels-tima-miroshnichenko-5452269.webp" alt="MedTalks Episode 21">
+                        <span class="medtalk-duration">29:40</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 21: Remote Patient Monitoring Beyond Chronic Care</h4>
+                        <p>Dr. Rachel Chen reviews the clinical economics of continuous cellular vitals tracking for post-surgical oncology patients.</p>
+                    </div>
+                </div>
+
+                <div class="medtalk-card-item">
+                    <div class="medtalk-thumb-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="MedTalks Episode 20">
+                        <span class="medtalk-duration">41:10</span>
+                    </div>
+                    <div class="medtalk-body">
+                        <h4>Episode 20: Genomic AI and Targeted Pharmacogenomics</h4>
+                        <p>Dr. Marcus Thorne discusses deep learning breakthroughs in predicting patient drug response from whole-exome sequencing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: EDITORIAL BOARD (6 Cards - Moving Left to Right Automatically)
+         ========================================================================= -->
+    <section class="authors-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-users-three"></i>
+                    <span>EDITORIAL BOARD</span>
+                </div>
+                <h2 class="section-title-center">Authored by Leading Clinical Researchers</h2>
+                <p class="section-subtitle-center">
+                    Every article and whitepaper is peer-reviewed by board-certified physicians and bioinformatics fellows.
+                </p>
+            </div>
+        </div>
+
+        <!-- Continuous Left-to-Right Moving Track -->
+        <div class="auto-scroller-wrapper">
+            <div class="auto-scroller-track" style="animation-duration: 38s;">
+                <!-- Author 1 -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Sarah Mitchell, MD</h4>
+                        <span class="author-role">Chief Medical Founder</span>
+                        <span class="author-articles-count">18 Published Papers</span>
+                    </div>
+                </div>
+
+                <!-- Author 2 -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Michael Sterling, MD</h4>
+                        <span class="author-role">Chief Medical Officer</span>
+                        <span class="author-articles-count">24 Published Papers</span>
+                    </div>
+                </div>
+
+                <!-- Author 3 -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Elena Rostova, M.Sc</h4>
+                        <span class="author-role">Head of Infrastructure</span>
+                        <span class="author-articles-count">14 Technical Guides</span>
+                    </div>
+                </div>
+
+                <!-- Author 4 -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Dr. Marcus Thorne">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Marcus Thorne, PhD</h4>
+                        <span class="author-role">Computational Biology</span>
+                        <span class="author-articles-count">31 Research Papers</span>
+                    </div>
+                </div>
+
+                <!-- Author 5 (NEW) -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Aris Vance">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Aris Vance, MD</h4>
+                        <span class="author-role">Director of Trials</span>
+                        <span class="author-articles-count">19 Clinical Trials</span>
+                    </div>
+                </div>
+
+                <!-- Author 6 (NEW) -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Rachel Chen, MD</h4>
+                        <span class="author-role">Chief of Telemetry</span>
+                        <span class="author-articles-count">16 Published Papers</span>
+                    </div>
+                </div>
+
+                <!-- DUPLICATE SET FOR SEAMLESS INFINITE LOOP -->
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-karola-g-7195190.webp" alt="Dr. Sarah Mitchell">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Sarah Mitchell, MD</h4>
+                        <span class="author-role">Chief Medical Founder</span>
+                        <span class="author-articles-count">18 Published Papers</span>
+                    </div>
+                </div>
+
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-karola-g-7195379.webp" alt="Dr. Michael Sterling">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Michael Sterling, MD</h4>
+                        <span class="author-role">Chief Medical Officer</span>
+                        <span class="author-articles-count">24 Published Papers</span>
+                    </div>
+                </div>
+
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/elen-sher-8tD0BwjueC4-unsplash.webp" alt="Elena Rostova">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Elena Rostova, M.Sc</h4>
+                        <span class="author-role">Head of Infrastructure</span>
+                        <span class="author-articles-count">14 Technical Guides</span>
+                    </div>
+                </div>
+
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-pavel-danilyuk-8442105.webp" alt="Dr. Marcus Thorne">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Marcus Thorne, PhD</h4>
+                        <span class="author-role">Computational Biology</span>
+                        <span class="author-articles-count">31 Research Papers</span>
+                    </div>
+                </div>
+
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/nappy-AOSw0zLjtQA-unsplash.webp" alt="Dr. Aris Vance">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Aris Vance, MD</h4>
+                        <span class="author-role">Director of Trials</span>
+                        <span class="author-articles-count">19 Clinical Trials</span>
+                    </div>
+                </div>
+
+                <div class="author-card-item">
+                    <div class="author-photo-wrap">
+                        <img src="images/pexels-karola-g-7195369.webp" alt="Dr. Rachel Chen">
+                    </div>
+                    <div class="author-info">
+                        <h4 class="author-name">Dr. Rachel Chen, MD</h4>
+                        <span class="author-role">Chief of Telemetry</span>
+                        <span class="author-articles-count">16 Published Papers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: DOWNLOADABLE PLAYBOOKS & RESOURCE LIBRARY (3-Column Grid)
+         ========================================================================= -->
+    <section class="resources-section">
+        <div class="container">
+            <div class="section-header-center reveal">
+                <div class="section-badge-center">
+                    <i class="ph-bold ph-folder-notch-open"></i>
+                    <span>HOSPITAL TOOLKITS</span>
+                </div>
+                <h2 class="section-title-center">Downloadable Clinical Playbooks &amp; Toolkits</h2>
+                <p class="section-subtitle-center">
+                    Free operational resources for medical directors, health IT executives, and clinical engineers.
+                </p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- Tool 1 -->
+                <div class="resource-card reveal">
+                    <div class="resource-icon"><i class="ph-bold ph-shield-check"></i></div>
+                    <h3>2026 Hospital AI Compliance Playbook</h3>
+                    <p>Comprehensive audit checklist for HIPAA, SOC-2, and FDA Good Machine Learning Practice alignment across all digital health initiatives.</p>
+                </div>
+
+                <!-- Tool 2 -->
+                <div class="resource-card reveal">
+                    <div class="resource-icon"><i class="ph-bold ph-plugs-connected"></i></div>
+                    <h3>FHIR v4 Telemetry Streaming Blueprint</h3>
+                    <p>Developer architecture templates, JSON schemas, and web-socket specifications for real-time bedside vital sign integration.</p>
+                </div>
+
+                <!-- Tool 3 -->
+                <div class="resource-card reveal">
+                    <div class="resource-icon"><i class="ph-bold ph-calculator"></i></div>
+                    <h3>Ambient Scribing ROI Calculator Tool</h3>
+                    <p>Interactive spreadsheet model to estimate annual charting hours saved and clinical revenue recapture based on your practice size.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 8: NEWSLETTER & DIGEST SUBSCRIPTION CTA
+         ========================================================================= -->
+    <section class="blog-cta-section">
+        <div class="container">
+            <div class="blog-cta-box reveal">
+                <div class="blog-cta-content">
+                    <div class="section-badge-center" style="margin-bottom: 1.1rem;">
+                        <i class="ph-bold ph-envelope-simple-open"></i>
+                        <span>JOIN 24,000+ CLINICIANS</span>
+                    </div>
+                    <h2>Subscribe to the Weekly Pulse Clinical Digest</h2>
+                    <p>
+                        Receive curated summaries of groundbreaking medical AI research, hospital implementation case studies, and telehealth regulatory updates directly in your inbox.
+                    </p>
+                    <div style="display: flex; gap: 1.6rem; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> Zero Spam • Unsubscribe Anytime
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.65rem; color: #FFFFFF; font-weight: 600;">
+                            <i class="ph-bold ph-check-circle" style="color: var(--accent-lime); font-size: 1.25rem;"></i> Verified Clinical Authors Only
+                        </div>
+                    </div>
+                </div>
+
+                <form class="blog-cta-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <h3 style="color: #FFFFFF; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem;">Join Clinical Newsletter</h3>
+                    <input type="text" placeholder="Dr. Full Name, MD" required>
+                    <input type="email" placeholder="Hospital / Clinical Email" required>
+                    <button type="submit" class="btn btn-primary btn-pill full-width">Subscribe to Digest <i class="ph-bold ph-paper-plane-right"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         FOOTER SECTION
+         ========================================================================= -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <!-- Brand & Socials Column -->
+            <div class="footer-brand">
+                <a href="index.html" class="logo"><img src="logo.webp" alt="Pulse Health Logo" class="logo-img"></a>
+                <p class="footer-brand-desc">Next-generation clinical operating system and AI health infrastructure transforming compassionate, precise patient care worldwide.</p>
+                <div class="footer-social-icons">
+                    <a href="404.html" aria-label="Facebook"><i class="ph-bold ph-facebook-logo"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="ph-bold ph-instagram-logo"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="ph-bold ph-x-logo"></i></a>
+                    <a href="404.html" aria-label="LinkedIn"><i class="ph-bold ph-linkedin-logo"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-nav-list">
+                    <li><a href="index.html"><i class="ph-bold ph-caret-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="ph-bold ph-caret-right"></i> About</a></li>
+                    <li><a href="service.html"><i class="ph-bold ph-caret-right"></i> Service</a></li>
+                    <li><a href="blog.html"><i class="ph-bold ph-caret-right"></i> Blog</a></li>
+                    <li><a href="contact.html"><i class="ph-bold ph-caret-right"></i> Contact</a></li>
+                    <li><a href="login.html"><i class="ph-bold ph-caret-right"></i> Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Address & Contact Info Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Our Office</h4>
+                <div class="footer-contact-details">
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <strong>Address:</strong>
+                            <p>MMR complex, Chinnathirupathi,<br>salem, tamilnadu</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <strong>Email:</strong>
+                            <p><a href="404.html">support@pulsehealth.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-info-row">
+                        <div class="contact-icon-bubble"><i class="ph-bold ph-phone-call"></i></div>
+                        <div class="contact-text">
+                            <strong>Phone:</strong>
+                            <p>+91 (0427) 244-8900</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Column -->
+            <div class="footer-column">
+                <h4 class="footer-heading">Newsletter</h4>
+                <p class="footer-newsletter-text">Subscribe to receive monthly medical technology breakthroughs &amp; clinical insights.</p>
+                <form class="footer-newsletter-form" action="404.html" onsubmit="event.preventDefault(); sessionStorage.setItem('pulse_last_scroll_pos', window.scrollY.toString()); sessionStorage.setItem('pulse_return_page', window.location.href); window.location.href='404.html';">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit"><i class="ph-bold ph-paper-plane-right"></i> Join</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="container footer-bottom-bar">
+            <div class="footer-bottom-inner">
+                <p>&copy; 2026 Pulse HealthTech Platform. All Rights Reserved.</p>
+                <div class="footer-legal-links">
+                    <a href="404.html">Privacy Policy</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">Terms of Service</a>
+                    <span class="legal-sep">&bull;</span>
+                    <a href="404.html">HIPAA Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP for Smooth Kinetic Transitions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- AOS (Animate On Scroll) JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="js/script.js"></script>
+
+    <!-- Interactive Filter Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const articleCards = document.querySelectorAll('.article-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Update active button styling
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+
+                    articleCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        if (filterValue === 'all' || cardCategory === filterValue) {
+                            card.classList.remove('hide');
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(15px)';
+                            setTimeout(() => {
+                                card.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 50);
+                        } else {
+                            card.classList.add('hide');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

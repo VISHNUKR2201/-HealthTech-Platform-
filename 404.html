@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | PULSE HEALTH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Phosphor Icons & Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        :root {
+            --bg-primary: #002B1B;
+            --bg-secondary: #001A10;
+            --accent-lime: #c3ff4d;
+            --text-white: #ffffff;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --font-heading: 'Plus Jakarta Sans', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-white);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Gradient Glow Background */
+        .bg-glow {
+            position: absolute;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(195, 255, 77, 0.12) 0%, rgba(0, 43, 27, 0) 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            pointer-events: none;
+            filter: blur(80px);
+            animation: pulseGlow 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                transform: translate(-50%, -50%) scale(0.9);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 1;
+            }
+        }
+
+        .error-container {
+            position: relative;
+            z-index: 10;
+            max-width: 620px;
+            width: 90%;
+            padding: 4rem 3rem;
+            background: rgba(0, 24, 15, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(195, 255, 77, 0.18);
+            border-radius: 24px;
+            text-align: center;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(195, 255, 77, 0.05);
+            animation: containerAppear 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes containerAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-box {
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+
+        .logo-box img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .error-code {
+            font-family: var(--font-heading);
+            font-size: clamp(5.5rem, 11vw, 8.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(135deg, var(--accent-lime) 30%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(195, 255, 77, 0.2);
+        }
+
+        .error-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            color: #FFFFFF;
+        }
+
+        .error-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            margin-bottom: 2.8rem;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+        }
+
+        @media (max-width: 540px) {
+            .error-actions {
+                flex-direction: column;
+            }
+            .error-container {
+                padding: 3rem 1.75rem;
+            }
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.95rem 2rem;
+            border-radius: 50px;
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            flex: 1;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-lime);
+            color: #002B1B;
+            border: 1px solid var(--accent-lime);
+            box-shadow: 0 8px 25px rgba(195, 255, 77, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(195, 255, 77, 0.5);
+            background-color: #d1ff66;
+        }
+
+        .btn-outline {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-white);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-lime);
+            color: var(--accent-lime);
+            background-color: rgba(195, 255, 77, 0.08);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <div class="error-container">
+        <a href="index.html" class="logo-box">
+            <img src="logo.webp" alt="Pulse Health Logo">
+        </a>
+        <div class="error-code">404</div>
+        <h1 class="error-title">Page Not Found</h1>
+        <p class="error-desc">The clinical resource or page you are looking for has been relocated, archived, or is temporarily unavailable.</p>
+        
+        <div class="error-actions">
+            <a href="#" class="btn btn-outline" id="goBackBtn"><i class="ph-bold ph-arrow-left"></i> Go Back</a>
+            <a href="index.html" class="btn btn-primary"><i class="ph-bold ph-house"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('goBackBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const returnUrl = sessionStorage.getItem('pulse_return_page') || sessionStorage.getItem('returnUrl');
+            const savedAdminTab = sessionStorage.getItem('activeAdminDashboardTab');
+            const savedUserTab = sessionStorage.getItem('activeDashboardTab');
+
+            if (window.history.length > 1 && (!document.referrer || document.referrer.indexOf('404.html') === -1)) {
+                window.history.back();
+            } else if (returnUrl) {
+                window.location.replace(returnUrl);
+            } else if (savedAdminTab) {
+                window.location.replace('admindashboard.html#' + savedAdminTab);
+            } else if (savedUserTab) {
+                window.location.replace('userdashboard.html#' + savedUserTab);
+            } else {
+                window.location.replace('index.html');
+            }
+        });
+    </script>
+</body>
+</html>
